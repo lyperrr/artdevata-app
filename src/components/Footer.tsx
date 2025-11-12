@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Facebook, Twitter, Instagram, Linkedin, Mail } from "lucide-react";
+import Logo from "/logo.png";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -31,19 +32,25 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
           {/* Company Info */}
           <div>
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="relative w-10 h-10 flex items-center justify-center">
-                <div className="absolute inset-0 bg-accent rounded-lg rotate-45"></div>
-                <div className="relative text-accent-foreground font-bold text-xl z-10">AD</div>
-              </div>
-              <span className="text-xl font-bold">ArtDevata</span>
-            </div>
+            {/* Logo */}
+            <Link to="/" className="flex items-center space-x-2 group">
+              <img src={Logo} alt="" className="size-12" />
+              <span
+                className="text-2xl font-bold text-background hidden sm:block"
+              >
+                ArtDevata
+              </span>
+            </Link>
             <p className="text-primary-foreground/80 mb-4 leading-relaxed">
-              Penyedia solusi IT terpercaya untuk transformasi digital bisnis Anda.
+              Penyedia solusi IT terpercaya untuk transformasi digital bisnis
+              Anda.
             </p>
             <div className="flex items-center space-x-2 text-primary-foreground/80">
               <Mail className="w-4 h-4" />
-              <a href="mailto:artdevata@gmail.com" className="hover:text-accent transition-colors">
+              <a
+                href="mailto:artdevata@gmail.com"
+                className="hover:text-accent transition-colors"
+              >
                 artdevata@gmail.com
               </a>
             </div>
