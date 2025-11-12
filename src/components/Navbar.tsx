@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Logo from "/logo.png";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,7 +39,7 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-background/95 backdrop-blur-md shadow-lg border-b border-border"
+          ? "bg-background/70 backdrop-blur-xl shadow-lg border-b border-border"
           : "bg-transparent"
       }`}
     >
@@ -45,25 +47,38 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 group">
-            <div className="relative w-10 h-10 flex items-center justify-center">
-              <div className="absolute inset-0 bg-accent rounded-lg rotate-45 group-hover:rotate-[60deg] transition-transform duration-300"></div>
-              <div className="relative text-accent-foreground font-bold text-xl z-10">AD</div>
-            </div>
-            <span className="text-xl font-bold text-foreground hidden sm:block">
+            <img src={Logo} alt="" className="size-12" />
+            <span
+              className={`text-2xl font-bold ${isScrolled ? "text-primary" : "text-background" } hidden sm:block`}
+            >
               ArtDevata
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-1">
+          <div className="hidden lg:flex items-center gap-4">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 to={link.href}
-                className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors relative group"
+                className={`px-2 py-1 text-base font-medium transition-colors relative group ${
+                  location.pathname === link.href
+                    ? isScrolled
+                      ? "text-primary"
+                      : "text-white"
+                    : isScrolled
+                    ? "text-primary/50 hover:text-primary"
+                    : "text-white/50 hover:text-white"
+                }`}
               >
                 {link.label}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
+                <span
+                  className={`absolute hover:w-full bottom-0 left-0 h-0.5 transition-all duration-300 ${
+                    location.pathname === link.href
+                      ? `hover:w-full ${isScrolled ? "bg-primary" : "bg-white"}`
+                      : "w-0 hover:w-full"
+                  }`}
+                ></span>
               </Link>
             ))}
           </div>
@@ -75,7 +90,11 @@ const Navbar = () => {
               variant="ghost"
               size="icon"
               onClick={() => setIsDark(!isDark)}
-              className="rounded-full"
+              className={`rounded-full hover:bg-transparent ${
+                isScrolled
+                  ? "text-primary/80 hover:text-primary!"
+                  : "text-white/80 hover:text-white!"
+              }`}
             >
               {isDark ? (
                 <Sun className="h-5 w-5" />
@@ -116,7 +135,11 @@ const Navbar = () => {
                 <Link
                   key={link.href}
                   to={link.href}
-                  className="px-4 py-3 text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors"
+                  className={`px-4 py-3 text-base font-medium rounded-lg transition-colors ${
+                    location.pathname === link.href
+                      ? "bg-muted text-primary"
+                      : "text-muted-foreground hover:bg-muted hover:text-primary"
+                  }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.label}

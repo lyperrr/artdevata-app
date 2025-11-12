@@ -87,7 +87,7 @@ const Hero = () => {
               asChild
               size="lg"
               variant="outline"
-              className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 w-full sm:w-auto"
+              className="border-primary-foreground hover:bg-primary-foreground/10 w-full sm:w-auto"
             >
               <Link to="/layanan">Lihat Layanan</Link>
             </Button>
