@@ -33,10 +33,10 @@ const Footer = () => {
           {/* Company Info */}
           <div>
             {/* Logo */}
-            <Link to="/" className="flex items-center space-x-2 group">
+            <Link to="/" className="flex items-center space-x-2 group mb-4">
               <img src={Logo} alt="" className="size-12" />
               <span
-                className="text-2xl font-bold text-background hidden sm:block"
+                className="text-2xl font-bold text-primary-foreground hidden sm:block"
               >
                 ArtDevata
               </span>
