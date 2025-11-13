@@ -1,13 +1,96 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+const formSchema = z.object({
+  name: z.string().min(2, "Nama minimal 2 karakter"),
+  email: z.string().email("Email tidak valid"),
+  phone: z.string().min(10, "Nomor telepon tidak valid"),
+  service: z.string().min(1, "Pilih layanan yang diminati"),
+  message: z.string().min(10, "Pesan minimal 10 karakter"),
+});
 
 const Contact = () => {
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      service: "",
+      message: "",
+    },
+  });
+
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    setIsSubmitting(true);
+    
+    try {
+      // Using FormSubmit.co - free form backend
+      const response = await fetch("https://formsubmit.co/ajax/artdevata@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: values.name,
+          email: values.email,
+          phone: values.phone,
+          service: values.service,
+          message: values.message,
+          _subject: `Pesan Baru dari ${values.name} - Art Devata`,
+          _template: "table",
+        }),
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Pesan Terkirim!",
+          description: "Terima kasih, kami akan segera menghubungi Anda.",
+        });
+        form.reset();
+      } else {
+        throw new Error("Gagal mengirim pesan");
+      }
+    } catch (error) {
+      toast({
+        title: "Gagal Mengirim",
+        description: "Terjadi kesalahan, silakan coba lagi atau hubungi kami langsung.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   const contactInfo = [
     {
       icon: Mail,
@@ -69,66 +152,129 @@ const Contact = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <Card className="p-8">
-                <h2 className="text-2xl font-bold text-foreground mb-6">
+              <Card className="p-8 bg-card border-border shadow-lg">
+                <h2 className="text-2xl font-bold text-card-foreground mb-6">
                   Kirim Pesan
                 </h2>
-                <form className="space-y-6">
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-foreground mb-2">
-                        Nama Lengkap
-                      </label>
-                      <Input placeholder="John Doe" />
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-card-foreground">Nama Lengkap</FormLabel>
+                            <FormControl>
+                              <Input 
+                                placeholder="John Doe" 
+                                {...field}
+                                className="bg-background border-border text-foreground placeholder:text-muted-foreground"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-card-foreground">Email</FormLabel>
+                            <FormControl>
+                              <Input 
+                                type="email"
+                                placeholder="john@example.com" 
+                                {...field}
+                                className="bg-background border-border text-foreground placeholder:text-muted-foreground"
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
                     </div>
-                    <div>
-                      <label className="block text-sm font-medium text-foreground mb-2">
-                        Email
-                      </label>
-                      <Input type="email" placeholder="john@example.com" />
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">
-                      Nomor Telepon
-                    </label>
-                    <Input type="tel" placeholder="+62 812-3456-7890" />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">
-                      Layanan yang Diminati
-                    </label>
-                    <select className="w-full px-3 py-2 border border-input bg-background rounded-lg focus:outline-none focus:ring-2 focus:ring-ring">
-                      <option>Pilih Layanan</option>
-                      <option>Website Development</option>
-                      <option>Hosting & Domain</option>
-                      <option>CCTV Installation</option>
-                      <option>IT Support</option>
-                      <option>Cloud Solutions</option>
-                      <option>Lainnya</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">
-                      Pesan
-                    </label>
-                    <Textarea
-                      placeholder="Ceritakan tentang proyek atau kebutuhan Anda..."
-                      rows={6}
+                    
+                    <FormField
+                      control={form.control}
+                      name="phone"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-card-foreground">Nomor Telepon</FormLabel>
+                          <FormControl>
+                            <Input 
+                              type="tel"
+                              placeholder="+62 812-3456-7890" 
+                              {...field}
+                              className="bg-background border-border text-foreground placeholder:text-muted-foreground"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
                     />
-                  </div>
 
-                  <Button
-                    type="submit"
-                    className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
-                    size="lg"
-                  >
-                    Kirim Pesan
-                  </Button>
-                </form>
+                    <FormField
+                      control={form.control}
+                      name="service"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-card-foreground">Layanan yang Diminati</FormLabel>
+                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger className="bg-background border-border text-foreground">
+                                <SelectValue placeholder="Pilih Layanan" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent className="bg-popover border-border">
+                              <SelectItem value="website">Website Development</SelectItem>
+                              <SelectItem value="hosting">Hosting & Domain</SelectItem>
+                              <SelectItem value="cctv">CCTV Installation</SelectItem>
+                              <SelectItem value="support">IT Support</SelectItem>
+                              <SelectItem value="cloud">Cloud Solutions</SelectItem>
+                              <SelectItem value="other">Lainnya</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="message"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-card-foreground">Pesan</FormLabel>
+                          <FormControl>
+                            <Textarea 
+                              placeholder="Ceritakan tentang project Anda..."
+                              className="min-h-[150px] bg-background border-border text-foreground placeholder:text-muted-foreground resize-none"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <Button 
+                      type="submit" 
+                      className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? (
+                        <>Mengirim...</>
+                      ) : (
+                        <>
+                          <Send className="mr-2 h-4 w-4" />
+                          Kirim Pesan
+                        </>
+                      )}
+                    </Button>
+                  </form>
+                </Form>
               </Card>
             </motion.div>
 
@@ -144,43 +290,44 @@ const Contact = () => {
                 <h2 className="text-2xl font-bold text-foreground mb-4">
                   Informasi Kontak
                 </h2>
-                <p className="text-muted-foreground mb-8">
-                  Jangan ragu untuk menghubungi kami. Tim kami siap membantu Anda dengan
-                  pertanyaan atau kebutuhan apapun.
+                <p className="text-muted-foreground leading-relaxed mb-8">
+                  Kami siap membantu mewujudkan visi digital Anda. Hubungi kami melalui
+                  berbagai channel yang tersedia.
                 </p>
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-6">
+              <div className="space-y-4">
                 {contactInfo.map((info, index) => (
-                  <motion.div
-                    key={info.title}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                  <motion.a
+                    key={index}
+                    href={info.link}
+                    initial={{ opacity: 0, x: 30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
                   >
-                    <Card className="p-6 hover:shadow-lg transition-shadow">
-                      <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center mb-4">
-                        <info.icon className="w-6 h-6 text-accent" />
+                    <Card className="p-6 bg-card border-border hover:shadow-lg hover:border-primary/50 transition-all duration-300">
+                      <div className="flex items-start space-x-4">
+                        <div className="p-3 bg-primary/10 rounded-lg">
+                          <info.icon className="w-6 h-6 text-primary" />
+                        </div>
+                        <div>
+                          <h3 className="font-semibold text-card-foreground mb-1">
+                            {info.title}
+                          </h3>
+                          <p className="text-muted-foreground">{info.content}</p>
+                        </div>
                       </div>
-                      <h3 className="font-semibold text-foreground mb-2">
-                        {info.title}
-                      </h3>
-                      <a
-                        href={info.link}
-                        className="text-muted-foreground hover:text-accent transition-colors"
-                      >
-                        {info.content}
-                      </a>
                     </Card>
-                  </motion.div>
+                  </motion.a>
                 ))}
               </div>
 
-              {/* Map Placeholder */}
-              <Card className="overflow-hidden">
-                <div className="aspect-video bg-muted flex items-center justify-center">
-                  <MapPin className="w-12 h-12 text-muted-foreground" />
+              <Card className="p-6 h-[300px] flex items-center justify-center bg-card border-border">
+                <div className="text-center">
+                  <MapPin className="w-12 h-12 text-primary mx-auto mb-3" />
+                  <p className="text-muted-foreground">Map Integration</p>
+                  <p className="text-sm text-muted-foreground/70 mt-1">Jakarta, Indonesia</p>
                 </div>
               </Card>
             </motion.div>
