@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, Mouse } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Hero = () => {
   const stats = [
-    { value: "500+", label: "Proyek Selesai" },
-    { value: "200+", label: "Klien Puas" },
+    // { value: "500+", label: "Proyek Selesai" },
+    // { value: "200+", label: "Klien Puas" },
     { value: "24/7", label: "Dukungan Tersedia" },
     { value: "99.9%", label: "Jaminan Uptime" },
   ];
@@ -80,7 +80,7 @@ const Hero = () => {
             >
               <Link to="/portfolio" className="flex items-center">
                 Mulai Proyek
-                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="ml-2 size-5 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>
             <Button
@@ -98,7 +98,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6"
+            className="grid grid-cols-2 gap-4 sm:gap-6"
           >
             {stats.map((stat, index) => (
               <motion.div
@@ -127,13 +127,7 @@ const Hero = () => {
         transition={{ duration: 1, delay: 1 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
-        <div className="w-6 h-10 border-2 border-primary-foreground/30 rounded-full flex items-start justify-center p-2">
-          <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-1.5 h-1.5 bg-accent rounded-full"
-          />
-        </div>
+        <Mouse className="text-background size-10 animate-bounce"/>
       </motion.div>
     </section>
   );
