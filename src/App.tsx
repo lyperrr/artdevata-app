@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import ServicesPage from "./pages/ServicesPage";
 import Portfolio from "./pages/Portfolio";
+import PortfolioDetail from "./pages/PortfolioDetail";
 import Blog from "./pages/Blog";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/tentang" element={<About />} />
           <Route path="/layanan" element={<ServicesPage />} />
           <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/portfolio/:id" element={<PortfolioDetail />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/kontak" element={<Contact />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

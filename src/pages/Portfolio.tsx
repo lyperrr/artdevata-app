@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
@@ -7,36 +8,42 @@ import { ExternalLink } from "lucide-react";
 const Portfolio = () => {
   const projects = [
     {
+      id: "ecommerce-platform",
       title: "E-Commerce Platform",
       category: "Website Development",
       description: "Platform e-commerce modern dengan fitur lengkap untuk UMKM Indonesia",
       image: "https://images.unsplash.com/photo-1661956602116-aa6865609028?w=800&q=80",
     },
     {
+      id: "corporate-website",
       title: "Corporate Website",
       category: "Website Development",
       description: "Website perusahaan profesional dengan desain elegan dan responsif",
       image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
     },
     {
+      id: "smart-cctv",
       title: "Smart CCTV System",
       category: "CCTV Installation",
       description: "Sistem CCTV pintar dengan AI detection untuk keamanan maksimal",
       image: "https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=800&q=80",
     },
     {
+      id: "cloud-infrastructure",
       title: "Cloud Infrastructure",
       category: "Cloud Solutions",
       description: "Migrasi dan setup cloud infrastructure untuk startup teknologi",
       image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80",
     },
     {
+      id: "enterprise-dashboard",
       title: "Enterprise Dashboard",
       category: "Website Development",
       description: "Dashboard analytics real-time untuk monitoring bisnis enterprise",
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
     },
     {
+      id: "network-security",
       title: "Network Security Setup",
       category: "IT Support",
       description: "Implementasi sistem keamanan jaringan untuk institusi pendidikan",
@@ -104,7 +111,8 @@ const Portfolio = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <Card className="group overflow-hidden hover:shadow-2xl transition-all duration-300 cursor-pointer">
+                <Link to={`/portfolio/${project.id}`}>
+                  <Card className="group overflow-hidden hover:shadow-2xl transition-all duration-300 cursor-pointer">
                   <div className="relative overflow-hidden aspect-video">
                     <img
                       src={project.image}
@@ -131,6 +139,7 @@ const Portfolio = () => {
                     </p>
                   </div>
                 </Card>
+                </Link>
               </motion.div>
             ))}
           </div>
