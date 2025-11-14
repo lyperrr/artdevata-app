@@ -127,12 +127,12 @@ const Testimonials = () => {
             }}
             className="w-full"
           >
-            <CarouselContent>
+            <CarouselContent className="-ml-4">
               {testimonials.map((testimonial) => (
-                <CarouselItem key={testimonial.id} className="md:basis-1/2 lg:basis-1/2">
+                <CarouselItem key={testimonial.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
                   <div className="p-1">
-                    <Card className="border-border/50 hover:border-accent/50 transition-colors duration-300 h-full">
-                      <CardContent className="p-6 sm:p-8 flex flex-col h-full">
+                    <Card className="border-border/50 hover:border-accent/50 transition-all duration-300 h-full hover:shadow-lg">
+                      <CardContent className="p-6 sm:p-8 flex flex-col h-full justify-between">
                         {/* Rating Stars */}
                         <div className="flex gap-1 mb-4">
                           {[...Array(5)].map((_, index) => (

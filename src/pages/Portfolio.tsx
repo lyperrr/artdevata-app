@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import FloatingActions from "@/components/FloatingActions";
 import { Card } from "@/components/ui/card";
 import { ExternalLink } from "lucide-react";
 
@@ -147,6 +148,7 @@ const Portfolio = () => {
       </section>
 
       <Footer />
+      <FloatingActions />
     </div>
   );
 };

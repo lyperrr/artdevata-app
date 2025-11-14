@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import FloatingActions from "@/components/FloatingActions";
 import { Users, Target, Award, Heart } from "lucide-react";
 
 const AboutPage = () => {
@@ -124,6 +125,7 @@ const AboutPage = () => {
       </section>
 
       <Footer />
+      <FloatingActions />
     </div>
   );
 };

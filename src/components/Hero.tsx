@@ -1,12 +1,27 @@
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, Mouse } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Hero = () => {
+  const [currentService, setCurrentService] = useState(0);
+  const services = [
+    "Website Development",
+    "Hosting & Domain",
+    "Instalasi CCTV",
+    "IT Support",
+    "Network Solutions",
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentService((prev) => (prev + 1) % services.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
   const stats = [
-    // { value: "500+", label: "Proyek Selesai" },
-    // { value: "200+", label: "Klien Puas" },
     { value: "24/7", label: "Dukungan Tersedia" },
     { value: "99.9%", label: "Jaminan Uptime" },
   ];
@@ -48,11 +63,24 @@ const Hero = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="inline-block"
+            className="inline-block mb-8"
           >
-            <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-accent mb-8">
-              ArtDevata
-            </h2>
+            <div className="text-5xl sm:text-6xl lg:text-7xl font-bold">
+              <span className="text-accent">ArtDevata</span>
+              <span className="text-primary-foreground mx-3">·</span>
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={currentService}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                  className="text-primary-foreground inline-block"
+                >
+                  {services[currentService]}
+                </motion.span>
+              </AnimatePresence>
+            </div>
           </motion.div>
 
           {/* Subtitle */}
