@@ -107,7 +107,7 @@ const Contact = () => {
     {
       icon: MapPin,
       title: "Alamat",
-      content: "Jakarta, Indonesia",
+      content: "Bali, Indonesia",
       link: "#",
     },
     {
@@ -296,7 +296,7 @@ const Contact = () => {
                 </p>
               </div>
 
-              <div className="space-y-4">
+              <div className="grid grid-cols-1 gap-4">
                 {contactInfo.map((info, index) => (
                   <motion.a
                     key={index}
@@ -322,14 +322,6 @@ const Contact = () => {
                   </motion.a>
                 ))}
               </div>
-
-              <Card className="p-6 h-[300px] flex items-center justify-center bg-card border-border">
-                <div className="text-center">
-                  <MapPin className="w-12 h-12 text-primary mx-auto mb-3" />
-                  <p className="text-muted-foreground">Map Integration</p>
-                  <p className="text-sm text-muted-foreground/70 mt-1">Jakarta, Indonesia</p>
-                </div>
-              </Card>
             </motion.div>
           </div>
         </div>

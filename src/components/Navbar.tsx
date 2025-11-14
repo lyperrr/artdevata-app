@@ -39,7 +39,7 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-background/70 backdrop-blur-xl shadow-lg border-b border-border"
+          ? "bg-background shadow-lg border-b border-border"
           : "bg-transparent"
       }`}
     >
@@ -64,10 +64,10 @@ const Navbar = () => {
                 className={`px-2 py-1 text-base font-medium transition-colors relative group ${
                   location.pathname === link.href
                     ? isScrolled
-                      ? "text-primary"
+                      ? "text-accent"
                       : "text-white"
                     : isScrolled
-                    ? "text-primary/50 hover:text-primary"
+                    ? "text-primary/30 hover:text-accent"
                     : "text-white/50 hover:text-white"
                 }`}
               >
