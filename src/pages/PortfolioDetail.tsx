@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useParams, Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import FloatingActions from "@/components/FloatingActions";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { ArrowLeft, Calendar, User, Tag, ExternalLink, X } from "lucide-react";
@@ -338,6 +339,7 @@ const PortfolioDetail = () => {
       </Dialog>
 
       <Footer />
+      <FloatingActions />
     </div>
   );
 };

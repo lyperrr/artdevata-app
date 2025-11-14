@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import FloatingActions from "@/components/FloatingActions";
 import { Code, Server, Camera, Headphones, Zap, Shield } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -189,6 +190,7 @@ const ServicesPage = () => {
       </section>
 
       <Footer />
+      <FloatingActions />
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { Facebook, Twitter, Instagram, Linkedin, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
+import { Icon } from "@iconify/react";
 import Logo from "/logo.png";
 
 const Footer = () => {
@@ -20,10 +21,8 @@ const Footer = () => {
   ];
 
   const socialLinks = [
-    { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Twitter, href: "#", label: "Twitter" },
-    { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" },
+    { iconify: "mdi:instagram", href: "https://instagram.com/artdevata", label: "Instagram" },
+    { iconify: "ic:baseline-tiktok", href: "https://tiktok.com/@artdevata", label: "TikTok" },
   ];
 
   return (
@@ -98,10 +97,12 @@ const Footer = () => {
                 <a
                   key={social.label}
                   href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="w-10 h-10 rounded-full bg-primary-foreground/10 hover:bg-accent flex items-center justify-center transition-colors group"
+                  className="w-10 h-10 rounded-full bg-primary-foreground/10 hover:bg-accent flex items-center justify-center transition-all duration-300 hover:scale-110 group"
                 >
-                  <social.icon className="w-5 h-5 text-primary-foreground group-hover:text-accent-foreground" />
+                  <Icon icon={social.iconify} className="w-6 h-6 text-primary-foreground group-hover:text-accent-foreground" />
                 </a>
               ))}
             </div>

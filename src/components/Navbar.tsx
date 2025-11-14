@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Moon, Sun } from "lucide-react";
+import { Menu, X, Home, Info, Briefcase, FolderOpen, Newspaper, Mail, HelpCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Logo from "/logo.png";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isDark, setIsDark] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -18,21 +17,14 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [isDark]);
-
   const navLinks = [
-    { href: "/", label: "Beranda" },
-    { href: "/tentang", label: "Tentang" },
-    { href: "/layanan", label: "Layanan" },
-    { href: "/portfolio", label: "Portfolio" },
-    { href: "/blog", label: "Blog" },
-    { href: "/kontak", label: "Kontak" },
+    { href: "/", label: "Beranda", icon: Home },
+    { href: "/tentang", label: "Tentang", icon: Info },
+    { href: "/layanan", label: "Layanan", icon: Briefcase },
+    { href: "/portfolio", label: "Portfolio", icon: FolderOpen },
+    { href: "/blog", label: "Blog", icon: Newspaper },
+    { href: "/faq", label: "FAQ", icon: HelpCircle },
+    { href: "/kontak", label: "Kontak", icon: Mail },
   ];
 
   return (
@@ -85,24 +77,6 @@ const Navbar = () => {
 
           {/* Right Side Actions */}
           <div className="flex items-center space-x-2 sm:space-x-4">
-            {/* Dark Mode Toggle */}
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsDark(!isDark)}
-              className={`rounded-full hover:bg-transparent ${
-                isScrolled
-                  ? "text-primary/80 hover:text-primary!"
-                  : "text-white/80 hover:text-white!"
-              }`}
-            >
-              {isDark ? (
-                <Sun className="h-5 w-5" />
-              ) : (
-                <Moon className="h-5 w-5" />
-              )}
-            </Button>
-
             {/* CTA Button */}
             <Button
               asChild
@@ -127,34 +101,49 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu with Overlay */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden py-4 border-t border-border">
-            <div className="flex flex-col space-y-2">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  to={link.href}
-                  className={`px-4 py-3 text-base font-medium rounded-lg transition-colors ${
-                    location.pathname === link.href
-                      ? "bg-muted text-primary"
-                      : "text-muted-foreground hover:bg-muted hover:text-primary"
-                  }`}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <Button
-                asChild
-                className="mx-4 mt-2 bg-accent hover:bg-accent/90 text-accent-foreground"
-              >
-                <Link to="/kontak" onClick={() => setIsMobileMenuOpen(false)}>
-                  Minta Penawaran
-                </Link>
-              </Button>
+          <>
+            {/* Overlay */}
+            <div 
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
+              onClick={() => setIsMobileMenuOpen(false)}
+            />
+            
+            {/* Menu */}
+            <div className="absolute top-full left-0 right-0 bg-background shadow-lg z-50 lg:hidden animate-fade-in">
+              <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <div className="flex flex-col space-y-1">
+                  {navLinks.map((link) => {
+                    const IconComponent = link.icon;
+                    return (
+                      <Link
+                        key={link.href}
+                        to={link.href}
+                        className={`flex items-center gap-3 px-4 py-3 text-base font-medium rounded-lg transition-all duration-300 ${
+                          location.pathname === link.href
+                            ? "bg-accent text-accent-foreground"
+                            : "text-foreground hover:bg-muted hover:translate-x-1"
+                        }`}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        <IconComponent className="h-5 w-5" />
+                        {link.label}
+                      </Link>
+                    );
+                  })}
+                  <Button
+                    asChild
+                    className="mt-4 bg-accent hover:bg-accent/90 text-accent-foreground transition-all duration-300"
+                  >
+                    <Link to="/kontak" onClick={() => setIsMobileMenuOpen(false)}>
+                      Minta Penawaran
+                    </Link>
+                  </Button>
+                </div>
+              </div>
             </div>
-          </div>
+          </>
         )}
       </div>
     </nav>

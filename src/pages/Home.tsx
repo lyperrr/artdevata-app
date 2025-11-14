@@ -5,6 +5,7 @@ import About from "@/components/About";
 import Testimonials from "@/components/Testimonials";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
+import FloatingActions from "@/components/FloatingActions";
 
 const Home = () => {
   return (
@@ -16,6 +17,7 @@ const Home = () => {
       <Testimonials />
       <CTA />
       <Footer />
+      <FloatingActions />
     </div>
   );
 };
