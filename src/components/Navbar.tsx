@@ -1,6 +1,16 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Home, Info, Briefcase, FolderOpen, Newspaper, Mail, HelpCircle } from "lucide-react";
+import {
+  Menu,
+  X,
+  Home,
+  Info,
+  Briefcase,
+  FolderOpen,
+  Newspaper,
+  Mail,
+  HelpCircle,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Logo from "/logo.png";
 
@@ -41,7 +51,9 @@ const Navbar = () => {
           <Link to="/" className="flex items-center space-x-2 group">
             <img src={Logo} alt="" className="size-12" />
             <span
-              className={`text-2xl font-bold ${isScrolled ? "text-primary" : "text-background" } hidden sm:block`}
+              className={`text-2xl font-bold ${
+                isScrolled ? "text-primary" : "text-background"
+              } hidden sm:block`}
             >
               ArtDevata
             </span>
@@ -89,13 +101,23 @@ const Navbar = () => {
             <Button
               variant="ghost"
               size="icon"
-              className="lg:hidden"
+              className={`lg:hidden bg-transparent hover:bg-transparent ${
+                isMobileMenuOpen ? "relative z-50" : ""
+              }`}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               {isMobileMenuOpen ? (
-                <X className="h-6 w-6" />
+                <X
+                  className={`h-7 w-7 ${
+                    isScrolled ? "text-primary" : "text-white"
+                  }`}
+                />
               ) : (
-                <Menu className="h-6 w-6" />
+                <Menu
+                  className={`h-7 w-7 ${
+                    isScrolled ? "text-primary" : "text-white"
+                  }`}
+                />
               )}
             </Button>
           </div>
@@ -105,11 +127,11 @@ const Navbar = () => {
         {isMobileMenuOpen && (
           <>
             {/* Overlay */}
-            <div 
+            <div
               className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
               onClick={() => setIsMobileMenuOpen(false)}
             />
-            
+
             {/* Menu */}
             <div className="absolute top-full left-0 right-0 bg-background shadow-lg z-50 lg:hidden animate-fade-in">
               <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -136,7 +158,10 @@ const Navbar = () => {
                     asChild
                     className="mt-4 bg-accent hover:bg-accent/90 text-accent-foreground transition-all duration-300"
                   >
-                    <Link to="/kontak" onClick={() => setIsMobileMenuOpen(false)}>
+                    <Link
+                      to="/kontak"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
                       Minta Penawaran
                     </Link>
                   </Button>

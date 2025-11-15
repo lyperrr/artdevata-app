@@ -63,11 +63,10 @@ const Hero = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="inline-block mb-8"
+            className="inline-block mb-6"
           >
-            <div className="text-5xl sm:text-6xl lg:text-7xl font-bold">
-              <span className="text-accent">ArtDevata</span>
-              <span className="text-primary-foreground mx-3">·</span>
+            <div className="text-3xl sm:text-6xl lg:text-5xl font-bold text-center">
+              <span className="text-primary-foreground mx-3 hidden xl:inline">·</span>
               <AnimatePresence mode="wait">
                 <motion.span
                   key={currentService}
@@ -75,7 +74,7 @@ const Hero = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.5 }}
-                  className="text-primary-foreground inline-block"
+                  className="text-accent block xl:inline-block"
                 >
                   {services[currentService]}
                 </motion.span>
@@ -153,9 +152,9 @@ const Hero = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="absolute bottom-5 left-1/2 -translate-x-1/2"
       >
-        <Mouse className="text-background size-10 animate-bounce"/>
+        <Mouse className="text-background/70 size-8 animate-bounce"/>
       </motion.div>
     </section>
   );
