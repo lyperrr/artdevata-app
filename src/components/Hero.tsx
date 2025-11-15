@@ -54,7 +54,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-primary-foreground mb-6 leading-tight"
+            className="text-4xl sm:text-4xl lg:text-5xl font-bold text-primary-foreground mb-6 leading-tight"
           >
             Wujudkan Bisnis Digital Anda Bersama
           </motion.h1>
@@ -65,8 +65,7 @@ const Hero = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="inline-block mb-6"
           >
-            <div className="text-3xl sm:text-6xl lg:text-5xl font-bold text-center">
-              <span className="text-primary-foreground mx-3 hidden xl:inline">·</span>
+            <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center">
               <AnimatePresence mode="wait">
                 <motion.span
                   key={currentService}
@@ -107,7 +106,7 @@ const Hero = () => {
             >
               <Link to="/portfolio" className="flex items-center">
                 Mulai Proyek
-                <ArrowRight className="ml-2 size-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="ml-2 size-10 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>
             <Button

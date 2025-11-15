@@ -21,7 +21,7 @@ const CTA = () => {
             transition={{ duration: 0.5 }}
             className="text-3xl sm:text-4xl lg:text-5xl font-bold text-accent-foreground mb-6"
           >
-            Ready to Transform Your Business?
+            Siap untuk menciptakan solusi custom?
           </motion.h2>
 
           <motion.p
@@ -48,7 +48,7 @@ const CTA = () => {
               className="bg-primary hover:bg-primary/90 text-primary-foreground group w-full sm:w-auto"
             >
               <Link to="/kontak" className="flex items-center">
-                Get Started Today
+                Hubungi Kami
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>
@@ -61,7 +61,7 @@ const CTA = () => {
             >
               <Link to="/portfolio" className="flex items-center">
                 <Phone className="mr-2 h-5 w-5" />
-                View Our Work
+                Lihat Portofolio
               </Link>
             </Button>
           </motion.div>

@@ -27,12 +27,12 @@ const About = () => {
           >
             <div className="mb-6">
               <span className="inline-flex items-center px-4 py-2 rounded-full bg-accent/10 text-accent text-sm font-semibold">
-                About ArtDevata
+                Tentang Kami
               </span>
             </div>
 
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-              Your Trusted IT Solutions Partner
+              Solusi IT Terkini untuk Bisnis Anda
             </h2>
 
             <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
@@ -63,7 +63,7 @@ const About = () => {
               className="bg-accent hover:bg-accent/90 text-accent-foreground group"
             >
               <Link to="/tentang" className="flex items-center">
-                Learn More About Us
+                Pelajari Lebih Lanjut
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>
@@ -97,7 +97,7 @@ const About = () => {
               <div className="flex items-center space-x-4">
                 <div className="flex-shrink-0">
                   <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center">
-                    <span className="text-2xl font-bold text-accent">10+</span>
+                    <span className="text-2xl font-bold text-accent">1+</span>
                   </div>
                 </div>
                 <div>

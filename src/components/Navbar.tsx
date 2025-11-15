@@ -102,7 +102,7 @@ const Navbar = () => {
               variant="ghost"
               size="icon"
               className={`lg:hidden bg-transparent hover:bg-transparent ${
-                isMobileMenuOpen ? "relative z-50" : ""
+                isMobileMenuOpen ? "relative z-[51]" : ""
               }`}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
