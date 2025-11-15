@@ -41,7 +41,7 @@ const Services = () => {
             className="inline-block mb-4"
           >
             <span className="inline-flex items-center px-4 py-2 rounded-full bg-accent/10 text-accent text-sm font-semibold">
-              Our Services
+              Layanan Kami
             </span>
           </motion.div>
 
@@ -52,7 +52,7 @@ const Services = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6"
           >
-            What We Do Best
+            Solusi IT Unggulan untuk Bisnis Anda
           </motion.h2>
 
           <motion.p
@@ -107,7 +107,7 @@ const Services = () => {
             className="bg-primary hover:bg-primary/90 text-primary-foreground group"
           >
             <Link to="/layanan" className="flex items-center">
-              View All Services
+              Lihat Semua Layanan
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </Button>

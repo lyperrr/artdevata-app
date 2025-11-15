@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import FloatingActions from "@/components/FloatingActions";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { ArrowLeft, Calendar, User, Tag, ExternalLink, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, Calendar, User, Tag, ExternalLink, X } from "lucide-react";
 import { useState } from "react";
 
 const PortfolioDetail = () => {
@@ -20,23 +20,26 @@ const PortfolioDetail = () => {
       client: "UMKM Indonesia",
       date: "Januari 2024",
       duration: "3 Bulan",
-      description: "Platform e-commerce modern dengan fitur lengkap untuk UMKM Indonesia. Sistem mencakup manajemen produk, keranjang belanja, payment gateway, dan dashboard admin yang komprehensif.",
-      challenge: "Membangun platform yang mudah digunakan oleh UMKM dengan berbagai tingkat literasi digital, sambil tetap menyediakan fitur-fitur canggih untuk mengelola bisnis online.",
-      solution: "Kami mengembangkan interface yang intuitif dengan onboarding yang mudah, dokumentasi lengkap, dan dukungan teknis. Platform ini dilengkapi dengan template siap pakai dan customizable.",
+      description:
+        "Platform e-commerce modern dengan fitur lengkap untuk UMKM Indonesia. Sistem mencakup manajemen produk, keranjang belanja, payment gateway, dan dashboard admin yang komprehensif.",
+      challenge:
+        "Membangun platform yang mudah digunakan oleh UMKM dengan berbagai tingkat literasi digital, sambil tetap menyediakan fitur-fitur canggih untuk mengelola bisnis online.",
+      solution:
+        "Kami mengembangkan interface yang intuitif dengan onboarding yang mudah, dokumentasi lengkap, dan dukungan teknis. Platform ini dilengkapi dengan template siap pakai dan customizable.",
       results: [
         "Peningkatan penjualan online hingga 250%",
         "Waktu setup toko hanya 30 menit",
         "98% tingkat kepuasan pengguna",
-        "Integrasi dengan 5+ payment gateway lokal"
+        "Integrasi dengan 5+ payment gateway lokal",
       ],
       technologies: ["React", "Node.js", "PostgreSQL", "Stripe", "AWS"],
       images: [
         "https://images.unsplash.com/photo-1661956602116-aa6865609028?w=1200&q=80",
         "https://images.unsplash.com/photo-1661956602153-23384936a1d3?w=1200&q=80",
         "https://images.unsplash.com/photo-1557821552-17105176677c?w=1200&q=80",
-        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80"
+        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80",
       ],
-      link: "https://example.com"
+      link: "https://example.com",
     },
     "corporate-website": {
       title: "Corporate Website",
@@ -44,22 +47,25 @@ const PortfolioDetail = () => {
       client: "PT Teknologi Maju",
       date: "Desember 2023",
       duration: "2 Bulan",
-      description: "Website perusahaan profesional dengan desain elegan dan responsif yang mencerminkan identitas brand klien.",
-      challenge: "Membuat website yang merepresentasikan profesionalisme perusahaan dengan loading time yang cepat dan SEO optimal.",
-      solution: "Menggunakan teknologi modern dengan optimasi gambar, lazy loading, dan implementasi best practices SEO.",
+      description:
+        "Website perusahaan profesional dengan desain elegan dan responsif yang mencerminkan identitas brand klien.",
+      challenge:
+        "Membuat website yang merepresentasikan profesionalisme perusahaan dengan loading time yang cepat dan SEO optimal.",
+      solution:
+        "Menggunakan teknologi modern dengan optimasi gambar, lazy loading, dan implementasi best practices SEO.",
       results: [
         "Peningkatan traffic organik 180%",
         "Page load time di bawah 2 detik",
         "100% responsive di semua device",
-        "Ranking halaman pertama Google untuk 10+ keyword"
+        "Ranking halaman pertama Google untuk 10+ keyword",
       ],
       technologies: ["React", "Next.js", "TailwindCSS", "Vercel"],
       images: [
         "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80",
         "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?w=1200&q=80",
-        "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&q=80"
+        "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&q=80",
       ],
-      link: "https://example.com"
+      link: "https://example.com",
     },
     "smart-cctv": {
       title: "Smart CCTV System",
@@ -67,23 +73,31 @@ const PortfolioDetail = () => {
       client: "Kompleks Perumahan Elite",
       date: "November 2023",
       duration: "1 Bulan",
-      description: "Sistem CCTV pintar dengan AI detection untuk keamanan maksimal di area perumahan seluas 5 hektar.",
-      challenge: "Mengcover area luas dengan blind spot minimal dan integrasi sistem monitoring real-time.",
-      solution: "Instalasi 50+ kamera strategis dengan AI motion detection dan sistem cloud storage untuk akses 24/7.",
+      description:
+        "Sistem CCTV pintar dengan AI detection untuk keamanan maksimal di area perumahan seluas 5 hektar.",
+      challenge:
+        "Mengcover area luas dengan blind spot minimal dan integrasi sistem monitoring real-time.",
+      solution:
+        "Instalasi 50+ kamera strategis dengan AI motion detection dan sistem cloud storage untuk akses 24/7.",
       results: [
         "100% coverage area tanpa blind spot",
         "Penurunan insiden keamanan 90%",
         "Response time security team 3x lebih cepat",
-        "Face recognition untuk akses gate"
+        "Face recognition untuk akses gate",
       ],
-      technologies: ["Hikvision", "AI Detection", "Cloud Storage", "Mobile App"],
+      technologies: [
+        "Hikvision",
+        "AI Detection",
+        "Cloud Storage",
+        "Mobile App",
+      ],
       images: [
         "https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=1200&q=80",
         "https://images.unsplash.com/photo-1558002038-1055907df827?w=1200&q=80",
-        "https://images.unsplash.com/photo-1593642532744-d377ab507dc8?w=1200&q=80"
+        "https://images.unsplash.com/photo-1593642532744-d377ab507dc8?w=1200&q=80",
       ],
-      link: null
-    }
+      link: null,
+    },
   };
 
   const project = id ? projects[id] : null;
@@ -104,7 +118,7 @@ const PortfolioDetail = () => {
   return (
     <div className="min-h-screen">
       <Navbar />
-      
+
       {/* Hero Section */}
       <section className="pt-32 pb-12 bg-gradient-to-br from-primary to-primary/90">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -113,7 +127,10 @@ const PortfolioDetail = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <Link to="/portfolio" className="inline-flex items-center gap-2 text-primary-foreground/80 hover:text-primary-foreground mb-6 transition-colors">
+            <Link
+              to="/portfolio"
+              className="inline-flex items-center gap-2 text-primary-foreground/80 hover:text-primary-foreground mb-6 transition-colors"
+            >
               <ArrowLeft className="w-5 h-5" />
               <span>Kembali ke Portfolio</span>
             </Link>
@@ -169,28 +186,36 @@ const PortfolioDetail = () => {
               className="lg:col-span-2 space-y-8"
             >
               <div>
-                <h2 className="text-3xl font-bold mb-4 text-foreground">Tentang Project</h2>
-                <p className="text-muted-foreground leading-relaxed text-lg">
+                <h2 className="text-3xl font-bold mb-4 text-foreground">
+                  Tentang Project
+                </h2>
+                <p className="text-muted-foreground border-l-4 border-l-accent pl-3 py-2 leading-relaxed text-lg">
                   {project.description}
                 </p>
               </div>
 
               <div>
-                <h3 className="text-2xl font-bold mb-3 text-foreground">Tantangan</h3>
+                <h3 className="text-2xl font-bold mb-3 text-foreground">
+                  Tantangan
+                </h3>
                 <p className="text-muted-foreground leading-relaxed">
                   {project.challenge}
                 </p>
               </div>
 
               <div>
-                <h3 className="text-2xl font-bold mb-3 text-foreground">Solusi</h3>
+                <h3 className="text-2xl font-bold mb-3 text-foreground">
+                  Solusi
+                </h3>
                 <p className="text-muted-foreground leading-relaxed">
                   {project.solution}
                 </p>
               </div>
 
               <div>
-                <h3 className="text-2xl font-bold mb-4 text-foreground">Hasil</h3>
+                <h3 className="text-2xl font-bold mb-4 text-foreground">
+                  Hasil
+                </h3>
                 <ul className="space-y-2">
                   {project.results.map((result: string, index: number) => (
                     <li key={index} className="flex items-start gap-3">
@@ -207,32 +232,48 @@ const PortfolioDetail = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="space-y-6"
+              className="grid grid-cols-1 gap-4"
             >
               <div className="bg-card p-6 rounded-xl border border-border shadow-sm">
-                <h3 className="text-xl font-bold mb-4 text-foreground">Detail Project</h3>
+                <h3 className="text-xl font-bold mb-4 text-foreground">
+                  Detail Project
+                </h3>
                 <div className="space-y-3">
                   <div>
                     <p className="text-sm text-muted-foreground mb-1">Klien</p>
-                    <p className="font-semibold text-foreground">{project.client}</p>
+                    <p className="font-semibold text-foreground">
+                      {project.client}
+                    </p>
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground mb-1">Tanggal</p>
-                    <p className="font-semibold text-foreground">{project.date}</p>
+                    <p className="text-sm text-muted-foreground mb-1">
+                      Tanggal
+                    </p>
+                    <p className="font-semibold text-foreground">
+                      {project.date}
+                    </p>
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground mb-1">Durasi</p>
-                    <p className="font-semibold text-foreground">{project.duration}</p>
+                    <p className="font-semibold text-foreground">
+                      {project.duration}
+                    </p>
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground mb-1">Kategori</p>
-                    <p className="font-semibold text-foreground">{project.category}</p>
+                    <p className="text-sm text-muted-foreground mb-1">
+                      Kategori
+                    </p>
+                    <p className="font-semibold text-foreground">
+                      {project.category}
+                    </p>
                   </div>
                 </div>
               </div>
 
               <div className="bg-card p-6 rounded-xl border border-border shadow-sm">
-                <h3 className="text-xl font-bold mb-4 text-foreground">Teknologi</h3>
+                <h3 className="text-xl font-bold mb-4 text-foreground">
+                  Teknologi
+                </h3>
                 <div className="flex flex-wrap gap-2">
                   {project.technologies.map((tech: string) => (
                     <span
@@ -246,7 +287,11 @@ const PortfolioDetail = () => {
               </div>
 
               {project.link && (
-                <a href={project.link} target="_blank" rel="noopener noreferrer">
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <Button className="w-full" size="lg">
                     <ExternalLink className="w-5 h-5 mr-2" />
                     Lihat Website
@@ -293,48 +338,53 @@ const PortfolioDetail = () => {
       </section>
 
       {/* Lightbox Dialog */}
-      <Dialog open={selectedImage !== null} onOpenChange={() => setSelectedImage(null)}>
-        <DialogContent className="max-w-7xl w-full p-0 bg-background/95 border-none">
-          <div className="relative">
-            <button
-              onClick={() => setSelectedImage(null)}
-              className="absolute top-4 right-4 z-10 p-2 rounded-full bg-background/80 hover:bg-background transition-colors"
-            >
-              <X className="w-6 h-6 text-foreground" />
-            </button>
-            {selectedImage !== null && (
-              <div className="relative">
-                <img
-                  src={project.images[selectedImage]}
-                  alt={`${project.title} - ${selectedImage + 1}`}
-                  className="w-full h-auto max-h-[85vh] object-contain"
-                />
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 bg-background/80 p-2 rounded-full">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedImage(selectedImage > 0 ? selectedImage - 1 : project.images.length - 1);
-                    }}
-                    className="p-2 hover:bg-accent/10 rounded-full transition-colors"
-                  >
-                    <ArrowLeft className="w-5 h-5 text-foreground" />
-                  </button>
-                  <span className="px-4 py-2 text-foreground">
-                    {selectedImage + 1} / {project.images.length}
-                  </span>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedImage(selectedImage < project.images.length - 1 ? selectedImage + 1 : 0);
-                    }}
-                    className="p-2 hover:bg-accent/10 rounded-full transition-colors"
-                  >
-                    <ArrowLeft className="w-5 h-5 rotate-180 text-foreground" />
-                  </button>
-                </div>
+      <Dialog
+        open={selectedImage !== null}
+        onOpenChange={() => setSelectedImage(null)}
+      >
+        <DialogContent className="max-w-4xl max-h-[70vh] p-0 bg-background/95 border-none overflow-hidden">
+          {selectedImage !== null && (
+            <div className="relative">
+              <img
+                src={project.images[selectedImage]}
+                alt={`${project.title} - ${selectedImage + 1}`}
+                className="w-full h-[600px] object-cover"
+              />
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 bg-background/20 backdrop-blur-lg border-2 border-primary-foreground/20 p-2 rounded-full">
+                <Button
+                  variant="ghost"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedImage(
+                      selectedImage > 0
+                        ? selectedImage - 1
+                        : project.images.length - 1
+                    );
+                  }}
+                  className="p-2 size-10 rounded-full bg-primary-foreground/10 border border-primary-foreground/10 backdrop-blur-xl"
+                >
+                  <ArrowLeft className="w-5 h-5 text-primary-foreground" />
+                </Button>
+                <span className="px-4 py-2 text-primary-foreground">
+                  {selectedImage + 1} / {project.images.length}
+                </span>
+                <Button
+                  variant="ghost"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedImage(
+                      selectedImage < project.images.length - 1
+                        ? selectedImage + 1
+                        : 0
+                    );
+                  }}
+                  className="p-2 size-10 rounded-full bg-primary-foreground/10 border border-primary-foreground/10 backdrop-blur-xl"
+                >
+                  <ArrowRight className="w-5 h-5 text-primary-foreground" />
+                </Button>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </DialogContent>
       </Dialog>
 

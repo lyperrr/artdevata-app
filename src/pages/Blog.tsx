@@ -72,7 +72,7 @@ const Blog = () => {
             className="max-w-3xl mx-auto text-center"
           >
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-primary-foreground mb-6">
-              Blog & Insights
+              Blog & Berita
             </h1>
             <p className="text-xl text-primary-foreground/90">
               Tips, panduan, dan insight terbaru seputar teknologi dan bisnis digital
