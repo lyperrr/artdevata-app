@@ -89,24 +89,24 @@ const Testimonials = () => {
   };
 
   return (
-    <section className="py-20 lg:py-32 bg-secondary/30">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-12 sm:py-16 lg:py-24 xl:py-32 bg-secondary/30">
+      <div className="container">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={containerVariants}
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-12 lg:mb-16"
         >
           <motion.h2
             variants={itemVariants}
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-3 sm:mb-4 px-4"
           >
             Apa Kata Klien Kami
           </motion.h2>
           <motion.p
             variants={itemVariants}
-            className="text-lg text-muted-foreground max-w-2xl mx-auto"
+            className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4"
           >
             Kepuasan klien adalah prioritas utama kami. Lihat apa yang mereka
             katakan tentang layanan kami.
@@ -118,7 +118,7 @@ const Testimonials = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="max-w-5xl mx-auto"
+          className="w-full max-w-7xl mx-auto relative px-2 sm:px-4 lg:px-12"
         >
           <Carousel
             opts={{
@@ -127,55 +127,66 @@ const Testimonials = () => {
             }}
             className="w-full"
           >
-            <CarouselContent className="-ml-4">
+            <CarouselContent className="-ml-2 sm:-ml-3 md:-ml-4">
               {testimonials.map((testimonial) => (
-                <CarouselItem key={testimonial.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                  <div className="p-1">
-                    <Card className="border-border/50 hover:border-accent/50 transition-all duration-300 h-full hover:shadow-lg">
-                      <CardContent className="p-6 sm:p-8 flex flex-col h-full justify-between">
-                        {/* Rating Stars */}
-                        <div className="flex gap-1 mb-4">
-                          {[...Array(5)].map((_, index) => (
-                            <Star
-                              key={index}
-                              className={`w-5 h-5 ${
-                                index < testimonial.rating
-                                  ? "fill-gold text-gold"
-                                  : "text-muted-foreground/30"
-                              }`}
-                            />
-                          ))}
-                        </div>
+                <CarouselItem
+                  key={testimonial.id}
+                  className="pl-2 sm:pl-3 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3"
+                >
+                  <Card className="border-border/50 hover:border-accent/50 transition-all duration-300 h-full hover:shadow-lg bg-background">
+                    <CardContent className="p-4 sm:p-5 md:p-6 flex flex-col h-full">
+                      {/* Rating Stars */}
+                      <div className="flex gap-0.5 sm:gap-1 mb-3 sm:mb-4">
+                        {[...Array(5)].map((_, index) => (
+                          <Star
+                            key={index}
+                            className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${
+                              index < testimonial.rating
+                                ? "fill-yellow-400 text-yellow-400"
+                                : "text-muted-foreground/30"
+                            }`}
+                          />
+                        ))}
+                      </div>
 
-                        {/* Content */}
-                        <p className="text-foreground/80 mb-6 flex-grow leading-relaxed">
-                          "{testimonial.content}"
-                        </p>
+                      {/* Content */}
+                      <p className="text-foreground/80 mb-4 sm:mb-5 md:mb-6 flex-grow leading-relaxed text-sm sm:text-base">
+                        "{testimonial.content}"
+                      </p>
 
-                        {/* Author Info */}
-                        <div className="flex items-center gap-4 pt-4 border-t border-border/50">
-                          <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
-                            <span className="text-accent font-semibold text-lg">
-                              {testimonial.avatar}
-                            </span>
-                          </div>
-                          <div>
-                            <h4 className="font-semibold text-foreground">
-                              {testimonial.name}
-                            </h4>
-                            <p className="text-sm text-muted-foreground">
-                              {testimonial.role} - {testimonial.company}
-                            </p>
-                          </div>
+                      {/* Author Info */}
+                      <div className="flex items-center gap-2.5 sm:gap-3 pt-3 sm:pt-4 border-t border-border/50 mt-auto">
+                        <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
+                          <span className="text-accent font-semibold text-xs sm:text-sm">
+                            {testimonial.avatar}
+                          </span>
                         </div>
-                      </CardContent>
-                    </Card>
-                  </div>
+                        <div className="min-w-0 flex-1">
+                          <h4 className="font-semibold text-foreground text-sm sm:text-base truncate">
+                            {testimonial.name}
+                          </h4>
+                          <p className="text-xs sm:text-sm text-muted-foreground truncate">
+                            {testimonial.role} - {testimonial.company}
+                          </p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="hidden sm:flex -left-12" />
-            <CarouselNext className="hidden sm:flex -right-12" />
+
+            {/* Navigation Buttons - Desktop */}
+            <div className="hidden md:block">
+              <CarouselPrevious className="absolute -left-5 lg:-left-12 xl:-left-14 top-1/2 -translate-y-1/2 w-10 h-10 lg:w-11 lg:h-11 xl:w-12 xl:h-12" />
+              <CarouselNext className="absolute -right-5 lg:-right-12 xl:-right-14 top-1/2 -translate-y-1/2 w-10 h-10 lg:w-11 lg:h-11 xl:w-12 xl:h-12" />
+            </div>
+
+            {/* Navigation Buttons - Mobile/Tablet */}
+            <div className="flex md:hidden justify-center gap-2 mt-4 sm:mt-6">
+              <CarouselPrevious className="static translate-y-0 w-9 h-9 sm:w-10 sm:h-10" />
+              <CarouselNext className="static translate-y-0 w-9 h-9 sm:w-10 sm:h-10" />
+            </div>
           </Carousel>
         </motion.div>
       </div>

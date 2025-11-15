@@ -342,13 +342,13 @@ const PortfolioDetail = () => {
         open={selectedImage !== null}
         onOpenChange={() => setSelectedImage(null)}
       >
-        <DialogContent className="max-w-4xl max-h-[70vh] p-0 bg-background/95 border-none overflow-hidden">
+        <DialogContent className="max-w-4xl min-h-[70vh] p-0 bg-black/95 border-none overflow-hidden">
           {selectedImage !== null && (
             <div className="relative">
               <img
                 src={project.images[selectedImage]}
                 alt={`${project.title} - ${selectedImage + 1}`}
-                className="w-full h-[600px] object-cover"
+                className="w-full h-[600px] object-contain"
               />
               <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 bg-background/20 backdrop-blur-lg border-2 border-primary-foreground/20 p-2 rounded-full">
                 <Button

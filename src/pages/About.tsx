@@ -99,12 +99,12 @@ const AboutPage = () => {
       {/* Stats Section */}
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { value: "10+", label: "Tahun Pengalaman" },
-              { value: "500+", label: "Proyek Selesai" },
-              { value: "200+", label: "Klien Puas" },
-              { value: "50+", label: "Profesional Ahli" },
+              { value: "2+", label: "Tahun Pengalaman" },
+              { value: "20+", label: "Proyek Selesai" },
+              { value: "20+", label: "Klien Puas" },
+              { value: "5+", label: "Profesional Ahli" },
             ].map((stat, index) => (
               <motion.div
                 key={stat.label}
@@ -112,7 +112,7 @@ const AboutPage = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="text-center"
+                className="text-center bg-primary-foreground border p-4 rounded-lg"
               >
                 <div className="text-4xl sm:text-5xl font-bold text-accent mb-2">
                   {stat.value}

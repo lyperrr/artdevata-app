@@ -33,7 +33,7 @@ const Navbar = () => {
     { href: "/layanan", label: "Layanan", icon: Briefcase },
     { href: "/portfolio", label: "Portfolio", icon: FolderOpen },
     { href: "/blog", label: "Blog", icon: Newspaper },
-    { href: "/faq", label: "FAQ", icon: HelpCircle },
+    { href: "/faq", label: "Faq", icon: HelpCircle },
     { href: "/kontak", label: "Kontak", icon: Mail },
   ];
 
@@ -128,7 +128,7 @@ const Navbar = () => {
           <>
             {/* Overlay */}
             <div
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
+              className="fixed inset-0 bg-white/50 backdrop-blur-sm z-40 lg:hidden"
               onClick={() => setIsMobileMenuOpen(false)}
             />
 
