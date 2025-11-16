@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles, Mouse } from "lucide-react";
+import { ArrowRight, Sparkles, Mouse, Layers } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Hero = () => {
@@ -88,8 +88,9 @@ const Hero = () => {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="text-lg sm:text-xl text-primary-foreground/90 mb-10 max-w-3xl mx-auto leading-relaxed"
           >
-            Kami menyediakan solusi IT terpadu dari pengembangan website, hosting & domain,
-            instalasi CCTV, hingga IT support untuk mendukung transformasi digital bisnis Anda.
+            Kami menyediakan solusi IT terpadu dari pengembangan website,
+            hosting & domain, instalasi CCTV, hingga IT support untuk mendukung
+            transformasi digital bisnis Anda.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -102,20 +103,24 @@ const Hero = () => {
             <Button
               asChild
               size="lg"
-              className="bg-accent hover:bg-accent/90 text-accent-foreground group w-full sm:w-auto"
+              variant="outline"
+              className="w-full sm:w-auto bg-transparent text-primary-foreground hover:bg-primary-foreground/"
             >
-              <Link to="/portfolio" className="flex items-center">
-                Mulai Proyek
-                <ArrowRight className="ml-2 size-10 group-hover:translate-x-1 transition-transform" />
+              <Link to="/layanan">
+                <Layers />
+                Lihat Layanan
               </Link>
             </Button>
             <Button
               asChild
+              variant="accent"
               size="lg"
-              variant="outline"
-              className="border-primary-foreground hover:bg-primary-foreground/10 w-full sm:w-auto"
+              className="group w-full sm:w-auto"
             >
-              <Link to="/layanan">Lihat Layanan</Link>
+              <Link to="/portfolio">
+                Mulai Proyek
+                <ArrowRight className="!size-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </Button>
           </motion.div>
 
@@ -153,7 +158,7 @@ const Hero = () => {
         transition={{ duration: 1, delay: 1 }}
         className="absolute bottom-5 left-1/2 -translate-x-1/2"
       >
-        <Mouse className="text-background/70 size-8 animate-bounce"/>
+        <Mouse className="text-background/70 size-8 animate-bounce" />
       </motion.div>
     </section>
   );

@@ -178,14 +178,14 @@ const Testimonials = () => {
 
             {/* Navigation Buttons - Desktop */}
             <div className="hidden md:block">
-              <CarouselPrevious className="absolute -left-5 lg:-left-12 xl:-left-14 top-1/2 -translate-y-1/2 w-10 h-10 lg:w-11 lg:h-11 xl:w-12 xl:h-12" />
-              <CarouselNext className="absolute -right-5 lg:-right-12 xl:-right-14 top-1/2 -translate-y-1/2 w-10 h-10 lg:w-11 lg:h-11 xl:w-12 xl:h-12" />
+              <CarouselPrevious className="absolute -left-5 lg:-left-12 xl:-left-14 top-1/2 -translate-y-1/2 !size-10 lg:size-11 xl:!size-12" />
+              <CarouselNext className="absolute -right-5 lg:-right-12 xl:-right-14 top-1/2 -translate-y-1/2 !size-10 lg:size-11 xl:!size-12" />
             </div>
 
             {/* Navigation Buttons - Mobile/Tablet */}
             <div className="flex md:hidden justify-center gap-2 mt-4 sm:mt-6">
-              <CarouselPrevious className="static translate-y-0 w-9 h-9 sm:w-10 sm:h-10" />
-              <CarouselNext className="static translate-y-0 w-9 h-9 sm:w-10 sm:h-10" />
+              <CarouselPrevious className="static translate-y-0 !size-9 sm:!size-10" />
+              <CarouselNext className="static translate-y-0 !size-9 sm:!size-10" />
             </div>
           </Carousel>
         </motion.div>

@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUp } from "lucide-react";
 import { Icon } from "@iconify/react";
 import { Button } from "@/components/ui/button";
@@ -19,38 +21,49 @@ const FloatingActions = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const whatsappNumber = "6281234567890"; // Replace with actual number
+  const whatsappNumber = "6281234567890";
   const whatsappMessage = "Halo, saya tertarik dengan layanan ArtDevata";
 
   return (
-    <div className="fixed bottom-6 right-6 flex flex-col gap-3 z-40">
-      {/* WhatsApp Button */}
-      <Button
-        className="h-14 w-14 rounded-full bg-[#25D366] hover:bg-[#20BA5A] text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
-        asChild
+    <div className="fixed bottom-6 right-6 flex flex-col gap-3 z-40 *:grow">
+      {/* WhatsApp Button Animation */}
+      <motion.div
+        initial={{ opacity: 0, y: 20, scale: 0.9 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
       >
-        <a
-          href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+        <Link
+          to={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
             whatsappMessage
           )}`}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Contact via WhatsApp"
+          className="size-14 flex items-center justify-center rounded-full bg-[#25D366] hover:bg-[#20BA5A] text-primary-foreground border border-primary-foreground shadow-lg hover:shadow-xl animate-bounce"
         >
-          <Icon icon="ic:baseline-whatsapp" className="h-10 w-10" />
-        </a>
-      </Button>
+          <Icon icon="ic:baseline-whatsapp" className="size-8" />
+        </Link>
+      </motion.div>
 
-      {/* Scroll to Top Button */}
-      {showScrollTop && (
-        <Button
-          onClick={scrollToTop}
-          className="h-14 w-14 rounded-full bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 animate-fade-in"
-          aria-label="Scroll to top"
-        >
-          <ArrowUp className="h-10 w-10" />
-        </Button>
-      )}
+      {/* Scroll to Top Button Animation */}
+      <AnimatePresence>
+        {showScrollTop && (
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.9 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+          >
+            <Button
+              onClick={scrollToTop}
+              className="size-14 border border-primary-foreground rounded-full bg-accent hover:bg-accent/90 text-accent-foreground shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
+              aria-label="Scroll to top"
+            >
+              <ArrowUp className="!size-6" />
+            </Button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

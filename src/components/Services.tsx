@@ -67,7 +67,7 @@ const Services = () => {
         </div>
 
         {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {services.map((service, index) => (
             <motion.div
               key={service.title}
@@ -108,7 +108,7 @@ const Services = () => {
           >
             <Link to="/layanan" className="flex items-center">
               Lihat Semua Layanan
-              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="ml-2 !size-5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </Button>
         </motion.div>

@@ -10,6 +10,7 @@ import {
   Newspaper,
   Mail,
   HelpCircle,
+  ArrowUpRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Logo from "/logo.png";
@@ -77,10 +78,10 @@ const Navbar = () => {
               >
                 {link.label}
                 <span
-                  className={`absolute hover:w-full bottom-0 left-0 h-0.5 transition-all duration-300 ${
+                  className={`absolute bottom-0 left-0 h-0.5 bg-current transition-all duration-300 ease-out ${
                     location.pathname === link.href
-                      ? `hover:w-full ${isScrolled ? "bg-primary" : "bg-white"}`
-                      : "w-0 hover:w-full"
+                      ? "w-full"
+                      : "w-0 group-hover:w-full"
                   }`}
                 ></span>
               </Link>
@@ -92,29 +93,33 @@ const Navbar = () => {
             {/* CTA Button */}
             <Button
               asChild
-              className="hidden sm:inline-flex bg-accent hover:bg-accent/90 text-accent-foreground"
+              variant="accent"
+              className="hidden sm:inline-flex group"
             >
-              <Link to="/kontak">Minta Penawaran</Link>
+              <Link to="/kontak">
+                Minta Penawaran
+                <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform !size-5" />
+              </Link>
             </Button>
 
             {/* Mobile Menu Toggle */}
             <Button
               variant="ghost"
               size="icon"
-              className={`lg:hidden bg-transparent hover:bg-transparent ${
+              className={`lg:hidden bg-transparent hover:bg-transparent *:!size-6 ${
                 isMobileMenuOpen ? "relative z-[51]" : ""
               }`}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               {isMobileMenuOpen ? (
                 <X
-                  className={`h-7 w-7 ${
+                  className={`${
                     isScrolled ? "text-primary" : "text-white"
                   }`}
                 />
               ) : (
                 <Menu
-                  className={`h-7 w-7 ${
+                  className={`${
                     isScrolled ? "text-primary" : "text-white"
                   }`}
                 />
@@ -145,7 +150,7 @@ const Navbar = () => {
                         className={`flex items-center gap-3 px-4 py-3 text-base font-medium rounded-lg transition-all duration-300 ${
                           location.pathname === link.href
                             ? "bg-accent text-accent-foreground"
-                            : "text-foreground hover:bg-muted hover:translate-x-1"
+                            : "text-foreground hover:bg-muted"
                         }`}
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
@@ -154,10 +159,7 @@ const Navbar = () => {
                       </Link>
                     );
                   })}
-                  <Button
-                    asChild
-                    className="mt-4 bg-accent hover:bg-accent/90 text-accent-foreground transition-all duration-300"
-                  >
+                  <Button asChild variant="accent" className="mt-4">
                     <Link
                       to="/kontak"
                       onClick={() => setIsMobileMenuOpen(false)}

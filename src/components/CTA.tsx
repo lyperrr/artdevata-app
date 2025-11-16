@@ -31,8 +31,8 @@ const CTA = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-lg sm:text-xl text-accent-foreground/90 mb-10 max-w-2xl mx-auto"
           >
-            Mari diskusikan proyek Anda dan buat solusi custom yang disesuaikan dengan kebutuhan
-            spesifik Anda. Tim kami siap membantu Anda sukses.
+            Mari diskusikan proyek Anda dan buat solusi custom yang disesuaikan
+            dengan kebutuhan spesifik Anda. Tim kami siap membantu Anda sukses.
           </motion.p>
 
           <motion.div
@@ -57,7 +57,7 @@ const CTA = () => {
               asChild
               size="lg"
               variant="outline"
-              className="border-accent-foreground bg-accent-foreground/10 text-accent-foreground hover:bg-accent-foreground/20 w-full sm:w-auto"
+              className="bg-transparent text-primary-foreground hover:bg-primary-foreground/10 w-full sm:w-auto"
             >
               <Link to="/portfolio" className="flex items-center">
                 <Phone className="mr-2 h-5 w-5" />
