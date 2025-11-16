@@ -15,8 +15,8 @@ const About = () => {
   ];
 
   return (
-    <section className="py-16 sm:py-20 lg:py-32 bg-muted/30">
-      <div className="container overflow-hidden">
+    <section className="py-16 sm:py-20 lg:py-32 bg-muted/30 overflow-hidden">
+      <div className="container">
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
           {/* Left Column - Content */}
           <motion.div

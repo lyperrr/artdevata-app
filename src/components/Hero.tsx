@@ -54,7 +54,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-3xl sm:text-5xl xl:text-6xl font-bold text-primary-foreground mb-6 leading-tight sm:w-4/5 mx-auto"
+            className="text-4xl sm:text-5xl xl:text-6xl font-bold text-primary-foreground mb-6 leading-tight sm:w-4/5 mx-auto"
           >
             Wujudkan Bisnis Digital Anda Bersama Kami
           </motion.h1>
@@ -65,7 +65,7 @@ const Hero = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="inline-block mb-6"
           >
-            <div className="text-3xl sm:text-4xl font-bold text-center">
+            <div className="text-2xl sm:text-4xl font-bold text-center">
               <AnimatePresence mode="wait">
                 <motion.span
                   key={currentService}
