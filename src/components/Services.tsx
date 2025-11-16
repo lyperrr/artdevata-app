@@ -9,28 +9,32 @@ const Services = () => {
     {
       icon: Code,
       title: "Website Development",
-      description: "Solusi web custom yang dibangun dengan teknologi modern dan desain responsif untuk meningkatkan kehadiran online bisnis Anda.",
+      description:
+        "Solusi web custom yang dibangun dengan teknologi modern dan desain responsif untuk meningkatkan kehadiran online bisnis Anda.",
     },
     {
       icon: Server,
       title: "Hosting & Domain",
-      description: "Layanan hosting andal dengan jaminan uptime 99.9% dan pengelolaan domain yang mudah untuk website Anda.",
+      description:
+        "Layanan hosting andal dengan jaminan uptime 99.9% dan pengelolaan domain yang mudah untuk website Anda.",
     },
     {
       icon: Camera,
       title: "Instalasi CCTV",
-      description: "Sistem keamanan CCTV profesional untuk melindungi bisnis Anda dengan teknologi monitoring terkini.",
+      description:
+        "Sistem keamanan CCTV profesional untuk melindungi bisnis Anda dengan teknologi monitoring terkini.",
     },
     {
       icon: Headphones,
       title: "IT Support",
-      description: "Dukungan teknis 24/7 dan maintenance berkala untuk memastikan sistem IT Anda berjalan optimal.",
+      description:
+        "Dukungan teknis 24/7 dan maintenance berkala untuk memastikan sistem IT Anda berjalan optimal.",
     },
   ];
 
   return (
     <section className="py-20 lg:py-32 bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container ">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <motion.div
@@ -62,7 +66,8 @@ const Services = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-lg text-muted-foreground"
           >
-            Solusi IT komprehensif yang dirancang untuk mendorong bisnis Anda maju
+            Solusi IT komprehensif yang dirancang untuk mendorong bisnis Anda
+            maju
           </motion.p>
         </div>
 

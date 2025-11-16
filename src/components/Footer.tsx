@@ -5,6 +5,8 @@ import Logo from "/logo.png";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const whatsappNumber = "628974590050";
+  const whatsappMessage = "Halo, saya tertarik dengan layanan ArtDevata";
 
   const quickLinks = [
     { href: "/tentang", label: "Tentang" },
@@ -21,22 +23,35 @@ const Footer = () => {
   ];
 
   const socialLinks = [
-    { iconify: "mdi:instagram", href: "https://instagram.com/artdevata", label: "Instagram" },
-    { iconify: "ic:baseline-tiktok", href: "https://tiktok.com/@artdevata", label: "TikTok" },
+    {
+      iconify: "mdi:instagram",
+      href: "https://www.instagram.com/art.devata/",
+      label: "Instagram",
+    },
+    {
+      iconify: "ic:baseline-tiktok",
+      href: "https://www.tiktok.com/@art.devata?is_from_webapp=1&sender_device=pc",
+      label: "TikTok",
+    },
+    {
+      iconify: "mdi:whatsapp",
+      href: `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+        whatsappMessage
+      )}`,
+      label: "WhatsApp",
+    },
   ];
 
   return (
     <footer className="bg-primary text-primary-foreground">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+      <div className="container  py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
           {/* Company Info */}
           <div>
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-2 group mb-4">
               <img src={Logo} alt="" className="size-12" />
-              <span
-                className="text-2xl font-bold text-primary-foreground hidden sm:block"
-              >
+              <span className="text-2xl font-bold text-primary-foreground hidden sm:block">
                 ArtDevata
               </span>
             </Link>
@@ -102,11 +117,14 @@ const Footer = () => {
                   aria-label={social.label}
                   className="w-10 h-10 rounded-full bg-primary-foreground/10 hover:bg-accent flex items-center justify-center transition-all duration-300 hover:scale-110 group"
                 >
-                  <Icon icon={social.iconify} className="w-6 h-6 text-primary-foreground group-hover:text-accent-foreground" />
+                  <Icon
+                    icon={social.iconify}
+                    className="w-6 h-6 text-primary-foreground group-hover:text-accent-foreground"
+                  />
                 </a>
               ))}
             </div>
-            <div className="mt-6">
+            {/* <div className="mt-6">
               <h4 className="font-semibold mb-2">Legal</h4>
               <Link
                 to="/privacy"
@@ -114,7 +132,7 @@ const Footer = () => {
               >
                 Kebijakan Privasi
               </Link>
-            </div>
+            </div> */}
           </div>
         </div>
 

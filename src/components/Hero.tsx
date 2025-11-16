@@ -34,7 +34,7 @@ const Hero = () => {
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent rounded-full blur-3xl"></div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20 pb-16">
+      <div className="container  relative z-10 pt-20 pb-16">
         <div className="max-w-5xl mx-auto text-center">
           {/* Badge */}
           <motion.div
@@ -54,7 +54,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-3xl sm:text-5xl font-bold text-primary-foreground mb-6 leading-tight sm:w-4/5 mx-auto"
+            className="text-3xl sm:text-5xl xl:text-6xl font-bold text-primary-foreground mb-6 leading-tight sm:w-4/5 mx-auto"
           >
             Wujudkan Bisnis Digital Anda Bersama Kami
           </motion.h1>
@@ -104,10 +104,10 @@ const Hero = () => {
               asChild
               size="lg"
               variant="outline"
-              className="w-full sm:w-auto bg-transparent text-primary-foreground hover:bg-primary-foreground/"
+              className="w-full sm:w-auto bg-transparent text-primary-foreground hover:bg-primary-foreground/10"
             >
               <Link to="/layanan">
-                <Layers />
+                <Layers className="!size-5" />
                 Lihat Layanan
               </Link>
             </Button>

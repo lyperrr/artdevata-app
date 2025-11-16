@@ -21,12 +21,13 @@ const FloatingActions = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const whatsappNumber = "6281234567890";
+  // WhatsApp pribadi yang kamu minta
+  const whatsappNumber = "628974590050";
   const whatsappMessage = "Halo, saya tertarik dengan layanan ArtDevata";
 
   return (
     <div className="fixed bottom-6 right-6 flex flex-col gap-3 z-40 *:grow">
-      {/* WhatsApp Button Animation */}
+      {/* WhatsApp Button */}
       <motion.div
         initial={{ opacity: 0, y: 20, scale: 0.9 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -45,7 +46,7 @@ const FloatingActions = () => {
         </Link>
       </motion.div>
 
-      {/* Scroll to Top Button Animation */}
+      {/* Scroll to Top Button */}
       <AnimatePresence>
         {showScrollTop && (
           <motion.div

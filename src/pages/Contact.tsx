@@ -1,14 +1,22 @@
 import { motion as Motion } from "framer-motion";
 import { useState } from "react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import FloatingActions from "@/components/FloatingActions";
-import { Card } from "@/components/ui/card";
+import { Link } from "react-router-dom";
+import AppLayout from "@/components/AppLayout";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Phone, MapPin, Clock, Send, Facebook, Instagram, Linkedin, Link } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Clock,
+  Send,
+  Facebook,
+  Instagram,
+  Linkedin,
+} from "lucide-react";
 import { Icon } from "@iconify/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -37,18 +45,28 @@ const formSchema = z.object({
   message: z.string().min(10, "Pesan minimal 10 karakter"),
 });
 
-  const socialLinks = [
-    {
-      iconify: "mdi:instagram",
-      href: "https://instagram.com/artdevata",
-      label: "Instagram",
-    },
-    {
-      iconify: "ic:baseline-tiktok",
-      href: "https://tiktok.com/@artdevata",
-      label: "TikTok",
-    },
-  ];
+const whatsappNumber = "628974590050";
+const whatsappMessage = "Halo, saya tertarik dengan layanan ArtDevata";
+
+const socialLinks = [
+  {
+    iconify: "mdi:instagram",
+    href: "https://instagram.com/artdevata",
+    label: "Instagram",
+  },
+  {
+    iconify: "ic:baseline-tiktok",
+    href: "https://tiktok.com/@artdevata",
+    label: "TikTok",
+  },
+  {
+    iconify: "mdi:whatsapp",
+    href: `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+      whatsappMessage
+    )}`,
+    label: "WhatsApp",
+  },
+];
 
 // Create Motion Card component
 const MotionCard = Motion(Card);
@@ -142,12 +160,10 @@ const Contact = () => {
   ];
 
   return (
-    <div className="min-h-screen">
-      <Navbar />
-
+    <AppLayout>
       {/* Hero Section */}
       <section className="pt-32 pb-20 bg-gradient-to-br from-primary to-primary/90">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container ">
           <Motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -167,7 +183,7 @@ const Contact = () => {
 
       {/* Contact Section */}
       <section className="py-20 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container ">
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Form */}
             <Motion.div
@@ -311,6 +327,7 @@ const Contact = () => {
 
                     <Button
                       type="submit"
+                      size="lg"
                       className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
                       disabled={isSubmitting}
                     >
@@ -318,7 +335,7 @@ const Contact = () => {
                         <>Mengirim...</>
                       ) : (
                         <>
-                          <Send className="mr-2 h-4 w-4" />
+                          <Send className="!size-5" />
                           Kirim Pesan
                         </>
                       )}
@@ -329,7 +346,7 @@ const Contact = () => {
             </Motion.div>
 
             {/* Info Side */}
-            <div className="space-y-8">
+            <MotionCard className="space-y-8 p-8 bg-card border-border shadow-lg">
               <div>
                 <h2 className="text-2xl font-bold text-foreground mb-4">
                   Mengapa Memilih ArtDevata?
@@ -400,46 +417,50 @@ const Contact = () => {
                 </h3>
                 <div className="flex gap-3">
                   {socialLinks.map((social) => (
-                    <Button  key={social.label} asChild className="size-10">
-                      <a
-                        href={social.href}
+                    <Button
+                      variant="accent"
+                      key={social.label}
+                      asChild
+                      className="rounded-full size-12"
+                    >
+                      <Link
+                        to={social.href}
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={social.label}
                       >
                         <Icon
                           icon={social.iconify}
-                          className="w-6 h-6 text-primary-foreground group-hover:text-accent-foreground"
+                          className="!size-6 text-primary-foreground group-hover:text-accent-foreground"
                         />
-                      </a>
+                      </Link>
                     </Button>
                   ))}
                 </div>
               </Card>
 
-              <Card className="p-6 bg-accent text-white">
-                <h3 className="font-bold mb-2">Butuh Konsultasi Segera?</h3>
-                <p className="text-sm mb-4 opacity-90">
-                  Hubungi kami langsung via WhatsApp untuk respons cepat
-                </p>
-                <Button
-                  variant="outline"
-                  className="w-full bg-white text-accent hover:bg-white/90"
-                >
+              <Card className="p-6 bg-accent">
+                <div className="text-primary-foreground mb-4">
+                  <h3 className="font-bold mb-2">Butuh Konsultasi Segera?</h3>
+                  <p className="text-sm mb-4 opacity-90">
+                    Hubungi kami langsung via WhatsApp untuk respons cepat
+                  </p>
+                </div>
+                <Button variant="outline" size="lg" className="w-full">
                   Chat WhatsApp
                 </Button>
               </Card>
-            </div>
+            </MotionCard>
           </div>
           {/* Contact Info */}
-          <Motion.div
+          <MotionCard
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="space-y-6"
+            className="space-y-6 mt-4"
           >
-            <div>
+            <CardHeader>
               <h2 className="text-2xl font-bold text-foreground mb-4">
                 Informasi Kontak
               </h2>
@@ -447,9 +468,9 @@ const Contact = () => {
                 Kami siap membantu mewujudkan visi digital Anda. Hubungi kami
                 melalui berbagai channel yang tersedia.
               </p>
-            </div>
+            </CardHeader>
 
-            <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+            <CardContent className="grid grid-cols-1 sm:grid-cols-4 gap-4">
               {contactInfo.map((info, index) => (
                 <MotionCard
                   key={index}
@@ -475,14 +496,11 @@ const Contact = () => {
                   </div>
                 </MotionCard>
               ))}
-            </div>
-          </Motion.div>
+            </CardContent>
+          </MotionCard>
         </div>
       </section>
-
-      <Footer />
-      <FloatingActions />
-    </div>
+    </AppLayout>
   );
 };
 

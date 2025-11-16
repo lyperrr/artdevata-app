@@ -46,7 +46,7 @@ const Navbar = () => {
           : "bg-transparent"
       }`}
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container ">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 group">
@@ -113,15 +113,11 @@ const Navbar = () => {
             >
               {isMobileMenuOpen ? (
                 <X
-                  className={`${
-                    isScrolled ? "text-primary" : "text-white"
-                  }`}
+                  className={`${isScrolled ? "text-primary" : "text-white"}`}
                 />
               ) : (
                 <Menu
-                  className={`${
-                    isScrolled ? "text-primary" : "text-white"
-                  }`}
+                  className={`${isScrolled ? "text-primary" : "text-white"}`}
                 />
               )}
             </Button>
@@ -139,7 +135,7 @@ const Navbar = () => {
 
             {/* Menu */}
             <div className="absolute top-full left-0 right-0 bg-background shadow-lg z-50 lg:hidden animate-fade-in">
-              <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+              <div className="container  py-6">
                 <div className="flex flex-col space-y-1">
                   {navLinks.map((link) => {
                     const IconComponent = link.icon;

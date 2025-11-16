@@ -1,7 +1,5 @@
 import { motion } from "framer-motion";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import FloatingActions from "@/components/FloatingActions";
+import AppLayout from "@/components/AppLayout";
 import { Card } from "@/components/ui/card";
 import { Calendar, User, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -10,61 +8,71 @@ const Blog = () => {
   const posts = [
     {
       title: "10 Tips Memilih Hosting yang Tepat untuk Website Bisnis",
-      excerpt: "Panduan lengkap memilih layanan hosting yang sesuai dengan kebutuhan dan budget bisnis Anda.",
+      excerpt:
+        "Panduan lengkap memilih layanan hosting yang sesuai dengan kebutuhan dan budget bisnis Anda.",
       date: "15 Nov 2024",
       author: "Tim ArtDevata",
       category: "Web Hosting",
-      image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80",
+      image:
+        "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80",
     },
     {
       title: "Mengapa Website Responsif Penting untuk Bisnis Modern",
-      excerpt: "Memahami pentingnya desain responsif dan dampaknya terhadap user experience dan SEO.",
+      excerpt:
+        "Memahami pentingnya desain responsif dan dampaknya terhadap user experience dan SEO.",
       date: "12 Nov 2024",
       author: "Tim ArtDevata",
       category: "Web Development",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+      image:
+        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
     },
     {
       title: "Panduan Keamanan CCTV untuk Bisnis Retail",
-      excerpt: "Tips dan trik mengoptimalkan sistem keamanan CCTV untuk toko dan bisnis retail Anda.",
+      excerpt:
+        "Tips dan trik mengoptimalkan sistem keamanan CCTV untuk toko dan bisnis retail Anda.",
       date: "10 Nov 2024",
       author: "Tim ArtDevata",
       category: "CCTV Security",
-      image: "https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=800&q=80",
+      image:
+        "https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=800&q=80",
     },
     {
       title: "Cloud Computing: Solusi Hemat untuk Startup",
-      excerpt: "Bagaimana cloud computing dapat membantu startup menghemat biaya infrastruktur IT.",
+      excerpt:
+        "Bagaimana cloud computing dapat membantu startup menghemat biaya infrastruktur IT.",
       date: "8 Nov 2024",
       author: "Tim ArtDevata",
       category: "Cloud Solutions",
-      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80",
+      image:
+        "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80",
     },
     {
       title: "5 Tanda Bisnis Anda Butuh IT Support Profesional",
-      excerpt: "Kenali tanda-tanda bahwa bisnis Anda memerlukan dukungan IT profesional untuk berkembang.",
+      excerpt:
+        "Kenali tanda-tanda bahwa bisnis Anda memerlukan dukungan IT profesional untuk berkembang.",
       date: "5 Nov 2024",
       author: "Tim ArtDevata",
       category: "IT Support",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+      image:
+        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
     },
     {
       title: "Tren Teknologi 2024 yang Wajib Diketahui Pebisnis",
-      excerpt: "Eksplorasi tren teknologi terkini yang akan membentuk landscape bisnis di tahun 2024.",
+      excerpt:
+        "Eksplorasi tren teknologi terkini yang akan membentuk landscape bisnis di tahun 2024.",
       date: "1 Nov 2024",
       author: "Tim ArtDevata",
       category: "Technology Trends",
-      image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&q=80",
+      image:
+        "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&q=80",
     },
   ];
 
   return (
-    <div className="min-h-screen">
-      <Navbar />
-      
+    <AppLayout>
       {/* Hero Section */}
       <section className="pt-32 pb-20 bg-gradient-to-br from-primary to-primary/90">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container ">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -75,7 +83,8 @@ const Blog = () => {
               Blog & Berita
             </h1>
             <p className="text-xl text-primary-foreground/90">
-              Tips, panduan, dan insight terbaru seputar teknologi dan bisnis digital
+              Tips, panduan, dan insight terbaru seputar teknologi dan bisnis
+              digital
             </p>
           </motion.div>
         </div>
@@ -83,7 +92,7 @@ const Blog = () => {
 
       {/* Featured Post */}
       <section className="py-20 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container ">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -137,7 +146,7 @@ const Blog = () => {
 
       {/* Blog Grid */}
       <section className="pb-20 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container ">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {posts.slice(1).map((post, index) => (
               <motion.div
@@ -178,10 +187,7 @@ const Blog = () => {
           </div>
         </div>
       </section>
-
-      <Footer />
-      <FloatingActions />
-    </div>
+    </AppLayout>
   );
 };
 

@@ -1,11 +1,17 @@
 import { motion } from "framer-motion";
 import { useParams, Link } from "react-router-dom";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import FloatingActions from "@/components/FloatingActions";
+import AppLayout from "@/components/AppLayout";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { ArrowLeft, ArrowRight, Calendar, User, Tag, ExternalLink, X } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Calendar,
+  User,
+  Tag,
+  ExternalLink,
+  X,
+} from "lucide-react";
 import { useState } from "react";
 
 const PortfolioDetail = () => {
@@ -104,24 +110,28 @@ const PortfolioDetail = () => {
 
   if (!project) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold mb-4">Project tidak ditemukan</h1>
-          <Link to="/portfolio">
-            <Button>Kembali ke Portfolio</Button>
-          </Link>
+      <AppLayout
+        showNavbar={false}
+        showFooter={false}
+        showFloatingActions={false}
+      >
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-3xl font-bold mb-4">Project tidak ditemukan</h1>
+            <Link to="/portfolio">
+              <Button>Kembali ke Portfolio</Button>
+            </Link>
+          </div>
         </div>
-      </div>
+      </AppLayout>
     );
   }
 
   return (
-    <div className="min-h-screen">
-      <Navbar />
-
+    <AppLayout>
       {/* Hero Section */}
       <section className="pt-32 pb-12 bg-gradient-to-br from-primary to-primary/90">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container ">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -157,7 +167,7 @@ const PortfolioDetail = () => {
 
       {/* Main Image */}
       <section className="py-12 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container ">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -176,7 +186,7 @@ const PortfolioDetail = () => {
 
       {/* Project Info */}
       <section className="py-12 bg-muted/30">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container ">
           <div className="grid lg:grid-cols-3 gap-12">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -305,7 +315,7 @@ const PortfolioDetail = () => {
 
       {/* Gallery */}
       <section className="py-12 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container ">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -387,10 +397,7 @@ const PortfolioDetail = () => {
           )}
         </DialogContent>
       </Dialog>
-
-      <Footer />
-      <FloatingActions />
-    </div>
+    </AppLayout>
   );
 };
 

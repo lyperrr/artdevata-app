@@ -12,7 +12,7 @@ const CTA = () => {
         <div className="absolute bottom-10 left-10 w-72 h-72 bg-accent-foreground rounded-full blur-3xl"></div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="container  relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
