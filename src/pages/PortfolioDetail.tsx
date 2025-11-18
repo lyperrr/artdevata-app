@@ -352,7 +352,7 @@ const PortfolioDetail = () => {
         open={selectedImage !== null}
         onOpenChange={() => setSelectedImage(null)}
       >
-        <DialogContent className="max-w-4xl min-h-[70vh] p-0 bg-black/95 border-none overflow-hidden">
+        <DialogContent className="max-w-4xl min-h-[70vh] p-0 flex justify-center items-center border-none overflow-hidden">
           {selectedImage !== null && (
             <div className="relative">
               <img
@@ -360,9 +360,8 @@ const PortfolioDetail = () => {
                 alt={`${project.title} - ${selectedImage + 1}`}
                 className="w-full h-[600px] object-contain"
               />
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 bg-background/20 backdrop-blur-lg border-2 border-primary-foreground/20 p-2 rounded-full">
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-primary/20 backdrop-blur-lg border-2 border-primary-foreground/20 p-1 rounded-full">
                 <Button
-                  variant="ghost"
                   onClick={(e) => {
                     e.stopPropagation();
                     setSelectedImage(
@@ -371,15 +370,14 @@ const PortfolioDetail = () => {
                         : project.images.length - 1
                     );
                   }}
-                  className="p-2 size-10 rounded-full bg-primary-foreground/10 border border-primary-foreground/10 backdrop-blur-xl"
+                  className="p-2 size-10 rounded-full bg-primary-foreground/5 backdrop-blur-xl"
                 >
                   <ArrowLeft className="w-5 h-5 text-primary-foreground" />
                 </Button>
-                <span className="px-4 py-2 text-primary-foreground">
+                <span className="px-4 text-primary-foreground">
                   {selectedImage + 1} / {project.images.length}
                 </span>
                 <Button
-                  variant="ghost"
                   onClick={(e) => {
                     e.stopPropagation();
                     setSelectedImage(
@@ -388,7 +386,7 @@ const PortfolioDetail = () => {
                         : 0
                     );
                   }}
-                  className="p-2 size-10 rounded-full bg-primary-foreground/10 border border-primary-foreground/10 backdrop-blur-xl"
+                  className="p-2 size-10 rounded-full bg-primary-foreground/5 backdrop-blur-xl"
                 >
                   <ArrowRight className="w-5 h-5 text-primary-foreground" />
                 </Button>
