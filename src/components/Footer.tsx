@@ -40,6 +40,11 @@ const Footer = () => {
       )}`,
       label: "WhatsApp",
     },
+    {
+      iconify: "ic:round-discord",
+      href: `https://discord.gg/ZZdAHMen`,
+      label: "Discord",
+    },
   ];
 
   return (
