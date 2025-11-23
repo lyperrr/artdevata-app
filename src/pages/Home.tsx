@@ -4,6 +4,7 @@ import Services from "@/components/Services";
 import About from "@/components/About";
 import Testimonials from "@/components/Testimonials";
 import CTA from "@/components/CTA";
+import FAQ from "@/components/FAQ";
 
 const Home = () => {
   return (
@@ -12,6 +13,7 @@ const Home = () => {
       <Services />
       <About />
       <Testimonials />
+      <FAQ />
       <CTA />
     </AppLayout>
   );

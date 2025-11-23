@@ -34,7 +34,6 @@ const Navbar = () => {
     { href: "/layanan", label: "Layanan", icon: Briefcase },
     { href: "/portfolio", label: "Portfolio", icon: FolderOpen },
     { href: "/blog", label: "Blog", icon: Newspaper },
-    { href: "/faq", label: "Faq", icon: HelpCircle },
     { href: "/kontak", label: "Kontak", icon: Mail },
   ];
 
