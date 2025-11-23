@@ -66,6 +66,11 @@ const socialLinks = [
     )}`,
     label: "WhatsApp",
   },
+  {
+    iconify: "ic:round-discord",
+    href: `https://discord.gg/ZZdAHMen`,
+    label: "Discord",
+  },
 ];
 
 // Create Motion Card component
@@ -212,7 +217,7 @@ const Contact = () => {
                             </FormLabel>
                             <FormControl>
                               <Input
-                                placeholder="John Doe"
+                                placeholder="Dyren Pratama Yudha"
                                 {...field}
                                 className="bg-background border-border text-foreground placeholder:text-muted-foreground"
                               />
@@ -232,7 +237,7 @@ const Contact = () => {
                             <FormControl>
                               <Input
                                 type="email"
-                                placeholder="john@example.com"
+                                placeholder="contoh@gmail.com"
                                 {...field}
                                 className="bg-background border-border text-foreground placeholder:text-muted-foreground"
                               />
@@ -447,6 +452,7 @@ const Contact = () => {
                   </p>
                 </div>
                 <Button variant="outline" size="lg" className="w-full">
+                  <Icon icon="mdi:whatsapp" className="!size-6" />
                   Chat WhatsApp
                 </Button>
               </Card>
@@ -458,7 +464,7 @@ const Contact = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="space-y-6 mt-4"
+            className="space-y-6 mt-12"
           >
             <CardHeader>
               <h2 className="text-2xl font-bold text-foreground mb-4">
