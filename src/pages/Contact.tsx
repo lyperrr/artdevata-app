@@ -94,6 +94,28 @@ const Contact = () => {
     },
   });
 
+  // Template pesan berdasarkan layanan
+  const messageTemplates: Record<string, string> = {
+    website:
+      "Halo, saya tertarik dengan layanan Website Development. Saya ingin membuat website untuk [jenis bisnis]. Beberapa fitur yang saya butuhkan adalah [sebutkan fitur]. Budget yang saya alokasikan sekitar [budget]. Mohon informasi lebih lanjut mengenai timeline dan proses pengerjaannya.",
+    hosting:
+      "Halo, saya membutuhkan layanan Hosting & Domain untuk website saya. Estimasi traffic per bulan sekitar [jumlah visitor]. Saya memerlukan [kapasitas storage] storage dan [bandwidth] bandwidth. Mohon rekomendasi paket yang sesuai.",
+    cctv: "Halo, saya ingin memasang CCTV untuk [lokasi/jenis tempat]. Area yang perlu dipantau sekitar [luas area] dengan [jumlah] titik kamera. Saya membutuhkan fitur [rekaman/live monitoring/remote access]. Mohon informasi untuk survey lokasi.",
+    support:
+      "Halo, saya membutuhkan IT Support untuk [jenis kebutuhan]. Permasalahan yang sering dihadapi adalah [sebutkan masalah]. Saya memerlukan dukungan [one-time/regular/on-call]. Mohon informasi mengenai paket layanan yang tersedia.",
+    cloud:
+      "Halo, saya tertarik dengan Cloud Solutions untuk [keperluan bisnis]. Saat ini saya menggunakan [infrastruktur saat ini] dan ingin migrasi ke cloud. Data yang perlu disimpan sekitar [ukuran data]. Mohon konsultasi lebih lanjut.",
+    other:
+      "Halo, saya ingin berkonsultasi mengenai [sebutkan kebutuhan]. Beberapa detail yang perlu didiskusikan adalah [sebutkan detail]. Mohon informasi lebih lanjut mengenai solusi yang bisa ditawarkan.",
+  };
+
+  // Update message template saat service berubah
+  const handleServiceChange = (value: string) => {
+    if (messageTemplates[value] && !form.getValues("message")) {
+      form.setValue("message", messageTemplates[value]);
+    }
+  };
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
 
@@ -286,7 +308,10 @@ const Contact = () => {
                             Layanan yang Diminati
                           </FormLabel>
                           <Select
-                            onValueChange={field.onChange}
+                            onValueChange={(value) => {
+                              field.onChange(value);
+                              handleServiceChange(value);
+                            }}
                             defaultValue={field.value}
                           >
                             <FormControl>
