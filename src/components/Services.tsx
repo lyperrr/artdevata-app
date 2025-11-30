@@ -1,41 +1,37 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Code, Server, Camera, Headphones, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 
 const Services = () => {
-  const services = [
-    {
-      icon: Code,
-      title: "Website Development",
-      description:
-        "Solusi web custom yang dibangun dengan teknologi modern dan desain responsif untuk meningkatkan kehadiran online bisnis Anda.",
-    },
-    {
-      icon: Server,
-      title: "Hosting & Domain",
-      description:
-        "Layanan hosting andal dengan jaminan uptime 99.9% dan pengelolaan domain yang mudah untuk website Anda.",
-    },
-    {
-      icon: Camera,
-      title: "Instalasi CCTV",
-      description:
-        "Sistem keamanan CCTV profesional untuk melindungi bisnis Anda dengan teknologi monitoring terkini.",
-    },
-    {
-      icon: Headphones,
-      title: "IT Support",
-      description:
-        "Dukungan teknis 24/7 dan maintenance berkala untuk memastikan sistem IT Anda berjalan optimal.",
-    },
-  ];
+  const [services, setServices] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const res = await fetch("https://admin.artdevata.net/api/services");
+        const data = await res.json();
+
+        // API langsung array → langsung set
+        setServices(data);
+      } catch (error) {
+        console.error("Gagal mengambil layanan:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchServices();
+  }, []);
 
   return (
     <section className="py-20 lg:py-32 bg-background">
-      <div className="container ">
-        {/* Section Header */}
+      <div className="container">
+
+        {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -66,37 +62,49 @@ const Services = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-lg text-muted-foreground"
           >
-            Solusi IT komprehensif yang dirancang untuk mendorong bisnis Anda
-            maju
+            Solusi IT komprehensif yang dirancang untuk mendorong bisnis Anda maju
           </motion.p>
         </div>
 
+        {/* Loading */}
+        {loading && (
+          <p className="text-center text-muted-foreground">Memuat layanan...</p>
+        )}
+
         {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {services.map((service, index) => (
-            <motion.div
-              key={service.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <Card className="h-full p-6 lg:p-8 hover:shadow-xl transition-all duration-300 group border-border/50 hover:border-accent/50 bg-card">
-                <div className="mb-6">
-                  <div className="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center group-hover:bg-accent group-hover:scale-110 transition-all duration-300">
-                    <service.icon className="w-7 h-7 text-accent group-hover:text-accent-foreground" />
+        {!loading && (
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {services.map((service, index) => (
+              <motion.div
+                key={service.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <Card className="h-full p-6 lg:p-8 hover:shadow-xl transition-all duration-300 group border-border/50 hover:border-accent/50 bg-card">
+                  <div className="mb-6">
+                    <div className="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center group-hover:bg-accent group-hover:scale-110 transition-all duration-300 overflow-hidden">
+                      <img
+                        src={`https://admin.artdevata.net/storage/${service.image}`}
+                        className="w-10 h-10 object-cover rounded-lg"
+                        alt={service.title}
+                      />
+                    </div>
                   </div>
-                </div>
-                <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-accent transition-colors">
-                  {service.title}
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  {service.description}
-                </p>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
+
+                  <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-accent transition-colors">
+                    {service.title}
+                  </h3>
+
+                  <p className="text-muted-foreground leading-relaxed">
+                    {service.description}
+                  </p>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        )}
 
         {/* CTA */}
         <motion.div
@@ -117,6 +125,7 @@ const Services = () => {
             </Link>
           </Button>
         </motion.div>
+
       </div>
     </section>
   );

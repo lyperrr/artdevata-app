@@ -1,125 +1,102 @@
+// src/pages/PortfolioDetail.tsx
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { useParams, Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import AppLayout from "@/components/AppLayout";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import {
   ArrowLeft,
   ArrowRight,
   Calendar,
+  Clock,
   User,
   Tag,
   ExternalLink,
+  Loader2,
   X,
 } from "lucide-react";
-import { useState } from "react";
+
+interface Portfolio {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  link: string | null;
+  category: string | null;
+  client: string | null;
+  date: string | null;
+  duration: string | null;
+  challenge: string | null;
+  solution: string | null;
+  results: string[];
+  technologies: string[];
+  images: string[];
+}
 
 const PortfolioDetail = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
+  const [project, setProject] = useState<Portfolio | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
-  // Data dummy portfolio
-  const projects: Record<string, any> = {
-    "ecommerce-platform": {
-      title: "E-Commerce Platform",
-      category: "Website Development",
-      client: "UMKM Indonesia",
-      date: "Januari 2024",
-      duration: "3 Bulan",
-      description:
-        "Platform e-commerce modern dengan fitur lengkap untuk UMKM Indonesia. Sistem mencakup manajemen produk, keranjang belanja, payment gateway, dan dashboard admin yang komprehensif.",
-      challenge:
-        "Membangun platform yang mudah digunakan oleh UMKM dengan berbagai tingkat literasi digital, sambil tetap menyediakan fitur-fitur canggih untuk mengelola bisnis online.",
-      solution:
-        "Kami mengembangkan interface yang intuitif dengan onboarding yang mudah, dokumentasi lengkap, dan dukungan teknis. Platform ini dilengkapi dengan template siap pakai dan customizable.",
-      results: [
-        "Peningkatan penjualan online hingga 250%",
-        "Waktu setup toko hanya 30 menit",
-        "98% tingkat kepuasan pengguna",
-        "Integrasi dengan 5+ payment gateway lokal",
-      ],
-      technologies: ["React", "Node.js", "PostgreSQL", "Stripe", "AWS"],
-      images: [
-        "https://images.unsplash.com/photo-1661956602116-aa6865609028?w=1200&q=80",
-        "https://images.unsplash.com/photo-1661956602153-23384936a1d3?w=1200&q=80",
-        "https://images.unsplash.com/photo-1557821552-17105176677c?w=1200&q=80",
-        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80",
-      ],
-      link: "https://example.com",
-    },
-    "corporate-website": {
-      title: "Corporate Website",
-      category: "Website Development",
-      client: "PT Teknologi Maju",
-      date: "Desember 2023",
-      duration: "2 Bulan",
-      description:
-        "Website perusahaan profesional dengan desain elegan dan responsif yang mencerminkan identitas brand klien.",
-      challenge:
-        "Membuat website yang merepresentasikan profesionalisme perusahaan dengan loading time yang cepat dan SEO optimal.",
-      solution:
-        "Menggunakan teknologi modern dengan optimasi gambar, lazy loading, dan implementasi best practices SEO.",
-      results: [
-        "Peningkatan traffic organik 180%",
-        "Page load time di bawah 2 detik",
-        "100% responsive di semua device",
-        "Ranking halaman pertama Google untuk 10+ keyword",
-      ],
-      technologies: ["React", "Next.js", "TailwindCSS", "Vercel"],
-      images: [
-        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80",
-        "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?w=1200&q=80",
-        "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&q=80",
-      ],
-      link: "https://example.com",
-    },
-    "smart-cctv": {
-      title: "Smart CCTV System",
-      category: "CCTV Installation",
-      client: "Kompleks Perumahan Elite",
-      date: "November 2023",
-      duration: "1 Bulan",
-      description:
-        "Sistem CCTV pintar dengan AI detection untuk keamanan maksimal di area perumahan seluas 5 hektar.",
-      challenge:
-        "Mengcover area luas dengan blind spot minimal dan integrasi sistem monitoring real-time.",
-      solution:
-        "Instalasi 50+ kamera strategis dengan AI motion detection dan sistem cloud storage untuk akses 24/7.",
-      results: [
-        "100% coverage area tanpa blind spot",
-        "Penurunan insiden keamanan 90%",
-        "Response time security team 3x lebih cepat",
-        "Face recognition untuk akses gate",
-      ],
-      technologies: [
-        "Hikvision",
-        "AI Detection",
-        "Cloud Storage",
-        "Mobile App",
-      ],
-      images: [
-        "https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=1200&q=80",
-        "https://images.unsplash.com/photo-1558002038-1055907df827?w=1200&q=80",
-        "https://images.unsplash.com/photo-1593642532744-d377ab507dc8?w=1200&q=80",
-      ],
-      link: null,
-    },
-  };
+  useEffect(() => {
+    const fetchProject = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch(`https://admin.artdevata.net/api/portfolios/${id}`);
+        const json = await res.json();
 
-  const project = id ? projects[id] : null;
+        // Laravel biasanya balikin { data: {...} }
+        const data = json.data || json;
 
-  if (!project) {
+        // Pastikan images selalu array (jika kosong atau null)
+        const images = data.images && data.images.length > 0
+          ? data.images
+          : [data.image]; // fallback ke image utama
+
+        setProject({
+          ...data,
+          images,
+          category: data.category || "Umum",
+          results: data.results || [],
+          technologies: data.technologies || [],
+        });
+      } catch (err) {
+        console.error(err);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (id) fetchProject();
+  }, [id]);
+
+  // Loading state
+  if (loading) {
     return (
-      <AppLayout
-        showNavbar={false}
-        showFooter={false}
-        showFloatingActions={false}
-      >
+      <AppLayout>
         <div className="min-h-screen flex items-center justify-center">
-          <div className="text-center">
-            <h1 className="text-3xl font-bold mb-4">Project tidak ditemukan</h1>
+          <Loader2 className="w-12 h-12 animate-spin text-primary" />
+        </div>
+      </AppLayout>
+    );
+  }
+
+  // Error / tidak ditemukan
+  if (error || !project) {
+    return (
+      <AppLayout>
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-center space-y-6">
+            <h1 className="text-4xl font-bold">Project tidak ditemukan</h1>
             <Link to="/portfolio">
-              <Button>Kembali ke Portfolio</Button>
+              <Button size="lg">
+                <ArrowLeft className="w-5 h-5 mr-2" />
+                Kembali ke Portfolio
+              </Button>
             </Link>
           </div>
         </div>
@@ -129,9 +106,9 @@ const PortfolioDetail = () => {
 
   return (
     <AppLayout>
-      {/* Hero Section */}
-      <section className="pt-32 pb-12 bg-gradient-to-br from-primary to-primary/90">
-        <div className="container ">
+      {/* Hero */}
+      <section className="pt-32 pb-12 bg-gradient-to-br from-primary to-primary/90 text-primary-foreground">
+        <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -139,256 +116,277 @@ const PortfolioDetail = () => {
           >
             <Link
               to="/portfolio"
-              className="inline-flex items-center gap-2 text-primary-foreground/80 hover:text-primary-foreground mb-6 transition-colors"
+              className="inline-flex items-center gap-2 hover:underline mb-6"
             >
               <ArrowLeft className="w-5 h-5" />
-              <span>Kembali ke Portfolio</span>
+              Kembali ke Portfolio
             </Link>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-primary-foreground mb-4">
+
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
               {project.title}
             </h1>
-            <div className="flex flex-wrap gap-4 text-primary-foreground/90">
-              <div className="flex items-center gap-2">
-                <Tag className="w-5 h-5" />
-                <span>{project.category}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <User className="w-5 h-5" />
-                <span>{project.client}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Calendar className="w-5 h-5" />
-                <span>{project.date}</span>
-              </div>
+
+            <div className="flex flex-wrap gap-6 text-lg opacity-90">
+              {project.category && (
+                <div className="flex items-center gap-2">
+                  <Tag className="w-5 h-5" />
+                  <span>{project.category}</span>
+                </div>
+              )}
+              {project.client && (
+                <div className="flex items-center gap-2">
+                  <User className="w-5 h-5" />
+                  <span>{project.client}</span>
+                </div>
+              )}
+              {project.date && (
+                <div className="flex items-center gap-2">
+                  <Calendar className="w-5 h-5" />
+                  <span>
+                    {new Date(project.date).toLocaleDateString("id-ID", {
+                      year: "numeric",
+                      month: "long",
+                    })}
+                  </span>
+                </div>
+              )}
+              {project.duration && (
+                <div className="flex items-center gap-2">
+                  <Clock className="w-5 h-5" />
+                  <span>{project.duration}</span>
+                </div>
+              )}
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Main Image */}
+      {/* Gambar Utama */}
       <section className="py-12 bg-background">
-        <div className="container ">
-          <motion.div
+        <div className="container">
+          <motion.img
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="rounded-xl overflow-hidden shadow-2xl cursor-pointer"
+            transition={{ delay: 0.2 }}
+            src={project.image}
+            alt={project.title}
+            className="w-full h-96 md:h-[600px] object-cover rounded-xl shadow-2xl cursor-pointer"
             onClick={() => setSelectedImage(0)}
-          >
-            <img
-              src={project.images[0]}
-              alt={project.title}
-              className="w-full h-[500px] object-cover hover:scale-105 transition-transform duration-500"
-            />
-          </motion.div>
+          />
         </div>
       </section>
 
-      {/* Project Info */}
-      <section className="py-12 bg-muted/30">
-        <div className="container ">
+      {/* Informasi Project */}
+      <section className="py-16 bg-muted/30">
+        <div className="container">
           <div className="grid lg:grid-cols-3 gap-12">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="lg:col-span-2 space-y-8"
-            >
-              <div>
-                <h2 className="text-3xl font-bold mb-4 text-foreground">
-                  Tentang Project
-                </h2>
-                <p className="text-muted-foreground border-l-4 border-l-accent pl-3 py-2 leading-relaxed text-lg">
+            {/* Kiri - Deskripsi */}
+            <div className="lg:col-span-2 space-y-12">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+              >
+                <h2 className="text-3xl font-bold mb-4">Tentang Project</h2>
+                <p className="text-lg text-muted-foreground leading-relaxed border-l-4 border-l-accent pl-6">
                   {project.description}
                 </p>
-              </div>
+              </motion.div>
 
-              <div>
-                <h3 className="text-2xl font-bold mb-3 text-foreground">
-                  Tantangan
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  {project.challenge}
-                </p>
-              </div>
+              {project.challenge && (
+                <motion.div
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                >
+                  <h3 className="text-2xl font-bold mb-3">Tantangan</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {project.challenge}
+                  </p>
+                </motion.div>
+              )}
 
-              <div>
-                <h3 className="text-2xl font-bold mb-3 text-foreground">
-                  Solusi
-                </h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  {project.solution}
-                </p>
-              </div>
+              {project.solution && (
+                <motion.div
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                >
+                  <h3 className="text-2xl font-bold mb-3">Solusi Kami</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {project.solution}
+                  </p>
+                </motion.div>
+              )}
 
-              <div>
-                <h3 className="text-2xl font-bold mb-4 text-foreground">
-                  Hasil
-                </h3>
-                <ul className="space-y-2">
-                  {project.results.map((result: string, index: number) => (
-                    <li key={index} className="flex items-start gap-3">
-                      <div className="w-2 h-2 rounded-full bg-accent mt-2 flex-shrink-0" />
-                      <span className="text-muted-foreground">{result}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </motion.div>
+              {project.results.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                >
+                  <h3 className="text-2xl font-bold mb-4">Hasil yang Dicapai</h3>
+                  <ul className="space-y-3">
+                    {project.results.map((result, i) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <div className="w-2 h-2 rounded-full bg-accent mt-2 flex-shrink-0" />
+                        <span className="text-muted-foreground">{result}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              )}
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="grid grid-cols-1 gap-4"
-            >
-              <div className="bg-card p-6 rounded-xl border border-border shadow-sm">
-                <h3 className="text-xl font-bold mb-4 text-foreground">
-                  Detail Project
-                </h3>
-                <div className="space-y-3">
-                  <div>
-                    <p className="text-sm text-muted-foreground mb-1">Klien</p>
-                    <p className="font-semibold text-foreground">
-                      {project.client}
-                    </p>
+            {/* Kanan - Detail & Tech */}
+            <div className="space-y-6">
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="bg-card p-6 rounded-xl border shadow-sm"
+              >
+                <h3 className="text-xl font-bold mb-4">Detail Project</h3>
+                <dl className="space-y-3 text-sm">
+                  {project.client && (
+                    <>
+                      <dt className="text-muted-foreground">Klien</dt>
+                      <dd className="font-semibold">{project.client}</dd>
+                    </>
+                  )}
+                  {project.date && (
+                    <>
+                      <dt className="text-muted-foreground">Tanggal</dt>
+                      <dd className="font-semibold">
+                        {new Date(project.date).toLocaleDateString("id-ID", {
+                          year: "numeric",
+                          month: "long",
+                        })}
+                      </dd>
+                    </>
+                  )}
+                  {project.duration && (
+                    <>
+                      <dt className="text-muted-foreground">Durasi</dt>
+                      <dd className="font-semibold">{project.duration}</dd>
+                    </>
+                  )}
+                  {project.category && (
+                    <>
+                      <dt className="text-muted-foreground">Kategori</dt>
+                      <dd className="font-semibold">{project.category}</dd>
+                    </>
+                  )}
+                </dl>
+              </motion.div>
+
+             
+
+              {project.technologies.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  className="bg-card p-6 rounded-xl border shadow-sm"
+                >
+                  <h3 className="text-xl font-bold mb-4">Teknologi Digunakan</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {project.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-4 py-2 bg-accent/10 text-accent rounded-full text-sm font-medium"
+                      >
+                        {tech}
+                      </span>
+                    ))}
                   </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground mb-1">
-                      Tanggal
-                    </p>
-                    <p className="font-semibold text-foreground">
-                      {project.date}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground mb-1">Durasi</p>
-                    <p className="font-semibold text-foreground">
-                      {project.duration}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground mb-1">
-                      Kategori
-                    </p>
-                    <p className="font-semibold text-foreground">
-                      {project.category}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-card p-6 rounded-xl border border-border shadow-sm">
-                <h3 className="text-xl font-bold mb-4 text-foreground">
-                  Teknologi
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {project.technologies.map((tech: string) => (
-                    <span
-                      key={tech}
-                      className="px-3 py-1 bg-accent/10 text-accent rounded-full text-sm font-medium"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
+                </motion.div>
+              )}
 
               {project.link && (
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href={project.link} target="_blank" rel="noopener noreferrer">
                   <Button className="w-full" size="lg">
                     <ExternalLink className="w-5 h-5 mr-2" />
-                    Lihat Website
+                    Lihat Website Live
                   </Button>
                 </a>
               )}
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Gallery */}
-      <section className="py-12 bg-background">
-        <div className="container ">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-3xl font-bold mb-8 text-foreground"
-          >
-            Galeri Project
-          </motion.h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {project.images.map((image: string, index: number) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="rounded-lg overflow-hidden shadow-lg cursor-pointer group"
-                onClick={() => setSelectedImage(index)}
-              >
-                <img
-                  src={image}
-                  alt={`${project.title} - ${index + 1}`}
-                  className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-              </motion.div>
-            ))}
+      {/* Galeri */}
+      {project.images.length > 1 && (
+        <section className="py-16 bg-background">
+          <div className="container">
+            <h2 className="text-3xl font-bold mb-8">Galeri Project</h2>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {project.images.map((img, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="rounded-xl overflow-hidden shadow-lg cursor-pointer group"
+                  onClick={() => setSelectedImage(index)}
+                >
+                  <img
+                    src={img}
+                    alt={`${project.title} - ${index + 1}`}
+                    className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      {/* Lightbox Dialog */}
-      <Dialog
-        open={selectedImage !== null}
-        onOpenChange={() => setSelectedImage(null)}
-      >
-        <DialogContent className="max-w-4xl min-h-[70vh] p-0 flex justify-center items-center border-none overflow-hidden">
+      {/* Lightbox */}
+      <Dialog open={selectedImage !== null} onOpenChange={() => setSelectedImage(null)}>
+        <DialogContent className="max-w-5xl p-0 border-none bg-transparent shadow-none">
           {selectedImage !== null && (
             <div className="relative">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute top-4 right-4 z-10 bg-background/80 backdrop-blur"
+                onClick={() => setSelectedImage(null)}
+              >
+                <X className="w-6 h-6" />
+              </Button>
+
               <img
                 src={project.images[selectedImage]}
-                alt={`${project.title} - ${selectedImage + 1}`}
-                className="w-full h-[600px] object-contain"
+                alt="Gallery"
+                className="max-w-full max-h-[90vh] object-contain mx-auto"
               />
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-primary/20 backdrop-blur-lg border-2 border-primary-foreground/20 p-1 rounded-full">
+
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-4 bg-background/80 backdrop-blur px-4 py-2 rounded-full">
                 <Button
-                  onClick={(e) => {
-                    e.stopPropagation();
+                  size="icon"
+                  onClick={() =>
                     setSelectedImage(
-                      selectedImage > 0
-                        ? selectedImage - 1
-                        : project.images.length - 1
-                    );
-                  }}
-                  className="p-2 size-10 rounded-full bg-primary-foreground/5 backdrop-blur-xl"
+                      selectedImage === 0 ? project.images.length - 1 : selectedImage - 1
+                    )
+                  }
                 >
-                  <ArrowLeft className="w-5 h-5 text-primary-foreground" />
+                  <ArrowLeft className="w-5 h-5" />
                 </Button>
-                <span className="px-4 text-primary-foreground">
+                <span className="text-sm font-medium">
                   {selectedImage + 1} / {project.images.length}
                 </span>
                 <Button
-                  onClick={(e) => {
-                    e.stopPropagation();
+                  size="icon"
+                  onClick={() =>
                     setSelectedImage(
-                      selectedImage < project.images.length - 1
-                        ? selectedImage + 1
-                        : 0
-                    );
-                  }}
-                  className="p-2 size-10 rounded-full bg-primary-foreground/5 backdrop-blur-xl"
+                      selectedImage === project.images.length - 1 ? 0 : selectedImage + 1
+                    )
+                  }
                 >
-                  <ArrowRight className="w-5 h-5 text-primary-foreground" />
+                  <ArrowRight className="w-5 h-5" />
                 </Button>
               </div>
             </div>

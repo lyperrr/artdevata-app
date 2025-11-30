@@ -1,135 +1,134 @@
+// src/pages/Blog.tsx
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import AppLayout from "@/components/AppLayout";
 import { Card } from "@/components/ui/card";
-import { Calendar, User, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { blogPosts } from "./data/blogData";
+import { Calendar, User, ArrowRight, Loader2 } from "lucide-react";
+
+interface BlogPost {
+  id: number;
+  title: string;
+  slug: string;
+  excerpt: string;
+  image: string;
+  category: string;
+  author: string;
+  created_at: string;
+}
 
 const Blog = () => {
   const navigate = useNavigate();
-  const posts = blogPosts;
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("https://admin.artdevata.net/api/blogs")
+      .then(res => res.json())
+      .then(json => {
+        const data = json.data || json;
+        const sorted = data.sort((a: any, b: any) =>
+          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        );
+        setPosts(sorted);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
+
+  if (loading) {
+    return (
+      <AppLayout>
+        <div className="min-h-screen flex items-center justify-center">
+          <Loader2 className="w-12 h-12 animate-spin text-primary" />
+        </div>
+      </AppLayout>
+    );
+  }
+
+  const featured = posts[0];
+  const others = posts.slice(1);
 
   return (
     <AppLayout>
-      {/* Hero Section */}
+      {/* Hero */}
       <section className="pt-32 pb-20 bg-gradient-to-br from-primary to-primary/90">
-        <div className="container ">
-          <motion.div
+        <div className="container text-center text-primary-foreground">
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="max-w-3xl mx-auto text-center"
+            className="text-5xl lg:text-6xl font-bold mb-6"
           >
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-primary-foreground mb-6">
-              Blog & Berita
-            </h1>
-            <p className="text-xl text-primary-foreground/90">
-              Tips, panduan, dan insight terbaru seputar teknologi dan bisnis
-              digital
-            </p>
-          </motion.div>
+            Blog & Berita
+          </motion.h1>
+          <p className="mt-4 text-xl opacity-90">
+            Tips, panduan, dan insight terbaru seputar teknologi dan bisnis digital
+          </p>
         </div>
       </section>
 
-      {/* Featured Post */}
-      <section className="py-20 bg-background">
-        <div className="container ">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <Card className="overflow-hidden hover:shadow-2xl transition-shadow">
-              <div className="grid lg:grid-cols-2 gap-0">
-                <div className="relative aspect-video lg:aspect-auto">
-                  <img
-                    src={posts[0].image}
-                    alt={posts[0].title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <span className="inline-block px-4 py-1 rounded-full bg-accent text-accent-foreground text-sm font-semibold">
-                      Featured
+      {/* Featured Post Utama */}
+      {featured && (
+        <section className="py-20 bg-background">
+          <div className="container">
+            <Card className="overflow-hidden shadow-xl">
+              <div className="grid lg:grid-cols-2">
+                <img src={featured.image} alt={featured.title} className="w-full h-full object-cover" />
+                <div className="p-10 flex flex-col justify-center">
+                  <span className="text-sm font-bold text-accent mb-3">{featured.category}</span>
+                  <h2
+                    className="text-3xl font-bold mb-4 cursor-pointer hover:text-accent transition"
+                    onClick={() => navigate(`/blog/${featured.id}`)}
+                  >
+                    {featured.title}
+                  </h2>
+                  <p className="text-muted-foreground mb-6">{featured.excerpt}</p>
+                  <div className="flex gap-6 text-sm text-muted-foreground mb-8">
+                    <span className="flex items-center gap-2">
+                      <Calendar className="w-4 h-4" />
+                      {new Date(featured.created_at).toLocaleDateString("id-ID")}
+                    </span>
+                    <span className="flex items-center gap-2">
+                      <User className="w-4 h-4" />
+                      {featured.author}
                     </span>
                   </div>
-                </div>
-                <div className="p-8 lg:p-12 flex flex-col justify-center">
-                  <div className="text-sm text-accent font-semibold mb-3">
-                    {posts[0].category}
-                  </div>
-                  <h2
-                    className="text-3xl font-bold text-foreground mb-4 hover:text-accent transition-colors cursor-pointer"
-                    onClick={() => navigate(`/blog/${posts[0].slug}`)}
-                  >
-                    {posts[0].title}
-                  </h2>
-                  <p className="text-muted-foreground mb-6 leading-relaxed">
-                    {posts[0].excerpt}
-                  </p>
-                  <div className="flex items-center space-x-4 text-sm text-muted-foreground mb-6">
-                    <div className="flex items-center">
-                      <Calendar className="w-4 h-4 mr-2" />
-                      {posts[0].date}
-                    </div>
-                    <div className="flex items-center">
-                      <User className="w-4 h-4 mr-2" />
-                      {posts[0].author}
-                    </div>
-                  </div>
-                  <Button
-                    className="w-fit bg-accent hover:bg-accent/90 text-accent-foreground group"
-                    onClick={() => navigate(`/blog/${posts[0].slug}`)}
-                  >
-                    Baca Selengkapnya
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  <Button onClick={() => navigate(`/blog/${featured.id}`)}>
+                    Baca Selengkapnya <ArrowRight className="ml-2" />
                   </Button>
                 </div>
               </div>
             </Card>
-          </motion.div>
-        </div>
-      </section>
+          </div>
+        </section>
+      )}
 
-      {/* Blog Grid */}
-      <section className="pb-20 bg-background">
-        <div className="container ">
+      {/* Daftar Blog Lainnya */}
+      <section className="py-20 bg-background">
+        <div className="container">
+          <h2 className="text-3xl font-bold mb-10">Artikel Lainnya</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.slice(1).map((post, index) => (
+            {others.map((post, i) => (
               <motion.div
-                key={post.title}
+                key={post.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ delay: i * 0.1 }}
+                onClick={() => navigate(`/blog/${post.id}`)}
+                className="cursor-pointer"
               >
-                <Card
-                  className="group overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer h-full"
-                  onClick={() => navigate(`/blog/${post.slug}`)}
-                >
-                  <div className="relative overflow-hidden aspect-video">
-                    <img
-                      src={post.image}
-                      alt={post.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                  </div>
+                <Card className="overflow-hidden hover:shadow-xl transition-shadow h-full">
+                  <img src={post.image} alt={post.title} className="w-full h-48 object-cover" />
                   <div className="p-6">
-                    <div className="text-sm text-accent font-semibold mb-2">
-                      {post.category}
-                    </div>
-                    <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-accent transition-colors line-clamp-2">
+                    <span className="text-sm font-bold text-accent">{post.category}</span>
+                    <h3 className="text-xl font-bold mt-2 mb-3 hover:text-accent transition">
                       {post.title}
                     </h3>
-                    <p className="text-muted-foreground mb-4 line-clamp-2">
-                      {post.excerpt}
-                    </p>
-                    <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                      <div className="flex items-center">
-                        <Calendar className="w-4 h-4 mr-1" />
-                        {post.date}
-                      </div>
+                    <p className="text-sm text-muted-foreground line-clamp-3">{post.excerpt}</p>
+                    <div className="mt-4 text-xs text-muted-foreground flex items-center gap-2">
+                      <Calendar className="w-3 h-3" />
+                      {new Date(post.created_at).toLocaleDateString("id-ID")}
                     </div>
                   </div>
                 </Card>
