@@ -50,9 +50,9 @@ const Footer = () => {
   return (
     <footer className="bg-primary text-primary-foreground">
       <div className="container  py-12 lg:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12 mb-12">
           {/* Company Info */}
-          <div>
+          <div className="lg:col-span-2">
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-2 group mb-4">
               <img src={Logo} alt="" className="size-12" />
@@ -61,8 +61,9 @@ const Footer = () => {
               </span>
             </Link>
             <p className="text-primary-foreground/80 mb-4 leading-relaxed">
-              Penyedia solusi IT terpercaya untuk transformasi digital bisnis
-              Anda.
+              Kami menyediakan solusi IT terpadu dari pengembangan website,
+              hosting & domain, instalasi CCTV, hingga IT support untuk
+              mendukung transformasi digital bisnis Anda.
             </p>
             <div className="flex items-center space-x-2 text-primary-foreground/80">
               <Mail className="w-4 h-4" />

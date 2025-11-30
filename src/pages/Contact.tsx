@@ -16,6 +16,9 @@ import {
   Facebook,
   Instagram,
   Linkedin,
+  User,
+  MessageSquare,
+  Briefcase,
 } from "lucide-react";
 import { Icon } from "@iconify/react";
 import { useForm } from "react-hook-form";
@@ -90,6 +93,38 @@ const Contact = () => {
       message: "",
     },
   });
+
+  // Check if required fields are filled
+  const name = form.watch("name");
+  const email = form.watch("email");
+  const phone = form.watch("phone");
+
+  const isBasicInfoFilled =
+    name.length >= 2 &&
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) &&
+    phone.length >= 10;
+
+  // Template pesan berdasarkan layanan
+  const messageTemplates: Record<string, string> = {
+    website:
+      "Halo, saya tertarik dengan layanan Website Development. Saya ingin membuat website untuk [jenis bisnis]. Beberapa fitur yang saya butuhkan adalah [sebutkan fitur]. Budget yang saya alokasikan sekitar [budget]. Mohon informasi lebih lanjut mengenai timeline dan proses pengerjaannya.",
+    hosting:
+      "Halo, saya membutuhkan layanan Hosting & Domain untuk website saya. Estimasi traffic per bulan sekitar [jumlah visitor]. Saya memerlukan [kapasitas storage] storage dan [bandwidth] bandwidth. Mohon rekomendasi paket yang sesuai.",
+    cctv: "Halo, saya ingin memasang CCTV untuk [lokasi/jenis tempat]. Area yang perlu dipantau sekitar [luas area] dengan [jumlah] titik kamera. Saya membutuhkan fitur [rekaman/live monitoring/remote access]. Mohon informasi untuk survey lokasi.",
+    support:
+      "Halo, saya membutuhkan IT Support untuk [jenis kebutuhan]. Permasalahan yang sering dihadapi adalah [sebutkan masalah]. Saya memerlukan dukungan [one-time/regular/on-call]. Mohon informasi mengenai paket layanan yang tersedia.",
+    cloud:
+      "Halo, saya tertarik dengan Cloud Solutions untuk [keperluan bisnis]. Saat ini saya menggunakan [infrastruktur saat ini] dan ingin migrasi ke cloud. Data yang perlu disimpan sekitar [ukuran data]. Mohon konsultasi lebih lanjut.",
+    other:
+      "Halo, saya ingin berkonsultasi mengenai [sebutkan kebutuhan]. Beberapa detail yang perlu didiskusikan adalah [sebutkan detail]. Mohon informasi lebih lanjut mengenai solusi yang bisa ditawarkan.",
+  };
+
+  // Update message template saat service berubah
+  const handleServiceChange = (value: string) => {
+    if (messageTemplates[value] && !form.getValues("message")) {
+      form.setValue("message", messageTemplates[value]);
+    }
+  };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
@@ -198,7 +233,8 @@ const Contact = () => {
               transition={{ duration: 0.6 }}
             >
               <Card className="p-8 bg-card border-border shadow-lg">
-                <h2 className="text-2xl font-bold text-card-foreground mb-6">
+                <h2 className="text-2xl font-bold text-card-foreground mb-6 flex items-center gap-2">
+                  <Send className="w-6 h-6 text-primary" />
                   Kirim Pesan
                 </h2>
                 <Form {...form}>
@@ -212,7 +248,8 @@ const Contact = () => {
                         name="name"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-card-foreground">
+                            <FormLabel className="text-card-foreground flex items-center gap-2">
+                              <User className="w-4 h-4 text-primary" />
                               Nama Lengkap
                             </FormLabel>
                             <FormControl>
@@ -231,7 +268,8 @@ const Contact = () => {
                         name="email"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-card-foreground">
+                            <FormLabel className="text-card-foreground flex items-center gap-2">
+                              <Mail className="w-4 h-4 text-primary" />
                               Email
                             </FormLabel>
                             <FormControl>
@@ -253,7 +291,8 @@ const Contact = () => {
                       name="phone"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-card-foreground">
+                          <FormLabel className="text-card-foreground flex items-center gap-2">
+                            <Phone className="w-4 h-4 text-primary" />
                             Nomor Telepon
                           </FormLabel>
                           <FormControl>
@@ -274,16 +313,35 @@ const Contact = () => {
                       name="service"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-card-foreground">
+                          <FormLabel className="text-card-foreground flex items-center gap-2">
+                            <Briefcase className="w-4 h-4 text-primary" />
                             Layanan yang Diminati
+                            {!isBasicInfoFilled && (
+                              <span className="text-xs text-muted-foreground">
+                                (isi data diri terlebih dahulu)
+                              </span>
+                            )}
                           </FormLabel>
                           <Select
-                            onValueChange={field.onChange}
+                            onValueChange={(value) => {
+                              field.onChange(value);
+                              handleServiceChange(value);
+                            }}
                             defaultValue={field.value}
+                            disabled={!isBasicInfoFilled}
                           >
                             <FormControl>
-                              <SelectTrigger className="bg-background border-border text-foreground">
-                                <SelectValue placeholder="Pilih Layanan" />
+                              <SelectTrigger
+                                className="bg-background border-border text-foreground disabled:opacity-50 disabled:cursor-not-allowed"
+                                disabled={!isBasicInfoFilled}
+                              >
+                                <SelectValue
+                                  placeholder={
+                                    isBasicInfoFilled
+                                      ? "Pilih Layanan"
+                                      : "Lengkapi data diri terlebih dahulu"
+                                  }
+                                />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent className="bg-popover border-border">
@@ -315,7 +373,8 @@ const Contact = () => {
                       name="message"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-card-foreground">
+                          <FormLabel className="text-card-foreground flex items-center gap-2">
+                            <MessageSquare className="w-4 h-4 text-primary" />
                             Pesan
                           </FormLabel>
                           <FormControl>
@@ -353,7 +412,11 @@ const Contact = () => {
             {/* Info Side */}
             <MotionCard className="space-y-8 p-8 bg-card border-border shadow-lg">
               <div>
-                <h2 className="text-2xl font-bold text-foreground mb-4">
+                <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
+                  <Icon
+                    icon="mdi:star-circle"
+                    className="!w-6 !h-6 text-primary"
+                  />
                   Mengapa Memilih ArtDevata?
                 </h2>
                 <div className="space-y-4">
@@ -417,7 +480,11 @@ const Contact = () => {
               </div>
 
               <Card className="p-6 bg-muted">
-                <h3 className="font-bold text-foreground mb-4">
+                <h3 className="font-bold text-foreground mb-4 flex items-center gap-2">
+                  <Icon
+                    icon="mdi:share-variant"
+                    className="!w-5 !h-5 text-primary"
+                  />
                   Ikuti Kami di Media Sosial
                 </h3>
                 <div className="flex gap-3">
@@ -446,7 +513,10 @@ const Contact = () => {
 
               <Card className="p-6 bg-accent">
                 <div className="text-primary-foreground mb-4">
-                  <h3 className="font-bold mb-2">Butuh Konsultasi Segera?</h3>
+                  <h3 className="font-bold mb-2 flex items-center gap-2">
+                    <Icon icon="mdi:chat-processing" className="!w-5 !h-5" />
+                    Butuh Konsultasi Segera?
+                  </h3>
                   <p className="text-sm mb-4 opacity-90">
                     Hubungi kami langsung via WhatsApp untuk respons cepat
                   </p>
@@ -467,7 +537,11 @@ const Contact = () => {
             className="space-y-6 mt-12"
           >
             <CardHeader>
-              <h2 className="text-2xl font-bold text-foreground mb-4">
+              <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
+                <Icon
+                  icon="mdi:information"
+                  className="!w-6 !h-6 text-primary"
+                />
                 Informasi Kontak
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-8">
