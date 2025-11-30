@@ -138,7 +138,7 @@ const BlogDetail = () => {
               <Separator className="my-12" />
 
               {/* Share Section */}
-              <div className="bg-muted/30 rounded-lg p-6">
+              {/* <div className="bg-muted/30 rounded-lg p-6">
                 <div className="flex items-center justify-between flex-wrap gap-4">
                   <div className="flex items-center">
                     <Share2 className="w-5 h-5 mr-3 text-muted-foreground" />
@@ -170,7 +170,7 @@ const BlogDetail = () => {
                     </Button>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </Card>
           </motion.div>
 

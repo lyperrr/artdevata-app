@@ -16,6 +16,9 @@ import {
   Facebook,
   Instagram,
   Linkedin,
+  User,
+  MessageSquare,
+  Briefcase,
 } from "lucide-react";
 import { Icon } from "@iconify/react";
 import { useForm } from "react-hook-form";
@@ -198,7 +201,8 @@ const Contact = () => {
               transition={{ duration: 0.6 }}
             >
               <Card className="p-8 bg-card border-border shadow-lg">
-                <h2 className="text-2xl font-bold text-card-foreground mb-6">
+                <h2 className="text-2xl font-bold text-card-foreground mb-6 flex items-center gap-2">
+                  <Send className="w-6 h-6 text-primary" />
                   Kirim Pesan
                 </h2>
                 <Form {...form}>
@@ -212,7 +216,8 @@ const Contact = () => {
                         name="name"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-card-foreground">
+                            <FormLabel className="text-card-foreground flex items-center gap-2">
+                              <User className="w-4 h-4 text-primary" />
                               Nama Lengkap
                             </FormLabel>
                             <FormControl>
@@ -231,7 +236,8 @@ const Contact = () => {
                         name="email"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="text-card-foreground">
+                            <FormLabel className="text-card-foreground flex items-center gap-2">
+                              <Mail className="w-4 h-4 text-primary" />
                               Email
                             </FormLabel>
                             <FormControl>
@@ -253,7 +259,8 @@ const Contact = () => {
                       name="phone"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-card-foreground">
+                          <FormLabel className="text-card-foreground flex items-center gap-2">
+                            <Phone className="w-4 h-4 text-primary" />
                             Nomor Telepon
                           </FormLabel>
                           <FormControl>
@@ -274,7 +281,8 @@ const Contact = () => {
                       name="service"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-card-foreground">
+                          <FormLabel className="text-card-foreground flex items-center gap-2">
+                            <Briefcase className="w-4 h-4 text-primary" />
                             Layanan yang Diminati
                           </FormLabel>
                           <Select
@@ -315,7 +323,8 @@ const Contact = () => {
                       name="message"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-card-foreground">
+                          <FormLabel className="text-card-foreground flex items-center gap-2">
+                            <MessageSquare className="w-4 h-4 text-primary" />
                             Pesan
                           </FormLabel>
                           <FormControl>
@@ -353,7 +362,11 @@ const Contact = () => {
             {/* Info Side */}
             <MotionCard className="space-y-8 p-8 bg-card border-border shadow-lg">
               <div>
-                <h2 className="text-2xl font-bold text-foreground mb-4">
+                <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
+                  <Icon
+                    icon="mdi:star-circle"
+                    className="!w-6 !h-6 text-primary"
+                  />
                   Mengapa Memilih ArtDevata?
                 </h2>
                 <div className="space-y-4">
@@ -417,7 +430,11 @@ const Contact = () => {
               </div>
 
               <Card className="p-6 bg-muted">
-                <h3 className="font-bold text-foreground mb-4">
+                <h3 className="font-bold text-foreground mb-4 flex items-center gap-2">
+                  <Icon
+                    icon="mdi:share-variant"
+                    className="!w-5 !h-5 text-primary"
+                  />
                   Ikuti Kami di Media Sosial
                 </h3>
                 <div className="flex gap-3">
@@ -446,7 +463,10 @@ const Contact = () => {
 
               <Card className="p-6 bg-accent">
                 <div className="text-primary-foreground mb-4">
-                  <h3 className="font-bold mb-2">Butuh Konsultasi Segera?</h3>
+                  <h3 className="font-bold mb-2 flex items-center gap-2">
+                    <Icon icon="mdi:chat-processing" className="!w-5 !h-5" />
+                    Butuh Konsultasi Segera?
+                  </h3>
                   <p className="text-sm mb-4 opacity-90">
                     Hubungi kami langsung via WhatsApp untuk respons cepat
                   </p>
@@ -467,7 +487,11 @@ const Contact = () => {
             className="space-y-6 mt-12"
           >
             <CardHeader>
-              <h2 className="text-2xl font-bold text-foreground mb-4">
+              <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
+                <Icon
+                  icon="mdi:information"
+                  className="!w-6 !h-6 text-primary"
+                />
                 Informasi Kontak
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-8">
