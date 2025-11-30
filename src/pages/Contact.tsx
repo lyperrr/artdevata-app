@@ -94,6 +94,16 @@ const Contact = () => {
     },
   });
 
+  // Check if required fields are filled
+  const name = form.watch("name");
+  const email = form.watch("email");
+  const phone = form.watch("phone");
+
+  const isBasicInfoFilled =
+    name.length >= 2 &&
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) &&
+    phone.length >= 10;
+
   // Template pesan berdasarkan layanan
   const messageTemplates: Record<string, string> = {
     website:
@@ -306,6 +316,11 @@ const Contact = () => {
                           <FormLabel className="text-card-foreground flex items-center gap-2">
                             <Briefcase className="w-4 h-4 text-primary" />
                             Layanan yang Diminati
+                            {!isBasicInfoFilled && (
+                              <span className="text-xs text-muted-foreground">
+                                (isi data diri terlebih dahulu)
+                              </span>
+                            )}
                           </FormLabel>
                           <Select
                             onValueChange={(value) => {
@@ -313,10 +328,20 @@ const Contact = () => {
                               handleServiceChange(value);
                             }}
                             defaultValue={field.value}
+                            disabled={!isBasicInfoFilled}
                           >
                             <FormControl>
-                              <SelectTrigger className="bg-background border-border text-foreground">
-                                <SelectValue placeholder="Pilih Layanan" />
+                              <SelectTrigger
+                                className="bg-background border-border text-foreground disabled:opacity-50 disabled:cursor-not-allowed"
+                                disabled={!isBasicInfoFilled}
+                              >
+                                <SelectValue
+                                  placeholder={
+                                    isBasicInfoFilled
+                                      ? "Pilih Layanan"
+                                      : "Lengkapi data diri terlebih dahulu"
+                                  }
+                                />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent className="bg-popover border-border">
