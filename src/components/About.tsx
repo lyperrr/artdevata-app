@@ -79,11 +79,11 @@ const About = () => {
             transition={{ duration: 0.6 }}
             className="relative "
           >
-            <div className="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl aspect-[4/3] sm:aspect-auto">
+            <div className="relative group rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl aspect-[4/3] sm:aspect-auto">
               <img
                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop"
                 alt="Professional IT team collaboration"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover group-hover:scale-105 group-hover:rotate-3 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent"></div>
             </div>
