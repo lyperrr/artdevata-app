@@ -86,9 +86,13 @@ const Blog = () => {
                 <div className="grid lg:grid-cols-5 gap-0">
                   <div className="relative lg:col-span-2 aspect-video lg:aspect-auto overflow-hidden">
                     <img
-                      src={featured.image}
+                      src={featured.image?.startsWith('http') ? featured.image : `https://admin.artdevata.net/storage/${featured.image}`}
                       alt={featured.title}
                       className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = 'https://via.placeholder.com/600x400/3B82F6/FFFFFF?text=Blog+Featured';
+                      }}
                     />
                   </div>
                   <div className="lg:col-span-3 p-6 lg:p-8 flex flex-col justify-center">
@@ -159,9 +163,13 @@ const Blog = () => {
                 <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 h-full border-border/50 hover:border-accent/50">
                   <div className="relative aspect-video overflow-hidden">
                     <img
-                      src={post.image}
+                      src={post.image?.startsWith('http') ? post.image : `https://admin.artdevata.net/storage/${post.image}`}
                       alt={post.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = 'https://via.placeholder.com/400x300/3B82F6/FFFFFF?text=Blog+Thumbnail';
+                      }}
                     />
                   </div>
                   <div className="p-6">
