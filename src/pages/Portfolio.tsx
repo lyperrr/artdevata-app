@@ -29,7 +29,8 @@ const Portfolio = () => {
     "IT Support",
   ];
 
-  const API_URL = "https://admin.artdevata.net/api/portfolios";
+  // const API_URL = `${import.meta.env.VITE_API_URL}/portfolios`;
+    const API_URL = "https://admin.artdevata.net/api/portfolios";
 
   useEffect(() => {
     fetch(API_URL)
@@ -88,7 +89,8 @@ const Portfolio = () => {
               Portfolio Kami
             </h1>
             <p className="text-xl opacity-90">
-              Lihat berbagai proyek sukses yang telah kami kerjakan untuk klien kami
+              Lihat berbagai proyek sukses yang telah kami kerjakan untuk klien
+              kami
             </p>
           </motion.div>
         </div>
@@ -171,10 +173,13 @@ const Portfolio = () => {
                             {project.date && (
                               <>
                                 {project.client && " • "}
-                                {new Date(project.date).toLocaleDateString("id-ID", {
-                                  year: "numeric",
-                                  month: "long",
-                                })}
+                                {new Date(project.date).toLocaleDateString(
+                                  "id-ID",
+                                  {
+                                    year: "numeric",
+                                    month: "long",
+                                  }
+                                )}
                               </>
                             )}
                           </div>

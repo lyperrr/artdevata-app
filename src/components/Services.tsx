@@ -12,6 +12,7 @@ const Services = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
+        // const res = await fetch(`${import.meta.env.VITE_API_URL}/services`);
         const res = await fetch("https://admin.artdevata.net/api/services");
         const data = await res.json();
 
@@ -30,7 +31,6 @@ const Services = () => {
   return (
     <section className="py-20 lg:py-32 bg-background">
       <div className="container">
-
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <motion.div
@@ -62,7 +62,8 @@ const Services = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-lg text-muted-foreground"
           >
-            Solusi IT komprehensif yang dirancang untuk mendorong bisnis Anda maju
+            Solusi IT komprehensif yang dirancang untuk mendorong bisnis Anda
+            maju
           </motion.p>
         </div>
 
@@ -83,16 +84,6 @@ const Services = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 <Card className="h-full p-6 lg:p-8 hover:shadow-xl transition-all duration-300 group border-border/50 hover:border-accent/50 bg-card">
-                  <div className="mb-6">
-                    <div className="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center group-hover:bg-accent group-hover:scale-110 transition-all duration-300 overflow-hidden">
-                      <img
-                        src={`https://admin.artdevata.net/storage/${service.image}`}
-                        className="w-10 h-10 object-cover rounded-lg"
-                        alt={service.title}
-                      />
-                    </div>
-                  </div>
-
                   <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-accent transition-colors">
                     {service.title}
                   </h3>
@@ -125,7 +116,6 @@ const Services = () => {
             </Link>
           </Button>
         </motion.div>
-
       </div>
     </section>
   );

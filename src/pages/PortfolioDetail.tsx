@@ -45,16 +45,20 @@ const PortfolioDetail = () => {
     const fetchProject = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`https://admin.artdevata.net/api/portfolios/${id}`);
+        // const res = await fetch(
+        //   `${import.meta.env.VITE_API_URL}/portfolios/${id}`
+        // );
+                const res = await fetch(
+                  `https://admin.artdevata.net/api/portfolios/${id}`
+                );
         const json = await res.json();
 
         // Laravel biasanya balikin { data: {...} }
         const data = json.data || json;
 
         // Pastikan images selalu array (jika kosong atau null)
-        const images = data.images && data.images.length > 0
-          ? data.images
-          : [data.image]; // fallback ke image utama
+        const images =
+          data.images && data.images.length > 0 ? data.images : [data.image]; // fallback ke image utama
 
         setProject({
           ...data,
@@ -225,7 +229,9 @@ const PortfolioDetail = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                 >
-                  <h3 className="text-2xl font-bold mb-4">Hasil yang Dicapai</h3>
+                  <h3 className="text-2xl font-bold mb-4">
+                    Hasil yang Dicapai
+                  </h3>
                   <ul className="space-y-3">
                     {project.results.map((result, i) => (
                       <li key={i} className="flex items-start gap-3">
@@ -280,8 +286,6 @@ const PortfolioDetail = () => {
                 </dl>
               </motion.div>
 
-             
-
               {project.technologies.length > 0 && (
                 <motion.div
                   initial={{ opacity: 0, x: 30 }}
@@ -289,7 +293,9 @@ const PortfolioDetail = () => {
                   viewport={{ once: true }}
                   className="bg-card p-6 rounded-xl border shadow-sm"
                 >
-                  <h3 className="text-xl font-bold mb-4">Teknologi Digunakan</h3>
+                  <h3 className="text-xl font-bold mb-4">
+                    Teknologi Digunakan
+                  </h3>
                   <div className="flex flex-wrap gap-2">
                     {project.technologies.map((tech) => (
                       <span
@@ -304,12 +310,16 @@ const PortfolioDetail = () => {
               )}
 
               {project.link && (
-                <a href={project.link} target="_blank" rel="noopener noreferrer">
-                  <Button className="w-full" size="lg">
+                <Button className="w-full" size="lg" asChild>
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <ExternalLink className="w-5 h-5 mr-2" />
                     Lihat Website Live
-                  </Button>
-                </a>
+                  </a>
+                </Button>
               )}
             </div>
           </div>
@@ -345,7 +355,10 @@ const PortfolioDetail = () => {
       )}
 
       {/* Lightbox */}
-      <Dialog open={selectedImage !== null} onOpenChange={() => setSelectedImage(null)}>
+      <Dialog
+        open={selectedImage !== null}
+        onOpenChange={() => setSelectedImage(null)}
+      >
         <DialogContent className="max-w-5xl p-0 border-none bg-transparent shadow-none">
           {selectedImage !== null && (
             <div className="relative">
@@ -369,7 +382,9 @@ const PortfolioDetail = () => {
                   size="icon"
                   onClick={() =>
                     setSelectedImage(
-                      selectedImage === 0 ? project.images.length - 1 : selectedImage - 1
+                      selectedImage === 0
+                        ? project.images.length - 1
+                        : selectedImage - 1
                     )
                   }
                 >
@@ -382,7 +397,9 @@ const PortfolioDetail = () => {
                   size="icon"
                   onClick={() =>
                     setSelectedImage(
-                      selectedImage === project.images.length - 1 ? 0 : selectedImage + 1
+                      selectedImage === project.images.length - 1
+                        ? 0
+                        : selectedImage + 1
                     )
                   }
                 >

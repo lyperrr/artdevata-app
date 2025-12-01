@@ -234,7 +234,7 @@ const Contact = () => {
             >
               <Card className="p-8 bg-card border-border shadow-lg">
                 <h2 className="text-2xl font-bold text-card-foreground mb-6 flex items-center gap-2">
-                  <Send className="w-6 h-6 text-primary" />
+                  <Send className="w-6 h-6 flex-shrink-0 text-primary" />
                   Kirim Pesan
                 </h2>
                 <Form {...form}>
@@ -389,6 +389,11 @@ const Contact = () => {
                       )}
                     />
 
+                    <p className="text-sm text-muted-foreground">
+                      *Pesan Anda akan dikirimkan melalui email kepada kami. Kami
+                      akan menghubungi Anda sesegera mungkin.
+                    </p>
+
                     <Button
                       type="submit"
                       size="lg"
@@ -399,8 +404,8 @@ const Contact = () => {
                         <>Mengirim...</>
                       ) : (
                         <>
-                          <Send className="!size-5" />
                           Kirim Pesan
+                          <Send className="!size-5" />
                         </>
                       )}
                     </Button>
@@ -415,7 +420,7 @@ const Contact = () => {
                 <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
                   <Icon
                     icon="mdi:star-circle"
-                    className="!w-6 !h-6 text-primary"
+                    className="!w-6 !h-6 flex-shrink-0 text-primary"
                   />
                   Mengapa Memilih ArtDevata?
                 </h2>
@@ -540,7 +545,7 @@ const Contact = () => {
               <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
                 <Icon
                   icon="mdi:information"
-                  className="!w-6 !h-6 text-primary"
+                  className="!w-6 !h-6 flex-shrink-0 text-primary"
                 />
                 Informasi Kontak
               </h2>

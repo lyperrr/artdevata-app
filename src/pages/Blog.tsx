@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import AppLayout from "@/components/AppLayout";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Calendar, User, ArrowRight, Loader2 } from "lucide-react";
 
 interface BlogPost {
@@ -23,13 +24,16 @@ const Blog = () => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // const API_URL = `${import.meta.env.VITE_API_URL}/blogs`;
+
   useEffect(() => {
     fetch("https://admin.artdevata.net/api/blogs")
-      .then(res => res.json())
-      .then(json => {
+      .then((res) => res.json())
+      .then((json) => {
         const data = json.data || json;
-        const sorted = data.sort((a: any, b: any) =>
-          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        const sorted = data.sort(
+          (a: any, b: any) =>
+            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
         );
         setPosts(sorted);
         setLoading(false);
@@ -63,72 +67,132 @@ const Blog = () => {
             Blog & Berita
           </motion.h1>
           <p className="mt-4 text-xl opacity-90">
-            Tips, panduan, dan insight terbaru seputar teknologi dan bisnis digital
+            Tips, panduan, dan insight terbaru seputar teknologi dan bisnis
+            digital
           </p>
         </div>
       </section>
-
       {/* Featured Post Utama */}
       {featured && (
-        <section className="py-20 bg-background">
-          <div className="container">
-            <Card className="overflow-hidden shadow-xl">
-              <div className="grid lg:grid-cols-2">
-                <img src={featured.image} alt={featured.title} className="w-full h-full object-cover" />
-                <div className="p-10 flex flex-col justify-center">
-                  <span className="text-sm font-bold text-accent mb-3">{featured.category}</span>
-                  <h2
-                    className="text-3xl font-bold mb-4 cursor-pointer hover:text-accent transition"
-                    onClick={() => navigate(`/blog/${featured.id}`)}
-                  >
-                    {featured.title}
-                  </h2>
-                  <p className="text-muted-foreground mb-6">{featured.excerpt}</p>
-                  <div className="flex gap-6 text-sm text-muted-foreground mb-8">
-                    <span className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4" />
-                      {new Date(featured.created_at).toLocaleDateString("id-ID")}
-                    </span>
-                    <span className="flex items-center gap-2">
-                      <User className="w-4 h-4" />
-                      {featured.author}
-                    </span>
+        <section className="py-12 bg-background">
+          <div className="container max-w-5xl">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <Card className="overflow-hidden border-border/50">
+                <div className="grid lg:grid-cols-5 gap-0">
+                  <div className="relative lg:col-span-2 aspect-video lg:aspect-auto overflow-hidden">
+                    <img
+                      src={featured.image}
+                      alt={featured.title}
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    />
                   </div>
-                  <Button onClick={() => navigate(`/blog/${featured.id}`)}>
-                    Baca Selengkapnya <ArrowRight className="ml-2" />
-                  </Button>
+                  <div className="lg:col-span-3 p-6 lg:p-8 flex flex-col justify-center">
+                    <Badge className="w-fit mb-3 text-xs bg-accent/10 text-accent hover:bg-accent/20 border-0">
+                      {featured.category}
+                    </Badge>
+                    <h2
+                      className="text-2xl lg:text-3xl font-bold mb-3 cursor-pointer hover:text-accent transition line-clamp-2"
+                      onClick={() => navigate(`/blog/${featured.id}`)}
+                    >
+                      {featured.title}
+                    </h2>
+                    <p className="text-sm text-muted-foreground mb-4 leading-relaxed line-clamp-2">
+                      {featured.excerpt}
+                    </p>
+                    <div className="flex flex-wrap gap-4 text-xs text-muted-foreground mb-6">
+                      <span className="flex items-center gap-2">
+                        <Calendar className="w-3.5 h-3.5" />
+                        {new Date(featured.created_at).toLocaleDateString(
+                          "id-ID",
+                          { day: "numeric", month: "long", year: "numeric" }
+                        )}
+                      </span>
+                      <span className="flex items-center gap-2">
+                        <User className="w-3.5 h-3.5" />
+                        {featured.author}
+                      </span>
+                    </div>
+                    <div className="flex justify-end">
+                      <Button
+                        onClick={() => navigate(`/blog/${featured.id}`)}
+                        className="w-full lg:w-fit"
+                        size="sm"
+                      >
+                        Baca Selengkapnya{" "}
+                        <ArrowRight className="ml-2 w-3.5 h-3.5" />
+                      </Button>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </Card>
+              </Card>
+            </motion.div>
           </div>
         </section>
-      )}
-
+      )}{" "}
       {/* Daftar Blog Lainnya */}
       <section className="py-20 bg-background">
         <div className="container">
-          <h2 className="text-3xl font-bold mb-10">Artikel Lainnya</h2>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl font-bold mb-10"
+          >
+            Artikel Lainnya
+          </motion.h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {others.map((post, i) => (
               <motion.div
                 key={post.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
                 onClick={() => navigate(`/blog/${post.id}`)}
-                className="cursor-pointer"
+                className="cursor-pointer group"
               >
-                <Card className="overflow-hidden hover:shadow-xl transition-shadow h-full">
-                  <img src={post.image} alt={post.title} className="w-full h-48 object-cover" />
+                <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 h-full border-border/50 hover:border-accent/50">
+                  <div className="relative aspect-video overflow-hidden">
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                  </div>
                   <div className="p-6">
-                    <span className="text-sm font-bold text-accent">{post.category}</span>
-                    <h3 className="text-xl font-bold mt-2 mb-3 hover:text-accent transition">
+                    <Badge className="mb-3 text-xs bg-accent/10 text-accent hover:bg-accent/20 border-0">
+                      {post.category}
+                    </Badge>
+                    <h3 className="text-lg font-bold mb-2 group-hover:text-accent transition line-clamp-2">
                       {post.title}
                     </h3>
-                    <p className="text-sm text-muted-foreground line-clamp-3">{post.excerpt}</p>
-                    <div className="mt-4 text-xs text-muted-foreground flex items-center gap-2">
+                    <p className="text-sm text-muted-foreground line-clamp-2 mb-4 leading-relaxed">
+                      {post.excerpt}
+                    </p>
+
+                    <div className="flex justify-end">
+                      <Button
+                        size="sm"
+                        variant="link"
+                        onClick={() => navigate(`/blog/${post.id}`)}
+                        className="w-full lg:w-fit hover:no-underline text-accent"
+                      >
+                        Baca Selengkapnya
+                        <ArrowRight className="ml-2 w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" />
+                      </Button>
+                    </div>
+                    <div className="text-xs text-muted-foreground flex items-center gap-2">
                       <Calendar className="w-3 h-3" />
-                      {new Date(post.created_at).toLocaleDateString("id-ID")}
+                      {new Date(post.created_at).toLocaleDateString("id-ID", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                      })}
                     </div>
                   </div>
                 </Card>
