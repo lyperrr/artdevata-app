@@ -6,7 +6,7 @@ import AppLayout from "@/components/AppLayout";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, User, ArrowRight, Loader2 } from "lucide-react";
+import { Calendar, User, ArrowRight, Loader2, ImageOff } from "lucide-react";
 
 interface BlogPost {
   id: number;
@@ -84,16 +84,38 @@ const Blog = () => {
             >
               <Card className="overflow-hidden border-border/50">
                 <div className="grid lg:grid-cols-5 gap-0">
-                  <div className="relative lg:col-span-2 aspect-video lg:aspect-auto overflow-hidden">
-                    <img
-                      src={featured.image?.startsWith('http') ? featured.image : `https://admin.artdevata.net/storage/${featured.image}`}
-                      alt={featured.title}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src = 'https://via.placeholder.com/600x400/3B82F6/FFFFFF?text=Blog+Featured';
-                      }}
-                    />
+                  <div className="relative lg:col-span-2 h-[280px] lg:h-[320px] overflow-hidden bg-muted">
+                    {featured.image ? (
+                      <img
+                        src={
+                          featured.image?.startsWith("http")
+                            ? featured.image
+                            : `https://admin.artdevata.net/storage/${featured.image}`
+                        }
+                        alt={featured.title}
+                        className="w-full h-full object-contain hover:scale-105 transition-transform duration-500"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = "none";
+                          const parent = target.parentElement;
+                          if (parent) {
+                            parent.innerHTML = `
+                              <div class="w-full h-full flex flex-col items-center justify-center">
+                                <svg class="w-12 h-12 text-muted-foreground mb-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" x2="22" y1="2" y2="22"/><path d="M10.41 10.41a2 2 0 1 1-2.83-2.83"/><line x1="13.5" x2="6" y1="13.5" y2="21"/><line x1="18" x2="21" y1="12" y2="15"/><path d="M3.59 3.59A1.99 1.99 0 0 0 3 5v14a2 2 0 0 0 2 2h14c.55 0 1.052-.22 1.41-.59"/><path d="M21 15V5a2 2 0 0 0-2-2H9"/></svg>
+                                <p class="text-muted-foreground text-xs">Gambar tidak tersedia</p>
+                              </div>
+                            `;
+                          }
+                        }}
+                      />
+                    ) : (
+                      <div className="w-full h-full flex flex-col items-center justify-center">
+                        <ImageOff className="w-12 h-12 text-muted-foreground mb-2" />
+                        <p className="text-muted-foreground text-xs">
+                          Gambar tidak tersedia
+                        </p>
+                      </div>
+                    )}
                   </div>
                   <div className="lg:col-span-3 p-6 lg:p-8 flex flex-col justify-center">
                     <Badge className="w-fit mb-3 text-xs bg-accent/10 text-accent hover:bg-accent/20 border-0">
@@ -161,16 +183,34 @@ const Blog = () => {
                 className="cursor-pointer group"
               >
                 <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 h-full border-border/50 hover:border-accent/50">
-                  <div className="relative aspect-video overflow-hidden">
-                    <img
-                      src={post.image?.startsWith('http') ? post.image : `https://admin.artdevata.net/storage/${post.image}`}
-                      alt={post.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src = 'https://via.placeholder.com/400x300/3B82F6/FFFFFF?text=Blog+Thumbnail';
-                      }}
-                    />
+                  <div className="relative h-[220px] overflow-hidden bg-muted group">
+                    {post.image ? (
+                      <img
+                        src={
+                          post.image?.startsWith("http")
+                            ? post.image
+                            : `https://admin.artdevata.net/storage/${post.image}`
+                        }
+                        alt={post.title}
+                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = "none";
+                          const parent = target.parentElement;
+                          if (parent) {
+                            parent.innerHTML = `
+                              <div class="w-full h-full flex flex-col items-center justify-center">
+                                <svg class="w-10 h-10 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" x2="22" y1="2" y2="22"/><path d="M10.41 10.41a2 2 0 1 1-2.83-2.83"/><line x1="13.5" x2="6" y1="13.5" y2="21"/><line x1="18" x2="21" y1="12" y2="15"/><path d="M3.59 3.59A1.99 1.99 0 0 0 3 5v14a2 2 0 0 0 2 2h14c.55 0 1.052-.22 1.41-.59"/><path d="M21 15V5a2 2 0 0 0-2-2H9"/></svg>
+                              </div>
+                            `;
+                          }
+                        }}
+                      />
+                    ) : (
+                      <div className="w-full h-full flex flex-col items-center justify-center">
+                        <ImageOff className="w-10 h-10 text-muted-foreground" />
+                      </div>
+                    )}
                   </div>
                   <div className="p-6">
                     <Badge className="mb-3 text-xs bg-accent/10 text-accent hover:bg-accent/20 border-0">

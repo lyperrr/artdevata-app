@@ -33,6 +33,7 @@ import {
   TrendingUp,
   Mail,
   Check,
+  ImageOff,
 } from "lucide-react";
 
 const BlogDetail = () => {
@@ -219,7 +220,7 @@ const BlogDetail = () => {
   return (
     <AppLayout>
       {/* Header Section */}
-      <section className="pt-24 pb-12 bg-gradient-to-b from-muted/30 to-background">
+      <section className="py-12 bg-gradient-to-b from-muted/30 to-background">
         <div className="container">
           <div className="mx-auto">
             {/* Breadcrumb */}
@@ -263,7 +264,7 @@ const BlogDetail = () => {
               <Card className="border-0 shadow-lg">
                 <CardContent className="p-8 lg:p-12">
                   {/* Category Badge */}
-                  <Badge className="mb-6 bg-primary text-primary-foreground hover:bg-primary/90">
+                  <Badge variant="outline" className="mb-3">
                     {post.category || "Cybersecurity"}
                   </Badge>
 
@@ -405,21 +406,38 @@ const BlogDetail = () => {
                   transition={{ duration: 0.6 }}
                   className="mb-8"
                 >
-                  <Card className="overflow-hidden border-0 shadow-lg">
-                    <img
-                      src={
-                        post.image?.startsWith("http")
-                          ? post.image
-                          : `https://admin.artdevata.net/storage/${post.image}`
-                      }
-                      alt={post.title}
-                      className="w-full h-[300px] lg:h-[400px] object-cover"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src =
-                          "https://via.placeholder.com/800x400/3B82F6/FFFFFF?text=Blog+Image";
-                      }}
-                    />
+                  <Card className="overflow-hidden border-0 shadow-lg bg-muted">
+                    {post.image ? (
+                      <img
+                        src={
+                          post.image?.startsWith("http")
+                            ? post.image
+                            : `https://admin.artdevata.net/storage/${post.image}`
+                        }
+                        alt={post.title}
+                        className="w-full h-[280px] lg:h-[380px] object-contain"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = "none";
+                          const parent = target.parentElement;
+                          if (parent) {
+                            parent.innerHTML = `
+                              <div class="w-full h-[280px] lg:h-[380px] flex flex-col items-center justify-center bg-muted">
+                                <svg class="w-16 h-16 text-muted-foreground mb-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" x2="22" y1="2" y2="22"/><path d="M10.41 10.41a2 2 0 1 1-2.83-2.83"/><line x1="13.5" x2="6" y1="13.5" y2="21"/><line x1="18" x2="21" y1="12" y2="15"/><path d="M3.59 3.59A1.99 1.99 0 0 0 3 5v14a2 2 0 0 0 2 2h14c.55 0 1.052-.22 1.41-.59"/><path d="M21 15V5a2 2 0 0 0-2-2H9"/></svg>
+                                <p class="text-muted-foreground text-sm">Gambar tidak tersedia</p>
+                              </div>
+                            `;
+                          }
+                        }}
+                      />
+                    ) : (
+                      <div className="w-full h-[280px] lg:h-[380px] flex flex-col items-center justify-center bg-muted">
+                        <ImageOff className="w-16 h-16 text-muted-foreground mb-4" />
+                        <p className="text-muted-foreground text-sm">
+                          Gambar tidak tersedia
+                        </p>
+                      </div>
+                    )}
                   </Card>
                 </motion.div>
 
@@ -516,21 +534,34 @@ const BlogDetail = () => {
                             className="group cursor-pointer overflow-hidden border hover:border-primary/50 transition-all hover:shadow-md"
                             onClick={() => navigate(`/blog/${recentPost.id}`)}
                           >
-                            <div className="relative aspect-video overflow-hidden">
-                              <img
-                                src={
-                                  recentPost.image?.startsWith("http")
-                                    ? recentPost.image
-                                    : `https://admin.artdevata.net/storage/${recentPost.image}`
-                                }
-                                alt={recentPost.title}
-                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                onError={(e) => {
-                                  const target = e.target as HTMLImageElement;
-                                  target.src =
-                                    "https://via.placeholder.com/300x200/3B82F6/FFFFFF?text=Blog";
-                                }}
-                              />
+                            <div className="relative h-[140px] overflow-hidden bg-muted">
+                              {recentPost.image ? (
+                                <img
+                                  src={
+                                    recentPost.image?.startsWith("http")
+                                      ? recentPost.image
+                                      : `https://admin.artdevata.net/storage/${recentPost.image}`
+                                  }
+                                  alt={recentPost.title}
+                                  className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                                  onError={(e) => {
+                                    const target = e.target as HTMLImageElement;
+                                    target.style.display = "none";
+                                    const parent = target.parentElement;
+                                    if (parent) {
+                                      parent.innerHTML = `
+                                        <div class="w-full h-full flex flex-col items-center justify-center">
+                                          <svg class="w-8 h-8 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" x2="22" y1="2" y2="22"/><path d="M10.41 10.41a2 2 0 1 1-2.83-2.83"/><line x1="13.5" x2="6" y1="13.5" y2="21"/><line x1="18" x2="21" y1="12" y2="15"/><path d="M3.59 3.59A1.99 1.99 0 0 0 3 5v14a2 2 0 0 0 2 2h14c.55 0 1.052-.22 1.41-.59"/><path d="M21 15V5a2 2 0 0 0-2-2H9"/></svg>
+                                        </div>
+                                      `;
+                                    }
+                                  }}
+                                />
+                              ) : (
+                                <div className="w-full h-full flex flex-col items-center justify-center">
+                                  <ImageOff className="w-8 h-8 text-muted-foreground" />
+                                </div>
+                              )}
                             </div>
                             <CardContent className="p-4">
                               <h4 className="font-semibold text-sm line-clamp-2 mb-2 group-hover:text-primary transition-colors">
