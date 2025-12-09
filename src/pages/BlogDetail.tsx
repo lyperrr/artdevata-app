@@ -559,7 +559,7 @@ const BlogDetail = () => {
                                 />
                               ) : (
                                 <div className="w-full h-full flex flex-col items-center justify-center">
-                                  <ImageOff className="w-8 h-8 text-muted-foreground" />
+                                  <ImageOff className="w-8 h-8 text-muted-foreground " />
                                 </div>
                               )}
                             </div>
