@@ -56,7 +56,7 @@ const Hero = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-4xl sm:text-5xl xl:text-6xl font-bold text-primary-foreground mb-6 leading-tight sm:w-4/5 mx-auto"
           >
-            Wujudkan Bisnis Digital Anda Bersama Kami...
+            Wujudkan Bisnis Digital Anda Bersama Kami
           </motion.h1>
 
           <motion.div
