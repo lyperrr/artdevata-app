@@ -4,6 +4,7 @@ import AppLayout from "@/components/AppLayout";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { Skeleton } from "@/components/ui/skeleton";
 
 // ICON DEFAULT
 import {
@@ -16,6 +17,7 @@ import {
   Rocket,
   Gem,
   Crown,
+  Loader2,
 } from "lucide-react";
 
 const iconMap = {
@@ -35,9 +37,7 @@ const ServicesPage = () => {
     const loadServices = async () => {
       try {
         // const res = await fetch(`${import.meta.env.VITE_API_URL}/services`);
-                const res = await fetch(
-                  "https://admin.artdevata.net/api/services"
-                );
+        const res = await fetch("https://admin.artdevata.net/api/services");
         const data = await res.json();
 
         // Pastikan features bentuk array (kalau masih string → split)
@@ -86,9 +86,22 @@ const ServicesPage = () => {
       <section className="py-20 bg-background">
         <div className="container">
           {loading ? (
-            <p className="text-center text-muted-foreground">
-              Memuat layanan...
-            </p>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <Card key={i} className="h-full p-8">
+                  <Skeleton className="w-16 h-16 rounded-xl mb-4" />
+                  <Skeleton className="h-8 w-3/4 mb-3" />
+                  <Skeleton className="h-4 w-full mb-2" />
+                  <Skeleton className="h-4 w-5/6 mb-4" />
+                  <div className="space-y-2 mb-6">
+                    <Skeleton className="h-3 w-full" />
+                    <Skeleton className="h-3 w-4/5" />
+                    <Skeleton className="h-3 w-full" />
+                  </div>
+                  <Skeleton className="h-10 w-full rounded-md" />
+                </Card>
+              ))}
+            </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {services.map((service, index) => {

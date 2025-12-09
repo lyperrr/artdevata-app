@@ -93,7 +93,7 @@ const Blog = () => {
                             : `https://admin.artdevata.net/storage/${featured.image}`
                         }
                         alt={featured.title}
-                        className="w-full h-full object-contain hover:scale-105 transition-transform duration-500"
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
                           target.style.display = "none";
@@ -131,14 +131,14 @@ const Blog = () => {
                       {featured.excerpt}
                     </p>
                     <div className="flex flex-wrap gap-4 text-xs text-muted-foreground mb-6">
-                      <span className="flex items-center gap-2">
+                      <span className="flex items-center gap-1">
                         <Calendar className="w-3.5 h-3.5" />
                         {new Date(featured.created_at).toLocaleDateString(
                           "id-ID",
                           { day: "numeric", month: "long", year: "numeric" }
                         )}
                       </span>
-                      <span className="flex items-center gap-2">
+                      <span className="flex items-center gap-1">
                         <User className="w-3.5 h-3.5" />
                         {featured.author}
                       </span>
@@ -150,7 +150,7 @@ const Blog = () => {
                         size="sm"
                       >
                         Baca Selengkapnya{" "}
-                        <ArrowRight className="ml-2 w-3.5 h-3.5" />
+                        <ArrowRight className="w-3.5 h-3.5" />
                       </Button>
                     </div>
                   </div>
@@ -161,7 +161,7 @@ const Blog = () => {
         </section>
       )}{" "}
       {/* Daftar Blog Lainnya */}
-      <section className="py-20 bg-background">
+      <section className="pt-10 py-20 bg-background">
         <div className="container">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -179,11 +179,10 @@ const Blog = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                onClick={() => navigate(`/blog/${post.id}`)}
-                className="cursor-pointer group"
+                className="group"
               >
                 <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 h-full border-border/50 hover:border-accent/50">
-                  <div className="relative h-[220px] overflow-hidden bg-muted group">
+                  <div className="relative aspect-video overflow-hidden bg-muted group">
                     {post.image ? (
                       <img
                         src={
@@ -192,7 +191,7 @@ const Blog = () => {
                             : `https://admin.artdevata.net/storage/${post.image}`
                         }
                         alt={post.title}
-                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
                           target.style.display = "none";
@@ -216,14 +215,25 @@ const Blog = () => {
                     <Badge className="mb-3 text-xs bg-accent/10 text-accent hover:bg-accent/20 border-0">
                       {post.category}
                     </Badge>
-                    <h3 className="text-lg font-bold mb-2 group-hover:text-accent transition line-clamp-2">
+                    <h3
+                      onClick={() => navigate(`/blog/${post.id}`)}
+                      className="text-lg font-bold mb-2 group-hover:text-accent transition line-clamp-2 cursor-pointer"
+                    >
                       {post.title}
                     </h3>
                     <p className="text-sm text-muted-foreground line-clamp-2 mb-4 leading-relaxed">
                       {post.excerpt}
                     </p>
 
-                    <div className="flex justify-end">
+                    <div className="flex justify-between items-center">
+                      <div className="text-xs text-muted-foreground flex items-center gap-2">
+                        <Calendar className="w-3 h-3" />
+                        {new Date(post.created_at).toLocaleDateString("id-ID", {
+                          day: "numeric",
+                          month: "long",
+                          year: "numeric",
+                        })}
+                      </div>
                       <Button
                         size="sm"
                         variant="link"
@@ -231,16 +241,8 @@ const Blog = () => {
                         className="w-full lg:w-fit hover:no-underline text-accent"
                       >
                         Baca Selengkapnya
-                        <ArrowRight className="ml-2 w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" />
+                        <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" />
                       </Button>
-                    </div>
-                    <div className="text-xs text-muted-foreground flex items-center gap-2">
-                      <Calendar className="w-3 h-3" />
-                      {new Date(post.created_at).toLocaleDateString("id-ID", {
-                        day: "numeric",
-                        month: "long",
-                        year: "numeric",
-                      })}
                     </div>
                   </div>
                 </Card>

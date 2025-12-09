@@ -534,7 +534,7 @@ const BlogDetail = () => {
                             className="group cursor-pointer overflow-hidden border hover:border-primary/50 transition-all hover:shadow-md"
                             onClick={() => navigate(`/blog/${recentPost.id}`)}
                           >
-                            <div className="relative h-[140px] overflow-hidden bg-muted">
+                            <div className="relative aspect-video overflow-hidden bg-muted">
                               {recentPost.image ? (
                                 <img
                                   src={
@@ -543,7 +543,7 @@ const BlogDetail = () => {
                                       : `https://admin.artdevata.net/storage/${recentPost.image}`
                                   }
                                   alt={recentPost.title}
-                                  className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                                   onError={(e) => {
                                     const target = e.target as HTMLImageElement;
                                     target.style.display = "none";
