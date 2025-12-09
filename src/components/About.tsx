@@ -35,7 +35,7 @@ const About = () => {
               Solusi IT Terkini untuk Bisnis Anda
             </h2>
 
-            <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8 leading-relaxed">
+            <p className="text-base sm:text-lg text-justify text-muted-foreground mb-6 sm:mb-8 leading-relaxed">
               ArtDevata adalah penyedia layanan IT terkemuka yang berdedikasi
               untuk mentransformasi bisnis melalui solusi teknologi yang
               inovatif. Kami menggabungkan keahlian teknis dengan inovasi
@@ -61,13 +61,16 @@ const About = () => {
             </div>
 
             <Button
+              asChild
               size="lg"
               className="bg-accent hover:bg-accent/90 text-accent-foreground group"
             >
-              <span className="flex items-center">
-                Pelajari Lebih Lanjut
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </span>
+              <a href="/tentang">
+                <span className="flex items-center">
+                  Pelajari Lebih Lanjut
+                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </span>
+              </a>
             </Button>
           </motion.div>
 
