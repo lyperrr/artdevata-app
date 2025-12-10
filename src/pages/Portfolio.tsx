@@ -4,6 +4,14 @@ import { Link } from "react-router-dom";
 import AppLayout from "@/components/AppLayout";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 import { ExternalLink, Loader2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
@@ -23,6 +31,8 @@ const Portfolio = () => {
   const [filteredProjects, setFilteredProjects] = useState<PortfolioItem[]>([]);
   const [activeCategory, setActiveCategory] = useState("Semua");
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 9;
 
   const categories = [
     "Semua",
@@ -75,6 +85,7 @@ const Portfolio = () => {
         projects.filter((p) => p.category === activeCategory)
       );
     }
+    setCurrentPage(1); // Reset to first page when category changes
   }, [activeCategory, projects]);
 
   return (
@@ -148,78 +159,169 @@ const Portfolio = () => {
               Belum ada proyek di kategori ini.
             </p>
           ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredProjects.map((project, index) => (
-                <motion.div
-                  key={project.id}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
-                  <Card className="group h-full overflow-hidden hover:shadow-2xl transition-all duration-300">
-                    <div className="relative aspect-video overflow-hidden">
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).src =
-                            "https://via.placeholder.com/800x600/1f2937/9ca3af?text=No+Image";
-                        }}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-primary/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4"></div>
-                      {project.link && (
-                        <a
-                          href={project.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="absolute right-4 bottom-4 flex items-end justify-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            <>
+              {(() => {
+                const totalPages = Math.ceil(
+                  filteredProjects.length / itemsPerPage
+                );
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+                const currentProjects = filteredProjects.slice(
+                  startIndex,
+                  endIndex
+                );
+
+                return (
+                  <>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                      {currentProjects.map((project, index) => (
+                        <motion.div
+                          key={project.id}
+                          initial={{ opacity: 0, y: 40 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.5, delay: index * 0.1 }}
                         >
-                          <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center">
-                            <ExternalLink className="w-6 h-6 text-accent-foreground" />
-                          </div>
-                        </a>
-                      )}
-                    </div>
-
-                    <div className="p-6">
-                      <Badge
-                        variant="outline"
-                        className="bg-accent text-primary-foreground hover:bg-accent/90"
-                      >
-                        {project.category || "Umum"}
-                      </Badge>
-                      <h3 className="mt-2 text-xl font-bold group-hover:text-accent transition-colors">
-                        {project.title}
-                      </h3>
-                      <p className="mt-2 text-muted-foreground line-clamp-2">
-                        {project.description}
-                      </p>
-
-                      {(project.client || project.date) && (
-                        <div className="mt-4 pt-4 border-t text-sm text-muted-foreground">
-                          {project.client && <span>{project.client}</span>}
-                          {project.date && (
-                            <>
-                              {project.client && " • "}
-                              {new Date(project.date).toLocaleDateString(
-                                "id-ID",
-                                {
-                                  year: "numeric",
-                                  month: "long",
-                                }
+                          <Card className="group h-full overflow-hidden hover:shadow-2xl transition-all duration-300">
+                            <div className="relative aspect-video overflow-hidden">
+                              <img
+                                src={project.image}
+                                alt={project.title}
+                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                onError={(e) => {
+                                  (e.target as HTMLImageElement).src =
+                                    "https://via.placeholder.com/800x600/1f2937/9ca3af?text=No+Image";
+                                }}
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-primary/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4"></div>
+                              {project.link && (
+                                <a
+                                  href={project.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  onClick={(e) => e.stopPropagation()}
+                                  className="absolute right-4 bottom-4 flex items-end justify-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                >
+                                  <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center">
+                                    <ExternalLink className="w-6 h-6 text-accent-foreground" />
+                                  </div>
+                                </a>
                               )}
-                            </>
-                          )}
-                        </div>
-                      )}
+                            </div>
+
+                            <div className="p-6">
+                              <Badge
+                                variant="outline"
+                                className="bg-accent text-primary-foreground hover:bg-accent/90"
+                              >
+                                {project.category || "Umum"}
+                              </Badge>
+                              <h3 className="mt-2 text-xl font-bold group-hover:text-accent transition-colors">
+                                {project.title}
+                              </h3>
+                              <p className="mt-2 text-muted-foreground line-clamp-2">
+                                {project.description}
+                              </p>
+
+                              {(project.client || project.date) && (
+                                <div className="mt-4 pt-4 border-t text-sm text-muted-foreground">
+                                  {project.client && (
+                                    <span>{project.client}</span>
+                                  )}
+                                  {project.date && (
+                                    <>
+                                      {project.client && " • "}
+                                      {new Date(
+                                        project.date
+                                      ).toLocaleDateString("id-ID", {
+                                        year: "numeric",
+                                        month: "long",
+                                      })}
+                                    </>
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                          </Card>
+                        </motion.div>
+                      ))}
                     </div>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
+
+                    {/* Pagination */}
+                    {totalPages > 1 && (
+                      <div className="mt-12 flex justify-center">
+                        <Pagination>
+                          <PaginationContent>
+                            <PaginationItem>
+                              <PaginationPrevious
+                                onClick={() => {
+                                  if (currentPage > 1) {
+                                    setCurrentPage(currentPage - 1);
+                                    window.scrollTo({
+                                      top: 0,
+                                      behavior: "smooth",
+                                    });
+                                  }
+                                }}
+                                className={
+                                  currentPage === 1
+                                    ? "pointer-events-none opacity-50"
+                                    : "cursor-pointer"
+                                }
+                              />
+                            </PaginationItem>
+
+                            {Array.from(
+                              { length: totalPages },
+                              (_, i) => i + 1
+                            ).map((page) => (
+                              <PaginationItem key={page}>
+                                <PaginationLink
+                                  onClick={() => {
+                                    setCurrentPage(page);
+                                    window.scrollTo({
+                                      top: 0,
+                                      behavior: "smooth",
+                                    });
+                                  }}
+                                  isActive={currentPage === page}
+                                  className={`cursor-pointer ${
+                                    currentPage === page
+                                      ? "bg-accent text-accent-foreground hover:bg-accent/90"
+                                      : ""
+                                  }`}
+                                >
+                                  {page}
+                                </PaginationLink>
+                              </PaginationItem>
+                            ))}
+
+                            <PaginationItem>
+                              <PaginationNext
+                                onClick={() => {
+                                  if (currentPage < totalPages) {
+                                    setCurrentPage(currentPage + 1);
+                                    window.scrollTo({
+                                      top: 0,
+                                      behavior: "smooth",
+                                    });
+                                  }
+                                }}
+                                className={
+                                  currentPage === totalPages
+                                    ? "pointer-events-none opacity-50"
+                                    : "cursor-pointer"
+                                }
+                              />
+                            </PaginationItem>
+                          </PaginationContent>
+                        </Pagination>
+                      </div>
+                    )}
+                  </>
+                );
+              })()}
+            </>
           )}
         </div>
       </section>

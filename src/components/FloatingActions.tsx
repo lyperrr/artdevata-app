@@ -51,10 +51,10 @@ const FloatingActions = () => {
         initial={{ opacity: 0, y: 20, scale: 0.9 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
-        className="flex items-center gap-3 animate-bounce"
+        className="flex items-center gap-2 animate-bounce"
       >
         {/* Chat Bubble */}
-        <div className="px-4 py-2 bg-muted rounded-3xl rounded-br-none text-sm font-medium shadow-sm">
+        <div className="px-4 py-2 bg-muted rounded-xl rounded-br-none text-sm font-medium shadow-sm">
           Hubungi via Whatsapp
         </div>
 
