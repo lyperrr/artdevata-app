@@ -229,7 +229,7 @@ const Blog = () => {
                     <div className="relative aspect-video overflow-hidden bg-muted group">
                       <Badge
                         variant="outline"
-                        className="bg-accent text-primary-foreground hover:bg-accent/90 cursor-pointer absolute top-3 left-3 z-10"
+                        className="bg-accent text-primary-foreground hover:bg-accent/90 absolute top-3 left-3 z-10"
                       >
                         {post.category}
                       </Badge>

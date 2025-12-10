@@ -5,12 +5,14 @@ import AppLayout from "@/components/AppLayout";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ExternalLink, Loader2 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 interface PortfolioItem {
   id: number;
   title: string;
   description: string;
   image: string;
+  link: string | null;
   category: string | null;
   client?: string;
   date?: string;
@@ -155,56 +157,66 @@ const Portfolio = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
-                  <Link to={`/portfolio/${project.id}`}>
-                    <Card className="group h-full overflow-hidden hover:shadow-2xl transition-all duration-300">
-                      <div className="relative aspect-video overflow-hidden">
-                        <img
-                          src={project.image}
-                          alt={project.title}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                          onError={(e) => {
-                            (e.target as HTMLImageElement).src =
-                              "https://via.placeholder.com/800x600/1f2937/9ca3af?text=No+Image";
-                          }}
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-primary/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
+                  <Card className="group h-full overflow-hidden hover:shadow-2xl transition-all duration-300">
+                    <div className="relative aspect-video overflow-hidden">
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src =
+                            "https://via.placeholder.com/800x600/1f2937/9ca3af?text=No+Image";
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-primary/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4"></div>
+                      {project.link && (
+                        <a
+                          href={project.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="absolute right-4 bottom-4 flex items-end justify-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        >
                           <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center">
                             <ExternalLink className="w-6 h-6 text-accent-foreground" />
                           </div>
+                        </a>
+                      )}
+                    </div>
+
+                    <div className="p-6">
+                      <Badge
+                        variant="outline"
+                        className="bg-accent text-primary-foreground hover:bg-accent/90"
+                      >
+                        {project.category || "Umum"}
+                      </Badge>
+                      <h3 className="mt-2 text-xl font-bold group-hover:text-accent transition-colors">
+                        {project.title}
+                      </h3>
+                      <p className="mt-2 text-muted-foreground line-clamp-2">
+                        {project.description}
+                      </p>
+
+                      {(project.client || project.date) && (
+                        <div className="mt-4 pt-4 border-t text-sm text-muted-foreground">
+                          {project.client && <span>{project.client}</span>}
+                          {project.date && (
+                            <>
+                              {project.client && " • "}
+                              {new Date(project.date).toLocaleDateString(
+                                "id-ID",
+                                {
+                                  year: "numeric",
+                                  month: "long",
+                                }
+                              )}
+                            </>
+                          )}
                         </div>
-                      </div>
-
-                      <div className="p-6">
-                        <span className="text-sm font-semibold text-accent">
-                          {project.category || "Umum"}
-                        </span>
-                        <h3 className="mt-2 text-xl font-bold group-hover:text-accent transition-colors">
-                          {project.title}
-                        </h3>
-                        <p className="mt-2 text-muted-foreground line-clamp-2">
-                          {project.description}
-                        </p>
-
-                        {(project.client || project.date) && (
-                          <div className="mt-4 pt-4 border-t text-sm text-muted-foreground">
-                            {project.client && <span>{project.client}</span>}
-                            {project.date && (
-                              <>
-                                {project.client && " • "}
-                                {new Date(project.date).toLocaleDateString(
-                                  "id-ID",
-                                  {
-                                    year: "numeric",
-                                    month: "long",
-                                  }
-                                )}
-                              </>
-                            )}
-                          </div>
-                        )}
-                      </div>
-                    </Card>
-                  </Link>
+                      )}
+                    </div>
+                  </Card>
                 </motion.div>
               ))}
             </div>

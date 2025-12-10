@@ -19,6 +19,7 @@ import {
   User,
   MessageSquare,
   Briefcase,
+  HeartHandshake,
 } from "lucide-react";
 import { Icon } from "@iconify/react";
 import { useForm } from "react-hook-form";
@@ -390,8 +391,8 @@ const Contact = () => {
                     />
 
                     <p className="text-sm text-muted-foreground">
-                      *Pesan Anda akan dikirimkan melalui email kepada kami. Kami
-                      akan menghubungi Anda sesegera mungkin.
+                      *Pesan Anda akan dikirimkan melalui email kepada kami.
+                      Kami akan menghubungi Anda sesegera mungkin.
                     </p>
 
                     <Button
@@ -418,10 +419,7 @@ const Contact = () => {
             <MotionCard className="space-y-8 p-8 bg-card border-border shadow-lg">
               <div>
                 <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center gap-2">
-                  <Icon
-                    icon="mdi:star-circle"
-                    className="!w-6 !h-6 flex-shrink-0 text-primary"
-                  />
+                  <HeartHandshake className="!w-6 !h-6 flex-shrink-0 text-primary" />
                   Mengapa Memilih ArtDevata?
                 </h2>
                 <div className="space-y-4">

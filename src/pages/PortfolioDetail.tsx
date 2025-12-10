@@ -15,6 +15,8 @@ import {
   ExternalLink,
   Loader2,
   X,
+  Home,
+  ChevronRight,
 } from "lucide-react";
 
 interface Portfolio {
@@ -40,6 +42,9 @@ const PortfolioDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
+  const navigate = (path: string) => {
+    window.location.href = path;
+  };
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -48,9 +53,9 @@ const PortfolioDetail = () => {
         // const res = await fetch(
         //   `${import.meta.env.VITE_API_URL}/portfolios/${id}`
         // );
-                const res = await fetch(
-                  `https://admin.artdevata.net/api/portfolios/${id}`
-                );
+        const res = await fetch(
+          `https://admin.artdevata.net/api/portfolios/${id}`
+        );
         const json = await res.json();
 
         // Laravel biasanya balikin { data: {...} }
@@ -81,7 +86,7 @@ const PortfolioDetail = () => {
   // Loading state
   if (loading) {
     return (
-      <AppLayout>
+      <AppLayout showNavbar={false}>
         <div className="min-h-screen flex items-center justify-center">
           <Loader2 className="w-12 h-12 animate-spin text-primary" />
         </div>
@@ -92,7 +97,7 @@ const PortfolioDetail = () => {
   // Error / tidak ditemukan
   if (error || !project) {
     return (
-      <AppLayout>
+      <AppLayout showNavbar={false}>
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center space-y-6">
             <h1 className="text-4xl font-bold">Project tidak ditemukan</h1>
@@ -109,22 +114,36 @@ const PortfolioDetail = () => {
   }
 
   return (
-    <AppLayout>
+    <AppLayout showNavbar={false}>
       {/* Hero */}
-      <section className="pt-32 pb-12 bg-gradient-to-br from-primary to-primary/90 text-primary-foreground">
+      <section className="py-10 bg-gradient-to-br from-primary to-primary/90 text-primary-foreground">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <Link
-              to="/portfolio"
-              className="inline-flex items-center gap-2 hover:underline mb-6"
-            >
-              <ArrowLeft className="w-5 h-5" />
-              Kembali ke Portfolio
-            </Link>
+            <div className="flex items-center gap-2 text-sm">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => navigate("/")}
+                className="h-8 px-3 gap-2 text-primary-foreground hover:text-primary-foreground"
+              >
+                <Home className="w-4 h-4" />
+                Home
+              </Button>
+              <ChevronRight className="w-4 h-4 text-primary-primary-foreground/40" />
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => navigate("/portfolio")}
+                className="h-8 px-3 text-primary-foreground hover:text-primary-foreground"
+              >
+                Portfolio
+              </Button>
+              <ChevronRight className="w-4 h-4 text-primary-foreground/40" />
+            </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
               {project.title}

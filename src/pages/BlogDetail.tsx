@@ -186,7 +186,7 @@ const BlogDetail = () => {
 
   if (loading)
     return (
-      <AppLayout>
+      <AppLayout showNavbar={false}>
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted/20">
           <div className="text-center">
             <Loader2 className="w-12 h-12 animate-spin text-primary mx-auto mb-4" />
@@ -198,7 +198,7 @@ const BlogDetail = () => {
 
   if (!post)
     return (
-      <AppLayout>
+      <AppLayout showNavbar={false}>
         <div className="container py-32 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -218,11 +218,11 @@ const BlogDetail = () => {
     );
 
   return (
-    <AppLayout>
+    <AppLayout showNavbar={false}>
       {/* Header Section */}
-      <section className="py-12 bg-gradient-to-b from-muted/30 to-background">
-        <div className="container">
-          <div className="mx-auto">
+      <section>
+        <div className="bg-primary py-10">
+          <div className="container">
             {/* Breadcrumb */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -234,21 +234,21 @@ const BlogDetail = () => {
                   variant="ghost"
                   size="sm"
                   onClick={() => navigate("/")}
-                  className="h-8 px-3 gap-2 text-muted-foreground hover:text-primary-foreground"
+                  className="h-8 px-3 gap-2 text-primary-foreground hover:text-primary-foreground"
                 >
                   <Home className="w-4 h-4" />
                   Home
                 </Button>
-                <ChevronRight className="w-4 h-4 text-muted-primary-foreground/40" />
+                <ChevronRight className="w-4 h-4 text-primary-primary-foreground/40" />
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => navigate("/blog")}
-                  className="h-8 px-3 text-muted-foreground hover:text-primary-foreground"
+                  className="h-8 px-3 text-primary-foreground hover:text-primary-foreground"
                 >
                   Blog
                 </Button>
-                <ChevronRight className="w-4 h-4 text-muted-foreground/40" />
+                <ChevronRight className="w-4 h-4 text-primary-foreground/40" />
                 <span className="text-foreground font-medium line-clamp-1">
                   {post.title}
                 </span>
@@ -265,11 +265,11 @@ const BlogDetail = () => {
                 <CardContent className="p-8 lg:p-12">
                   {/* Category Badge */}
                   <Badge variant="outline" className="mb-3">
-                    {post.category || "Cybersecurity"}
+                    {post.category || "Umum"}
                   </Badge>
 
                   {/* Title */}
-                  <h1 className="text-3xl lg:text-4xl xl:text-5xl font-bold mb-6 leading-tight">
+                  <h1 className="text-3xl lg:text-4xl font-bold mb-6 leading-tight">
                     {post.title}
                   </h1>
 
@@ -462,7 +462,7 @@ const BlogDetail = () => {
 
                       <article className="prose prose-lg max-w-none">
                         <div
-                          className="[&>h1]:text-3xl [&>h1]:font-bold [&>h1]:mt-8 [&>h1]:mb-4 [&>h2]:text-2xl [&>h2]:font-semibold [&>h2]:mt-6 [&>h2]:mb-3 [&>h3]:text-xl [&>h3]:font-medium [&>h3]:mt-5 [&>h3]:mb-2 [&>p]:mb-4 [&>p]:leading-7 [&>ul]:mb-4 [&>ul]:pl-6 [&>ol]:mb-4 [&>ol]:pl-6 [&>li]:mb-2 [&>blockquote]:border-l-4 [&>blockquote]:border-primary [&>blockquote]:pl-4 [&>blockquote]:italic [&>blockquote]:my-4 [&>code]:bg-muted [&>code]:px-1.5 [&>code]:py-0.5 [&>code]:rounded [&>code]:text-sm [&>pre]:bg-muted [&>pre]:p-4 [&>pre]:rounded-lg [&>pre]:overflow-x-auto [&>pre]:my-4 [&>strong]:font-semibold [&>a]:text-primary [&>a]:underline-offset-4 [&>a:hover]:underline [&>img]:rounded-lg [&>img]:my-6"
+                          className="text-justify [&>h1]:text-3xl [&>h1]:font-bold [&>h1]:mt-8 [&>h1]:mb-4 [&>h2]:text-2xl [&>h2]:font-semibold [&>h2]:mt-6 [&>h2]:mb-3 [&>h3]:text-xl [&>h3]:font-medium [&>h3]:mt-5 [&>h3]:mb-2 [&>p]:mb-4 [&>p]:leading-7 [&>ul]:mb-4 [&>ul]:pl-6 [&>ol]:mb-4 [&>ol]:pl-6 [&>li]:mb-2 [&>blockquote]:border-l-4 [&>blockquote]:border-primary [&>blockquote]:pl-4 [&>blockquote]:italic [&>blockquote]:my-4 [&>code]:bg-muted [&>code]:px-1.5 [&>code]:py-0.5 [&>code]:rounded [&>code]:text-sm [&>pre]:bg-muted [&>pre]:p-4 [&>pre]:rounded-lg [&>pre]:overflow-x-auto [&>pre]:my-4 [&>strong]:font-semibold [&>a]:text-primary [&>a]:underline-offset-4 [&>a:hover]:underline [&>img]:rounded-lg [&>img]:my-6"
                           dangerouslySetInnerHTML={{
                             __html: post.content
                               .replace(/\\r\\n/g, "<br>")
