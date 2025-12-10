@@ -406,7 +406,7 @@ const BlogDetail = () => {
                   transition={{ duration: 0.6 }}
                   className="mb-8"
                 >
-                  <Card className="overflow-hidden border-0 shadow-lg bg-muted">
+                  <Card className="overflow-hidden border-0 shadow-lg bg-muted group">
                     {post.image ? (
                       <img
                         src={
@@ -415,7 +415,7 @@ const BlogDetail = () => {
                             : `https://admin.artdevata.net/storage/${post.image}`
                         }
                         alt={post.title}
-                        className="w-full h-[280px] lg:h-[380px] object-contain"
+                        className="w-full h-[280px] lg:h-[380px] object-cover group-hover:scale-105 transition-transform duration-300 ease-in-out"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
                           target.style.display = "none";
@@ -450,6 +450,16 @@ const BlogDetail = () => {
                 >
                   <Card className="border-0 shadow-lg">
                     <CardContent className="p-8 lg:p-12">
+                      {/* Title and Badge */}
+                      <div className="mb-8">
+                        <Badge variant="outline" className="mb-4">
+                          {post.category || "Cybersecurity"}
+                        </Badge>
+                        <h2 className="text-2xl lg:text-3xl font-bold mb-4 leading-tight">
+                          {post.title}
+                        </h2>
+                      </div>
+
                       <article className="prose prose-lg max-w-none">
                         <div
                           className="[&>h1]:text-3xl [&>h1]:font-bold [&>h1]:mt-8 [&>h1]:mb-4 [&>h2]:text-2xl [&>h2]:font-semibold [&>h2]:mt-6 [&>h2]:mb-3 [&>h3]:text-xl [&>h3]:font-medium [&>h3]:mt-5 [&>h3]:mb-2 [&>p]:mb-4 [&>p]:leading-7 [&>ul]:mb-4 [&>ul]:pl-6 [&>ol]:mb-4 [&>ol]:pl-6 [&>li]:mb-2 [&>blockquote]:border-l-4 [&>blockquote]:border-primary [&>blockquote]:pl-4 [&>blockquote]:italic [&>blockquote]:my-4 [&>code]:bg-muted [&>code]:px-1.5 [&>code]:py-0.5 [&>code]:rounded [&>code]:text-sm [&>pre]:bg-muted [&>pre]:p-4 [&>pre]:rounded-lg [&>pre]:overflow-x-auto [&>pre]:my-4 [&>strong]:font-semibold [&>a]:text-primary [&>a]:underline-offset-4 [&>a:hover]:underline [&>img]:rounded-lg [&>img]:my-6"

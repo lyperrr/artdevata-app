@@ -3,9 +3,10 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import AppLayout from "@/components/AppLayout";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Calendar, User, ArrowRight, Loader2, ImageOff } from "lucide-react";
 
 interface BlogPost {
@@ -26,7 +27,7 @@ const Blog = () => {
 
   // const API_URL = `${import.meta.env.VITE_API_URL}/blogs`;
 
-  useEffect(() => {
+  const fetchPosts = () => {
     fetch("https://admin.artdevata.net/api/blogs")
       .then((res) => res.json())
       .then((json) => {
@@ -39,17 +40,18 @@ const Blog = () => {
         setLoading(false);
       })
       .catch(() => setLoading(false));
-  }, []);
+  };
 
-  if (loading) {
-    return (
-      <AppLayout>
-        <div className="min-h-screen flex items-center justify-center">
-          <Loader2 className="w-12 h-12 animate-spin text-primary" />
-        </div>
-      </AppLayout>
-    );
-  }
+  useEffect(() => {
+    fetchPosts();
+
+    // Auto-refresh every 30 seconds
+    const interval = setInterval(() => {
+      fetchPosts();
+    }, 30000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const featured = posts[0];
   const others = posts.slice(1);
@@ -73,7 +75,28 @@ const Blog = () => {
         </div>
       </section>
       {/* Featured Post Utama */}
-      {featured && (
+      {loading ? (
+        <section className="py-12 bg-background">
+          <div className="container max-w-5xl">
+            <Card className="overflow-hidden border-border/50">
+              <div className="grid lg:grid-cols-5 gap-0">
+                <div className="lg:col-span-2 h-[280px] lg:h-[320px] bg-muted" />
+                <div className="lg:col-span-3 p-6 lg:p-8 flex flex-col justify-center">
+                  <Skeleton className="h-6 w-24 mb-3" />
+                  <Skeleton className="h-8 w-3/4 mb-3" />
+                  <Skeleton className="h-4 w-full mb-2" />
+                  <Skeleton className="h-4 w-5/6 mb-4" />
+                  <div className="flex gap-4 mb-6">
+                    <Skeleton className="h-4 w-32" />
+                    <Skeleton className="h-4 w-32" />
+                  </div>
+                  <Skeleton className="h-10 w-full lg:w-48 ml-auto" />
+                </div>
+              </div>
+            </Card>
+          </div>
+        </section>
+      ) : featured ? (
         <section className="py-12 bg-background">
           <div className="container max-w-5xl">
             <motion.div
@@ -118,7 +141,10 @@ const Blog = () => {
                     )}
                   </div>
                   <div className="lg:col-span-3 p-6 lg:p-8 flex flex-col justify-center">
-                    <Badge className="w-fit mb-3 text-xs bg-accent/10 text-accent hover:bg-accent/20 border-0">
+                    <Badge
+                      variant="outline"
+                      className="w-fit mb-3 bg-accent text-primary-foreground hover:bg-accent/90 cursor-pointer"
+                    >
                       {featured.category}
                     </Badge>
                     <h2
@@ -149,8 +175,7 @@ const Blog = () => {
                         className="w-full lg:w-fit"
                         size="sm"
                       >
-                        Baca Selengkapnya{" "}
-                        <ArrowRight className="w-3.5 h-3.5" />
+                        Baca Selengkapnya <ArrowRight className="w-3.5 h-3.5" />
                       </Button>
                     </div>
                   </div>
@@ -159,9 +184,10 @@ const Blog = () => {
             </motion.div>
           </div>
         </section>
-      )}{" "}
+      ) : null}
+
       {/* Daftar Blog Lainnya */}
-      <section className="pt-10 py-20 bg-background">
+      <section className="py-20 bg-background">
         <div className="container">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -171,62 +197,78 @@ const Blog = () => {
           >
             Artikel Lainnya
           </motion.h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {others.map((post, i) => (
-              <motion.div
-                key={post.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="group"
-              >
-                <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 h-full border-border/50 hover:border-accent/50">
-                  <div className="relative aspect-video overflow-hidden bg-muted group">
-                    {post.image ? (
-                      <img
-                        src={
-                          post.image?.startsWith("http")
-                            ? post.image
-                            : `https://admin.artdevata.net/storage/${post.image}`
-                        }
-                        alt={post.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement;
-                          target.style.display = "none";
-                          const parent = target.parentElement;
-                          if (parent) {
-                            parent.innerHTML = `
+          {loading ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <Card key={i} className="overflow-hidden">
+                  <div className="h-[220px] bg-muted" />
+                  <div className="p-6">
+                    <Skeleton className="h-5 w-20 mb-3" />
+                    <Skeleton className="h-6 w-full mb-2" />
+                    <Skeleton className="h-6 w-3/4 mb-4" />
+                    <Skeleton className="h-4 w-full mb-2" />
+                    <Skeleton className="h-4 w-5/6 mb-4" />
+                    <Skeleton className="h-9 w-full" />
+                    <Skeleton className="h-4 w-32 mt-4" />
+                  </div>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {others.map((post, i) => (
+                <motion.div
+                  key={post.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="group"
+                >
+                  <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 h-full border-border/50 hover:border-accent/50">
+                    <div className="relative aspect-video overflow-hidden bg-muted group">
+                      <Badge
+                        variant="outline"
+                        className="bg-accent text-primary-foreground hover:bg-accent/90 cursor-pointer absolute top-3 left-3 z-10"
+                      >
+                        {post.category}
+                      </Badge>
+                      {post.image ? (
+                        <img
+                          src={
+                            post.image?.startsWith("http")
+                              ? post.image
+                              : `https://admin.artdevata.net/storage/${post.image}`
+                          }
+                          alt={post.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.style.display = "none";
+                            const parent = target.parentElement;
+                            if (parent) {
+                              parent.innerHTML = `
                               <div class="w-full h-full flex flex-col items-center justify-center">
                                 <svg class="w-10 h-10 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" x2="22" y1="2" y2="22"/><path d="M10.41 10.41a2 2 0 1 1-2.83-2.83"/><line x1="13.5" x2="6" y1="13.5" y2="21"/><line x1="18" x2="21" y1="12" y2="15"/><path d="M3.59 3.59A1.99 1.99 0 0 0 3 5v14a2 2 0 0 0 2 2h14c.55 0 1.052-.22 1.41-.59"/><path d="M21 15V5a2 2 0 0 0-2-2H9"/></svg>
                               </div>
                             `;
-                          }
-                        }}
-                      />
-                    ) : (
-                      <div className="w-full h-full flex flex-col items-center justify-center">
-                        <ImageOff className="w-10 h-10 text-muted-foreground" />
-                      </div>
-                    )}
-                  </div>
-                  <div className="p-6">
-                    <Badge className="mb-3 text-xs bg-accent/10 text-accent hover:bg-accent/20 border-0">
-                      {post.category}
-                    </Badge>
-                    <h3
-                      onClick={() => navigate(`/blog/${post.id}`)}
-                      className="text-lg font-bold mb-2 group-hover:text-accent transition line-clamp-2 cursor-pointer"
-                    >
-                      {post.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground line-clamp-2 mb-4 leading-relaxed">
-                      {post.excerpt}
-                    </p>
-
-                    <div className="flex justify-between items-center">
-                      <div className="text-xs text-muted-foreground flex items-center gap-2">
+                            }
+                          }}
+                        />
+                      ) : (
+                        <div className="w-full h-full flex flex-col items-center justify-center">
+                          <ImageOff className="w-10 h-10 text-muted-foreground" />
+                        </div>
+                      )}
+                    </div>
+                    <CardContent className="pt-3">
+                      <h3
+                        onClick={() => navigate(`/blog/${post.id}`)}
+                        className="text-lg font-bold group-hover:text-accent transition line-clamp-2 cursor-pointer"
+                      >
+                        {post.title}
+                      </h3>
+                      <div className="text-xs text-muted-foreground flex items-center gap-2 my-2">
                         <Calendar className="w-3 h-3" />
                         {new Date(post.created_at).toLocaleDateString("id-ID", {
                           day: "numeric",
@@ -234,21 +276,28 @@ const Blog = () => {
                           year: "numeric",
                         })}
                       </div>
-                      <Button
-                        size="sm"
-                        variant="link"
-                        onClick={() => navigate(`/blog/${post.id}`)}
-                        className="w-full lg:w-fit hover:no-underline text-accent"
-                      >
-                        Baca Selengkapnya
-                        <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" />
-                      </Button>
-                    </div>
-                  </div>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
+                      <p className="text-sm text-muted-foreground line-clamp-2 mb-4 leading-relaxed">
+                        {post.excerpt}
+                      </p>
+
+                      <div className="flex justify-end items-center">
+                        <Button
+                          size="sm"
+                          variant="link"
+                          onClick={() => navigate(`/blog/${post.id}`)}
+                          className="w-full lg:w-fit hover:no-underline text-accent"
+                        >
+                          <span className="hidden sm:block">Baca</span>{" "}
+                          Selengkapnya
+                          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" />
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </AppLayout>

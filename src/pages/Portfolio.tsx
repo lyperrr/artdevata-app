@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import AppLayout from "@/components/AppLayout";
 import { Card } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { ExternalLink, Loader2 } from "lucide-react";
 
 interface PortfolioItem {
@@ -30,9 +31,9 @@ const Portfolio = () => {
   ];
 
   // const API_URL = `${import.meta.env.VITE_API_URL}/portfolios`;
-    const API_URL = "https://admin.artdevata.net/api/portfolios";
+  const API_URL = "https://admin.artdevata.net/api/portfolios";
 
-  useEffect(() => {
+  const fetchProjects = () => {
     fetch(API_URL)
       .then((res) => res.json())
       .then((response) => {
@@ -51,6 +52,17 @@ const Portfolio = () => {
         console.error(err);
         setLoading(false);
       });
+  };
+
+  useEffect(() => {
+    fetchProjects();
+
+    // Auto-refresh every 30 seconds
+    const interval = setInterval(() => {
+      fetchProjects();
+    }, 30000);
+
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
@@ -62,17 +74,6 @@ const Portfolio = () => {
       );
     }
   }, [activeCategory, projects]);
-
-  // Loading state
-  if (loading) {
-    return (
-      <AppLayout>
-        <div className="min-h-screen flex items-center justify-center">
-          <Loader2 className="w-12 h-12 animate-spin text-primary" />
-        </div>
-      </AppLayout>
-    );
-  }
 
   return (
     <AppLayout>
@@ -123,7 +124,24 @@ const Portfolio = () => {
       {/* Grid */}
       <section className="py-20 bg-background">
         <div className="container">
-          {filteredProjects.length === 0 ? (
+          {loading ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <Card key={i} className="overflow-hidden">
+                  <div className="aspect-video bg-muted" />
+                  <div className="p-6">
+                    <Skeleton className="h-6 w-3/4 mb-3" />
+                    <Skeleton className="h-4 w-full mb-2" />
+                    <Skeleton className="h-4 w-5/6 mb-4" />
+                    <div className="flex items-center gap-2">
+                      <Skeleton className="h-4 w-20" />
+                      <Skeleton className="h-4 w-4" />
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          ) : filteredProjects.length === 0 ? (
             <p className="text-center text-xl text-muted-foreground py-20">
               Belum ada proyek di kategori ini.
             </p>
