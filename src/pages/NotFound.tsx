@@ -71,7 +71,7 @@ const NotFound = () => {
               className="bg-accent hover:bg-accent/90 text-accent-foreground w-full sm:w-auto"
               onClick={() => navigate("/")}
             >
-              <Home className="mr-2 h-5 w-5" />
+              <Home className=" h-5 w-5" />
               Kembali ke Beranda
             </Button>
 
@@ -81,7 +81,7 @@ const NotFound = () => {
               className="w-full sm:w-auto"
               onClick={() => navigate(-1)}
             >
-              <ArrowLeft className="mr-2 h-5 w-5" />
+              <ArrowLeft className=" h-5 w-5" />
               Halaman Sebelumnya
             </Button>
           </motion.div>

@@ -48,8 +48,8 @@ const CTA = () => {
               className="bg-primary hover:bg-primary/90 text-primary-foreground group w-full sm:w-auto"
             >
               <Link to="/kontak" className="flex items-center">
+                <Phone className=" h-5 w-5" />
                 Hubungi Kami
-                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>
 
@@ -57,11 +57,11 @@ const CTA = () => {
               asChild
               size="lg"
               variant="outline"
-              className="bg-transparent text-primary-foreground hover:bg-primary-foreground/10 w-full sm:w-auto"
+              className="bg-transparent group text-primary-foreground hover:bg-primary-foreground/10 w-full sm:w-auto"
             >
               <Link to="/portfolio" className="flex items-center">
-                <Phone className="mr-2 h-5 w-5" />
                 Lihat Portofolio
+                <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>
           </motion.div>

@@ -63,7 +63,7 @@ const About = () => {
             <Button
               asChild
               size="lg"
-              className="bg-accent hover:bg-accent/90 text-accent-foreground group"
+              className="bg-accent hover:bg-accent/90 group text-accent-foreground group"
             >
               <a href="/tentang">
                 <span className="flex items-center">

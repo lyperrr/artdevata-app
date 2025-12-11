@@ -103,7 +103,7 @@ const PortfolioDetail = () => {
             <h1 className="text-4xl font-bold">Project tidak ditemukan</h1>
             <Link to="/portfolio">
               <Button size="lg">
-                <ArrowLeft className="w-5 h-5 mr-2" />
+                <ArrowLeft className="w-5 h-5 " />
                 Kembali ke Portfolio
               </Button>
             </Link>
@@ -335,7 +335,7 @@ const PortfolioDetail = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <ExternalLink className="w-5 h-5 mr-2" />
+                    <ExternalLink className="w-5 h-5 " />
                     Lihat Website Live
                   </a>
                 </Button>

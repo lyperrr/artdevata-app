@@ -210,7 +210,7 @@ const BlogDetail = () => {
               Artikel yang Anda cari tidak dapat ditemukan
             </p>
             <Button onClick={() => navigate("/blog")}>
-              <ArrowLeft className="mr-2 w-4 h-4" />
+              <ArrowLeft className=" w-4 h-4" />
               Kembali ke Blog
             </Button>
           </motion.div>
