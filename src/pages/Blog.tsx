@@ -130,6 +130,12 @@ const Blog = () => {
               <Card className="overflow-hidden border-border/50">
                 <div className="grid lg:grid-cols-5 gap-0">
                   <div className="relative lg:col-span-2 h-[280px] lg:h-[320px] overflow-hidden bg-muted">
+                    <Badge
+                      variant="outline"
+                      className="absolute left-3 top-3 z-20 w-fit mb-3 bg-accent text-primary-foreground hover:bg-accent/90 cursor-pointer"
+                    >
+                      Baru
+                    </Badge>
                     {featured.image ? (
                       <img
                         src={
@@ -284,12 +290,6 @@ const Blog = () => {
                       )}
                     </div>
                     <CardContent className="pt-3">
-                      <h3
-                        onClick={() => navigate(`/blog/${post.id}`)}
-                        className="text-lg font-bold group-hover:text-accent transition line-clamp-2 cursor-pointer"
-                      >
-                        {post.title}
-                      </h3>
                       <div className="text-xs text-muted-foreground flex items-center gap-2 my-2">
                         <Calendar className="w-3 h-3" />
                         {new Date(post.created_at).toLocaleDateString("id-ID", {
@@ -298,6 +298,14 @@ const Blog = () => {
                           year: "numeric",
                         })}
                       </div>
+
+                      <h3
+                        onClick={() => navigate(`/blog/${post.id}`)}
+                        className="text-lg font-bold group-hover:text-accent transition line-clamp-2 cursor-pointer"
+                      >
+                        {post.title}
+                      </h3>
+
                       <p className="text-sm text-muted-foreground line-clamp-2 mb-4 leading-relaxed">
                         {post.excerpt}
                       </p>

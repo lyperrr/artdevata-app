@@ -23,7 +23,7 @@ import {
   Clock,
   Share2,
   Heart,
-  Bookmark,
+  CornerUpLeft,
   Home,
   ChevronRight,
   Facebook,
@@ -91,13 +91,14 @@ const BlogDetail = () => {
       .then((res) => res.json())
       .then((json) => {
         const data = json.data || json;
-        const sorted = data.sort(
-          (a: any, b: any) =>
-            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-        );
-        // Get latest 5 posts excluding current post
-        const filtered = sorted.filter((p: any) => p.id != id).slice(0, 5);
-        setRecentPosts(filtered);
+        const filtered = data.filter((p: any) => p.id != id);
+
+        // Shuffle array untuk mendapatkan artikel acak
+        const shuffled = filtered.sort(() => Math.random() - 0.5);
+
+        // Ambil maksimal 3 artikel
+        const limited = shuffled.slice(0, 3);
+        setRecentPosts(limited);
       });
 
     Promise.all([fetchPost, fetchRecent])
@@ -448,8 +449,8 @@ const BlogDetail = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                  <Card className="border-0 shadow-lg">
-                    <CardContent className="p-8 lg:p-12">
+                  <Card className="shadow-lg">
+                    <CardContent className="pt-6">
                       {/* Title and Badge */}
                       <div className="mb-8">
                         <Badge variant="outline" className="mb-4">
@@ -528,7 +529,7 @@ const BlogDetail = () => {
                     <CardHeader>
                       <div className="flex items-center gap-2">
                         <TrendingUp className="w-5 h-5 text-primary" />
-                        <h3 className="text-lg font-bold">Artikel Terbaru</h3>
+                        <h3 className="text-lg font-bold">Artikel Lainnya</h3>
                       </div>
                     </CardHeader>
                     <CardContent className="space-y-4">
@@ -599,7 +600,7 @@ const BlogDetail = () => {
                         variant="outline"
                         className="w-full gap-2"
                       >
-                        <Bookmark className="w-4 h-4" />
+                        <CornerUpLeft className="w-4 h-4" />
                         Lihat Semua Artikel
                       </Button>
                     </CardContent>

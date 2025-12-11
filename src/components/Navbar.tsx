@@ -95,10 +95,17 @@ const Navbar = () => {
               variant="accent"
               className="hidden sm:inline-flex group"
             >
-              <Link to="/kontak">
-                Minta Penawaran
-                <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform !size-5" />
-              </Link>
+              {location.pathname === "/kontak" ? (
+                <Link to="/portfolio">
+                  Lihat Portfolio
+                  <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform !size-5" />
+                </Link>
+              ) : (
+                <Link to="/kontak">
+                  Minta Penawaran
+                  <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform !size-5" />
+                </Link>
+              )}
             </Button>
 
             {/* Mobile Menu Toggle */}
@@ -128,13 +135,13 @@ const Navbar = () => {
           <>
             {/* Overlay */}
             <div
-              className="fixed inset-0 bg-white/50 backdrop-blur-sm z-40 lg:hidden"
+              className="fixed inset-0 bg-white/20 backdrop-blur-md z-40 lg:hidden"
               onClick={() => setIsMobileMenuOpen(false)}
             />
 
             {/* Menu */}
             <div className="absolute top-full left-0 right-0 bg-background shadow-lg z-50 lg:hidden animate-fade-in">
-              <div className="container  py-6">
+              <div className="container py-6">
                 <div className="flex flex-col space-y-1">
                   {navLinks.map((link) => {
                     const IconComponent = link.icon;
@@ -144,7 +151,7 @@ const Navbar = () => {
                         to={link.href}
                         className={`flex items-center gap-3 px-4 py-3 text-base font-medium rounded-lg transition-all duration-300 ${
                           location.pathname === link.href
-                            ? "bg-accent text-accent-foreground"
+                            ? "bg-accent/80 hover:bg-accent text-accent-foreground"
                             : "text-foreground hover:bg-muted"
                         }`}
                         onClick={() => setIsMobileMenuOpen(false)}
@@ -154,13 +161,22 @@ const Navbar = () => {
                       </Link>
                     );
                   })}
-                  <Button asChild variant="accent" className="mt-4">
-                    <Link
-                      to="/kontak"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      Minta Penawaran
-                    </Link>
+                  <Button asChild variant="default" className="mt-4">
+                    {location.pathname === "/kontak" ? (
+                      <Link
+                        to="/portfolio"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        Lihat Portfolio
+                      </Link>
+                    ) : (
+                      <Link
+                        to="/kontak"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        Minta Penawaran
+                      </Link>
+                    )}
                   </Button>
                 </div>
               </div>
