@@ -2,6 +2,7 @@ import AppLayout from "@/components/AppLayout";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import About from "@/components/About";
+import Clients from "@/components/Clients";
 import Testimonials from "@/components/Testimonials";
 import CTA from "@/components/CTA";
 import FAQ from "@/components/FAQ";
@@ -11,6 +12,7 @@ const Home = () => {
     <AppLayout>
       <Hero />
       <Services />
+      <Clients />
       <About />
       {/* <Testimonials /> */}
       <FAQ />
