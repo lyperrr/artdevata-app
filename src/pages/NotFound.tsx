@@ -2,12 +2,18 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Home, Search, ArrowLeft } from "lucide-react";
+import SEO from "@/components/SEO";
 
 const NotFound = () => {
   const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted flex items-center justify-center p-4 relative overflow-hidden">
+      <SEO
+        title="Halaman Tidak Ditemukan - ArtDevata"
+        description="Maaf, halaman yang Anda cari tidak dapat ditemukan. Kembali ke beranda ArtDevata untuk menemukan solusi IT yang Anda butuhkan."
+        url="https://www.artdevata.net/404"
+      />
       {/* Logo Background */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <motion.img

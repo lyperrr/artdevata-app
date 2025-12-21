@@ -18,6 +18,7 @@ import {
   Home,
   ChevronRight,
 } from "lucide-react";
+import SEO from "@/components/SEO";
 
 interface Portfolio {
   id: number;
@@ -115,6 +116,13 @@ const PortfolioDetail = () => {
 
   return (
     <AppLayout showNavbar={false}>
+      {project && (
+        <SEO
+          title={`${project.title} - Portfolio ArtDevata`}
+          description={project.description}
+          url={`https://www.artdevata.net/portfolio/${project.id}`}
+        />
+      )}
       {/* Hero */}
       <section className="py-10 bg-gradient-to-br from-primary to-primary/90 text-primary-foreground">
         <div className="container">

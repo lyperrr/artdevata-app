@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
+import SEO from "@/components/SEO";
 
 // ICON DEFAULT
 import {
@@ -63,6 +64,11 @@ const ServicesPage = () => {
 
   return (
     <AppLayout>
+      <SEO
+        title="Layanan IT ArtDevata - Website, Hosting, CCTV & Support"
+        description="Jelajahi layanan IT lengkap dari ArtDevata: Website Development, Hosting & Domain, Instalasi CCTV, dan IT Support profesional untuk bisnis Anda."
+        url="https://www.artdevata.net/layanan"
+      />
       {/* Hero Section */}
       <section className="pt-32 pb-20 bg-gradient-to-br from-primary to-primary/90">
         <div className="container">

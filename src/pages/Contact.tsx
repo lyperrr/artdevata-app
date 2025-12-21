@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import SEO from "@/components/SEO";
 import {
   Mail,
   Phone,
@@ -202,6 +203,11 @@ const Contact = () => {
 
   return (
     <AppLayout>
+      <SEO
+        title="Kontak ArtDevata - Hubungi Kami untuk Solusi IT"
+        description="Hubungi ArtDevata untuk konsultasi dan layanan IT. Kami siap membantu bisnis Anda dengan website development, hosting, CCTV, dan support IT profesional."
+        url="https://www.artdevata.net/kontak"
+      />
       {/* Hero Section */}
       <section className="pt-32 pb-20 bg-gradient-to-br from-primary to-primary/90">
         <div className="container ">

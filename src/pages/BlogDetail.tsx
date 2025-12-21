@@ -35,12 +35,24 @@ import {
   Check,
   ImageOff,
 } from "lucide-react";
+import SEO from "@/components/SEO";
+
+interface BlogPost {
+  id: number;
+  title: string;
+  content: string;
+  excerpt?: string;
+  image?: string;
+  author?: string;
+  category?: string;
+  created_at: string;
+}
 
 const BlogDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [post, setPost] = useState<any>(null);
-  const [recentPosts, setRecentPosts] = useState<any[]>([]);
+  const [post, setPost] = useState<BlogPost | null>(null);
+  const [recentPosts, setRecentPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [readingTime, setReadingTime] = useState(5);
   const [liked, setLiked] = useState(false);
@@ -91,7 +103,7 @@ const BlogDetail = () => {
       .then((res) => res.json())
       .then((json) => {
         const data = json.data || json;
-        const filtered = data.filter((p: any) => p.id != id);
+        const filtered = data.filter((p) => p.id != id);
 
         // Shuffle array untuk mendapatkan artikel acak
         const shuffled = filtered.sort(() => Math.random() - 0.5);
@@ -220,6 +232,13 @@ const BlogDetail = () => {
 
   return (
     <AppLayout showNavbar={false}>
+      {post && (
+        <SEO
+          title={`${post.title} - Blog ArtDevata`}
+          description={post.excerpt || post.content?.substring(0, 160)}
+          url={`https://www.artdevata.net/blog/${post.id}`}
+        />
+      )}
       {/* Header Section */}
       <section>
         <div className="bg-primary py-10">

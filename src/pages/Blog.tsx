@@ -17,6 +17,7 @@ import {
   PaginationEllipsis,
 } from "@/components/ui/pagination";
 import { Calendar, User, ArrowRight, Loader2, ImageOff } from "lucide-react";
+import SEO from "@/components/SEO";
 
 interface BlogPost {
   id: number;
@@ -80,6 +81,11 @@ const Blog = () => {
 
   return (
     <AppLayout>
+      <SEO
+        title="Blog ArtDevata - Tips & Insight Teknologi IT"
+        description="Baca artikel terbaru tentang teknologi IT, tips development, dan insight bisnis dari ArtDevata. Panduan lengkap untuk transformasi digital bisnis Anda."
+        url="https://www.artdevata.net/blog"
+      />
       {/* Hero */}
       <section className="pt-32 pb-20 bg-gradient-to-br from-primary to-primary/90">
         <div className="container text-center text-primary-foreground">

@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/pagination";
 import { ExternalLink, Loader2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import SEO from "@/components/SEO";
 
 interface PortfolioItem {
   id: number;
@@ -90,6 +91,11 @@ const Portfolio = () => {
 
   return (
     <AppLayout>
+      <SEO
+        title="Portfolio ArtDevata - Proyek Website & IT Solutions"
+        description="Lihat portfolio proyek-proyek IT yang telah kami selesaikan. Dari website development hingga instalasi CCTV, ArtDevata telah membantu berbagai bisnis di Indonesia."
+        url="https://www.artdevata.net/portfolio"
+      />
       {/* Hero */}
       <section className="pt-32 pb-20 bg-gradient-to-br from-primary to-primary/90">
         <div className="container">

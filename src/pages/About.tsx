@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import AppLayout from "@/components/AppLayout";
 import { Users, Target, Award, Heart } from "lucide-react";
+import SEO from "@/components/SEO";
 
 const AboutPage = () => {
   const values = [
@@ -32,6 +33,11 @@ const AboutPage = () => {
 
   return (
     <AppLayout>
+      <SEO
+        title="Tentang ArtDevata - Solusi IT Terpercaya di Indonesia"
+        description="Pelajari lebih lanjut tentang ArtDevata, penyedia solusi IT terpadu di Indonesia. Kami berkomitmen untuk memberikan layanan website development, hosting, CCTV, dan IT support berkualitas tinggi."
+        url="https://www.artdevata.net/tentang"
+      />
       {/* Hero Section */}
       <section className="pt-32 pb-20 bg-gradient-to-br from-primary to-primary/90">
         <div className="container ">
