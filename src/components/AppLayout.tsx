@@ -19,6 +19,8 @@ const AppLayout: React.FC<AppLayoutProps> = ({
 }) => {
   return (
     <div className="min-h-screen flex flex-col">
+      {showNavbar && <Navbar />}
+
       <motion.main
         className="flex-grow"
         initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
@@ -29,7 +31,6 @@ const AppLayout: React.FC<AppLayoutProps> = ({
           ease: [0.22, 1, 0.36, 1],
         }}
       >
-        {showNavbar && <Navbar />}
         {children}
         {showFooter && <Footer />}
         {showFloatingActions && <FloatingActions />}

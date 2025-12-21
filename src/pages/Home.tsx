@@ -6,10 +6,12 @@ import Clients from "@/components/Clients";
 import Testimonials from "@/components/Testimonials";
 import CTA from "@/components/CTA";
 import FAQ from "@/components/FAQ";
+import SEO from "@/components/SEO";
 
 const Home = () => {
   return (
     <AppLayout>
+      <SEO />
       <Hero />
       <Services />
       <Clients />
