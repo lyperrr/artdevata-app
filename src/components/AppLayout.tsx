@@ -33,8 +33,9 @@ const AppLayout: React.FC<AppLayoutProps> = ({
       >
         {children}
         {showFooter && <Footer />}
-        {showFloatingActions && <FloatingActions />}
       </motion.main>
+
+      {showFloatingActions && <FloatingActions />}
     </div>
   );
 };
