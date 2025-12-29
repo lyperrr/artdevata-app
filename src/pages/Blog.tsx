@@ -1,9 +1,14 @@
 // src/pages/Blog.tsx
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import AppLayout from "@/components/AppLayout";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardFooter,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -133,7 +138,7 @@ const Blog = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <Card className="overflow-hidden border-border/50">
+              <Card className="overflow-hidden border-border/50 h-full">
                 <div className="grid lg:grid-cols-5 gap-0">
                   <div className="relative lg:col-span-2 h-[280px] lg:h-[320px] overflow-hidden bg-muted">
                     <Badge
@@ -259,7 +264,7 @@ const Blog = () => {
                   transition={{ delay: i * 0.1 }}
                   className="group"
                 >
-                  <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 h-full border-border/50 hover:border-accent/50">
+                  <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 h-full border-border/50 hover:border-accent/50 flex flex-col">
                     <div className="relative aspect-video overflow-hidden bg-muted group">
                       <Badge
                         variant="outline"
@@ -295,40 +300,52 @@ const Blog = () => {
                         </div>
                       )}
                     </div>
-                    <CardContent className="pt-3">
-                      <div className="text-xs text-muted-foreground flex items-center gap-2 my-2">
-                        <Calendar className="w-3 h-3" />
-                        {new Date(post.created_at).toLocaleDateString("id-ID", {
-                          day: "numeric",
-                          month: "long",
-                          year: "numeric",
-                        })}
+                    <CardHeader className="flex-1 flex flex-col p-4 xl:p-6">
+                      <div className="flex justify-between items-start w-full mb-2">
+                        <div className="text-xs text-muted-foreground flex items-center gap-2">
+                          <Calendar className="w-3 h-3" />
+                          {new Date(post.created_at).toLocaleDateString(
+                            "id-ID",
+                            {
+                              day: "numeric",
+                              month: "long",
+                              year: "numeric",
+                            }
+                          )}
+                        </div>
+                        <Badge
+                          variant="outline"
+                          className="bg-accent text-primary-foreground hover:bg-accent/90"
+                        >
+                          {post.category}
+                        </Badge>
                       </div>
-
                       <h3
                         onClick={() => navigate(`/blog/${post.id}`)}
-                        className="text-lg font-bold group-hover:text-accent transition line-clamp-2 cursor-pointer"
+                        className="text-lg font-bold group-hover:text-accent transition line-clamp-2 cursor-pointer mb-2"
                       >
                         {post.title}
                       </h3>
-
-                      <p className="text-sm text-muted-foreground line-clamp-2 mb-4 leading-relaxed">
+                      <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed flex-grow">
                         {post.excerpt}
                       </p>
-
-                      <div className="flex justify-end items-center">
-                        <Button
-                          size="sm"
-                          variant="link"
-                          onClick={() => navigate(`/blog/${post.id}`)}
-                          className="w-full lg:w-fit hover:no-underline text-accent"
+                    </CardHeader>
+                    <CardFooter className="p-4 xl:p-6 !pt-0">
+                      <Button
+                        variant="ghost"
+                        className="ml-auto group p-0 h-auto hover:bg-transparent text-sm text-accent hover:text-accent/80"
+                        asChild
+                      >
+                        <Link
+                          to={`/blog/${post.id}`}
+                          className="flex items-center gap-2"
                         >
                           <span className="hidden sm:block">Baca</span>{" "}
                           Selengkapnya
                           <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" />
-                        </Button>
-                      </div>
-                    </CardContent>
+                        </Link>
+                      </Button>
+                    </CardFooter>
                   </Card>
                 </motion.div>
               ))}
