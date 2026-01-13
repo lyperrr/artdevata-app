@@ -52,7 +52,7 @@ const AboutPage = () => {
             </h1>
             <p className="text-xl text-primary-foreground/90">
               Partner terpercaya dalam transformasi digital bisnis Anda sejak
-              2014
+              2024.
             </p>
           </motion.div>
         </div>
