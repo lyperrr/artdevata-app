@@ -1,6 +1,8 @@
+/** @format */
+
 // src/pages/BlogDetail.tsx
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Icon } from "@iconify/react";
 import AppLayout from "@/components/AppLayout";
@@ -9,6 +11,14 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -249,30 +259,29 @@ const BlogDetail = () => {
               animate={{ opacity: 1, y: 0 }}
               className="mb-8"
             >
-              <div className="flex items-center gap-2 text-sm">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => navigate("/")}
-                  className="h-8 px-3 gap-2 text-primary-foreground hover:text-primary-foreground"
-                >
-                  <Home className="w-4 h-4" />
-                  Home
-                </Button>
-                <ChevronRight className="w-4 h-4 text-primary-primary-foreground/40" />
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => navigate("/blog")}
-                  className="h-8 px-3 text-primary-foreground hover:text-primary-foreground"
-                >
-                  Blog
-                </Button>
-                <ChevronRight className="w-4 h-4 text-primary-foreground/40" />
-                <span className="text-foreground font-medium line-clamp-1">
-                  {post.title}
-                </span>
-              </div>
+              <Breadcrumb>
+                <BreadcrumbList>
+                  <BreadcrumbItem>
+                    <BreadcrumbLink asChild>
+                      <Link to="/" className="flex items-center gap-2">
+                        <Home className="w-4 h-4" />
+                      </Link>
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                    <BreadcrumbLink asChild>
+                      <Link to="/blog">Blog</Link>
+                    </BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                    <BreadcrumbPage className="line-clamp-1">
+                      {post.title}
+                    </BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
             </motion.div>
 
             {/* Article Header Card */}
@@ -524,7 +533,7 @@ const BlogDetail = () => {
                                   day: "numeric",
                                   month: "long",
                                   year: "numeric",
-                                }
+                                },
                               )}
                             </p>
                           </div>
@@ -601,7 +610,7 @@ const BlogDetail = () => {
                                 <Calendar className="w-3 h-3" />
                                 <span>
                                   {new Date(
-                                    recentPost.created_at
+                                    recentPost.created_at,
                                   ).toLocaleDateString("id-ID", {
                                     day: "numeric",
                                     month: "short",

@@ -1,3 +1,5 @@
+/** @format */
+
 import React from "react";
 import { motion } from "framer-motion";
 import { CheckCircle, ArrowRight } from "lucide-react";
@@ -35,7 +37,7 @@ const About = () => {
               Solusi IT Terkini untuk Bisnis Anda
             </h2>
 
-            <p className="text-base sm:text-lg text-justify text-muted-foreground mb-6 sm:mb-8 leading-relaxed">
+            <p className="text-base sm:text-lg text-muted-foreground mb-6 sm:mb-8 leading-relaxed">
               ArtDevata adalah penyedia layanan IT terkemuka yang berdedikasi
               untuk mentransformasi bisnis melalui solusi teknologi yang
               inovatif. Kami menggabungkan keahlian teknis dengan inovasi

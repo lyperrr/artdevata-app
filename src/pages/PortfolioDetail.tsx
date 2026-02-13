@@ -1,3 +1,5 @@
+/** @format */
+
 // src/pages/PortfolioDetail.tsx
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
@@ -5,6 +7,14 @@ import { Link, useParams } from "react-router-dom";
 import AppLayout from "@/components/AppLayout";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import {
   ArrowLeft,
   ArrowRight,
@@ -55,7 +65,7 @@ const PortfolioDetail = () => {
         //   `${import.meta.env.VITE_API_URL}/portfolios/${id}`
         // );
         const res = await fetch(
-          `https://admin.artdevata.net/api/portfolios/${id}`
+          `https://admin.artdevata.net/api/portfolios/${id}`,
         );
         const json = await res.json();
 
@@ -131,27 +141,29 @@ const PortfolioDetail = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="flex items-center gap-2 text-sm">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => navigate("/")}
-                className="h-8 px-3 gap-2 text-primary-foreground hover:text-primary-foreground"
-              >
-                <Home className="w-4 h-4" />
-                Home
-              </Button>
-              <ChevronRight className="w-4 h-4 text-primary-primary-foreground/40" />
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => navigate("/portfolio")}
-                className="h-8 px-3 text-primary-foreground hover:text-primary-foreground"
-              >
-                Portfolio
-              </Button>
-              <ChevronRight className="w-4 h-4 text-primary-foreground/40" />
-            </div>
+            <Breadcrumb className="mb-6">
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link to="/" className="flex items-center gap-2">
+                      <Home className="w-4 h-4" />
+                    </Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link to="/portfolio">Portfolio</Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage className="line-clamp-1">
+                    {project.title}
+                  </BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
               {project.title}
@@ -411,7 +423,7 @@ const PortfolioDetail = () => {
                     setSelectedImage(
                       selectedImage === 0
                         ? project.images.length - 1
-                        : selectedImage - 1
+                        : selectedImage - 1,
                     )
                   }
                 >
@@ -426,7 +438,7 @@ const PortfolioDetail = () => {
                     setSelectedImage(
                       selectedImage === project.images.length - 1
                         ? 0
-                        : selectedImage + 1
+                        : selectedImage + 1,
                     )
                   }
                 >

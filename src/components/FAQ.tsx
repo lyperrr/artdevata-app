@@ -1,3 +1,5 @@
+/** @format */
+
 import { motion } from "framer-motion";
 import {
   Accordion,
@@ -92,7 +94,7 @@ const FAQ = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: 0.1 * index }}
                   >
-                    <AccordionItem value={`item-${index}`} className="border-b-2 border-primary/20">
+                    <AccordionItem value={`item-${index}`}>
                       <AccordionTrigger className="text-left text-lg font-semibold text-foreground hover:text-accent hover:no-underline py-5">
                         {faq.question}
                       </AccordionTrigger>
@@ -114,10 +116,7 @@ const FAQ = () => {
                       delay: 0.1 * (half + index),
                     }}
                   >
-                    <AccordionItem
-                      value={`item-${half + index}`}
-                      className="border-b-2 border-primary/20"
-                    >
+                    <AccordionItem value={`item-${half + index}`}>
                       <AccordionTrigger className="text-left text-lg font-semibold text-foreground hover:text-accent hover:no-underline py-5">
                         {faq.question}
                       </AccordionTrigger>
