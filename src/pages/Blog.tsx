@@ -1,3 +1,5 @@
+/** @format */
+
 // src/pages/Blog.tsx
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
@@ -51,7 +53,7 @@ const Blog = () => {
         const data = json.data || json;
         const sorted = data.sort(
           (a: any, b: any) =>
-            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+            new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
         );
         setPosts(sorted);
         setLoading(false);
@@ -200,7 +202,7 @@ const Blog = () => {
                         <Calendar className="w-3.5 h-3.5" />
                         {new Date(featured.created_at).toLocaleDateString(
                           "id-ID",
-                          { day: "numeric", month: "long", year: "numeric" }
+                          { day: "numeric", month: "long", year: "numeric" },
                         )}
                       </span>
                       <span className="flex items-center gap-1">
@@ -237,11 +239,11 @@ const Blog = () => {
             Artikel Lainnya
           </motion.h2>
           {loading ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
               {Array.from({ length: 6 }).map((_, i) => (
                 <Card key={i} className="overflow-hidden">
-                  <div className="h-[220px] bg-muted" />
-                  <div className="p-6">
+                  <div className="h-[160px] bg-muted" />
+                  <div className="p-2 sm:p-3 xl:p-4">
                     <Skeleton className="h-5 w-20 mb-3" />
                     <Skeleton className="h-6 w-full mb-2" />
                     <Skeleton className="h-6 w-3/4 mb-4" />
@@ -254,7 +256,7 @@ const Blog = () => {
               ))}
             </div>
           ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
               {currentPosts.map((post, i) => (
                 <motion.div
                   key={post.id}
@@ -265,7 +267,7 @@ const Blog = () => {
                   className="group"
                 >
                   <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 h-full border-border/50 hover:border-accent/50 flex flex-col">
-                    <div className="relative aspect-video overflow-hidden bg-muted group">
+                    <div className="relative aspect-square md:aspect-video overflow-hidden bg-muted group">
                       <Badge
                         variant="outline"
                         className="bg-accent text-primary-foreground hover:bg-accent/90 absolute top-3 left-3 z-10"
@@ -300,49 +302,45 @@ const Blog = () => {
                         </div>
                       )}
                     </div>
-                    <CardHeader className="flex-1 flex flex-col p-4 xl:p-6">
-                      <div className="flex justify-between items-start w-full mb-2">
-                        <div className="text-xs text-muted-foreground flex items-center gap-2">
+                    <CardHeader className="flex-1 flex flex-col p-2 sm:p-3 xl:p-4">
+                      <div className="flex items-center justify-between w-full mb-1">
+                        <div className="text-xs text-muted-foreground flex items-center gap-1">
                           <Calendar className="w-3 h-3" />
                           {new Date(post.created_at).toLocaleDateString(
                             "id-ID",
                             {
                               day: "numeric",
-                              month: "long",
+                              month: "short",
                               year: "numeric",
-                            }
+                            },
                           )}
                         </div>
-                        <Badge
-                          variant="outline"
-                          className="bg-accent text-primary-foreground hover:bg-accent/90"
-                        >
-                          {post.category}
-                        </Badge>
                       </div>
                       <h3
                         onClick={() => navigate(`/blog/${post.id}`)}
-                        className="text-lg font-bold group-hover:text-accent transition line-clamp-2 cursor-pointer mb-2"
+                        className="text-sm sm:text-base font-bold group-hover:text-accent transition line-clamp-2 cursor-pointer mb-1"
                       >
                         {post.title}
                       </h3>
-                      <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed flex-grow">
+                      <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed flex-grow">
                         {post.excerpt}
                       </p>
                     </CardHeader>
-                    <CardFooter className="p-4 xl:p-6 !pt-0">
+                    <CardFooter className="p-2 sm:p-3 xl:p-4 !pt-0">
                       <Button
                         variant="ghost"
-                        className="ml-auto group p-0 h-auto hover:bg-transparent text-sm text-accent hover:text-accent/80"
+                        size="sm"
+                        className="ml-auto h-8 px-2 text-xs text-accent hover:text-accent/80 hover:bg-accent/10"
                         asChild
                       >
                         <Link
                           to={`/blog/${post.id}`}
-                          className="flex items-center gap-2"
+                          className="flex items-center gap-1"
                         >
-                          <span className="hidden sm:block">Baca</span>{" "}
-                          Selengkapnya
-                          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" />
+                          <span className="hidden sm:inline">
+                            Baca selengkapnya
+                          </span>
+                          <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform duration-200" />
                         </Link>
                       </Button>
                     </CardFooter>
@@ -385,7 +383,7 @@ const Blog = () => {
                           {page}
                         </PaginationLink>
                       </PaginationItem>
-                    )
+                    ),
                   )}
 
                   <PaginationItem>

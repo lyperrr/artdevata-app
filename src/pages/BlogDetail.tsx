@@ -291,7 +291,7 @@ const BlogDetail = () => {
               transition={{ delay: 0.1 }}
             >
               <Card className="border-0 shadow-lg">
-                <CardContent className="p-8 lg:p-12">
+                <CardContent className="p-4 lg:p-12">
                   {/* Category Badge */}
                   <Badge variant="outline" className="mb-3">
                     {post.category || "Umum"}
@@ -341,7 +341,7 @@ const BlogDetail = () => {
                   <Separator className="my-6" />
 
                   {/* Share Buttons */}
-                  <div className=" gap-3">
+                  <div className="gap-3">
                     <p className="text-sm font-medium text-muted-foreground mb-2">
                       Bagikan artikel:
                     </p>
@@ -491,7 +491,7 @@ const BlogDetail = () => {
 
                       <article className="prose prose-lg max-w-none">
                         <div
-                          className="text-justify [&>h1]:text-3xl [&>h1]:font-bold [&>h1]:mt-8 [&>h1]:mb-4 [&>h2]:text-2xl [&>h2]:font-semibold [&>h2]:mt-6 [&>h2]:mb-3 [&>h3]:text-xl [&>h3]:font-medium [&>h3]:mt-5 [&>h3]:mb-2 [&>p]:mb-4 [&>p]:leading-7 [&>ul]:mb-4 [&>ul]:pl-6 [&>ol]:mb-4 [&>ol]:pl-6 [&>li]:mb-2 [&>blockquote]:border-l-4 [&>blockquote]:border-primary [&>blockquote]:pl-4 [&>blockquote]:italic [&>blockquote]:my-4 [&>code]:bg-muted [&>code]:px-1.5 [&>code]:py-0.5 [&>code]:rounded [&>code]:text-sm [&>pre]:bg-muted [&>pre]:p-4 [&>pre]:rounded-lg [&>pre]:overflow-x-auto [&>pre]:my-4 [&>strong]:font-semibold [&>a]:text-primary [&>a]:underline-offset-4 [&>a:hover]:underline [&>img]:rounded-lg [&>img]:my-6"
+                          className="[&>h1]:text-3xl [&>h1]:font-bold [&>h1]:mt-8 [&>h1]:mb-4 [&>h2]:text-2xl [&>h2]:font-semibold [&>h2]:mt-6 [&>h2]:mb-3 [&>h3]:text-xl [&>h3]:font-medium [&>h3]:mt-5 [&>h3]:mb-2 [&>p]:mb-4 [&>p]:leading-7 [&>ul]:mb-4 [&>ul]:pl-6 [&>ol]:mb-4 [&>ol]:pl-6 [&>li]:mb-2 [&>blockquote]:border-l-4 [&>blockquote]:border-primary [&>blockquote]:pl-4 [&>blockquote]:italic [&>blockquote]:my-4 [&>code]:bg-muted [&>code]:px-1.5 [&>code]:py-0.5 [&>code]:rounded [&>code]:text-sm [&>pre]:bg-muted [&>pre]:p-4 [&>pre]:rounded-lg [&>pre]:overflow-x-auto [&>pre]:my-4 [&>strong]:font-semibold [&>a]:text-primary [&>a]:underline-offset-4 [&>a:hover]:underline [&>img]:rounded-lg [&>img]:my-6"
                           dangerouslySetInnerHTML={{
                             __html: post.content
                               .replace(/\\r\\n/g, "<br>")

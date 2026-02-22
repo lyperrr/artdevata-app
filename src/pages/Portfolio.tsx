@@ -146,7 +146,7 @@ const Portfolio = () => {
       <section className="py-20 bg-background">
         <div className="container">
           {loading ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {Array.from({ length: 6 }).map((_, i) => (
                 <Card key={i} className="overflow-hidden">
                   <div className="aspect-video bg-muted" />
@@ -181,7 +181,7 @@ const Portfolio = () => {
 
                 return (
                   <>
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                       {currentProjects.map((project, index) => (
                         <motion.div
                           key={project.id}
@@ -233,7 +233,7 @@ const Portfolio = () => {
                                 </p>
 
                                 {(project.client || project.date) && (
-                                  <div className="mt-4 pt-4 border-t text-sm text-muted-foreground">
+                                  <div className="mt-4 pt-4 border-t text-xs text-muted-foreground">
                                     {project.client && (
                                       <span>{project.client}</span>
                                     )}
@@ -243,8 +243,9 @@ const Portfolio = () => {
                                         {new Date(
                                           project.date,
                                         ).toLocaleDateString("id-ID", {
+                                          day: "numeric",
                                           year: "numeric",
-                                          month: "long",
+                                          month: "short",
                                         })}
                                       </>
                                     )}
