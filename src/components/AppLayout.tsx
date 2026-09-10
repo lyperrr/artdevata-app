@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import FloatingActions from "./FloatingActions";
@@ -21,19 +20,10 @@ const AppLayout: React.FC<AppLayoutProps> = ({
     <div className="min-h-screen flex flex-col">
       {showNavbar && <Navbar />}
 
-      <motion.main
-        className="flex-grow"
-        initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
-        animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-        exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
-        transition={{
-          duration: 0.5,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-      >
+      <main className="flex-grow">
         {children}
         {showFooter && <Footer />}
-      </motion.main>
+      </main>
 
       {showFloatingActions && <FloatingActions />}
     </div>
