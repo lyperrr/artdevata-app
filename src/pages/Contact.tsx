@@ -530,9 +530,18 @@ const Contact = () => {
                     Hubungi kami langsung via WhatsApp untuk respons cepat
                   </p>
                 </div>
-                <Button variant="outline" size="lg" className="w-full">
-                  <Icon icon="mdi:whatsapp" className="!size-6" />
-                  Chat WhatsApp
+                <Button variant="outline" size="lg" className="w-full" asChild>
+                  <a
+                    href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+                      whatsappMessage
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2"
+                  >
+                    <Icon icon="mdi:whatsapp" className="!size-6" />
+                    Chat WhatsApp
+                  </a>
                 </Button>
               </Card>
             </MotionCard>

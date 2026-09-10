@@ -26,6 +26,10 @@ import {
   Gem,
   Crown,
   Loader2,
+  ArrowRight,
+  Phone,
+  Sparkles,
+  CheckCircle2,
 } from "lucide-react";
 
 const iconMap = {
@@ -162,7 +166,10 @@ const ServicesPage = () => {
                         variant="outline"
                         className="w-full group-hover:bg-accent group-hover:text-accent-foreground group-hover:border-accent"
                       >
-                        <Link to="/kontak">Minta Penawaran</Link>
+                        <Link to="/kontak" className="flex items-center justify-center gap-2">
+                          Minta Penawaran
+                          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </Link>
                       </Button>
                     </Card>
                   </motion.div>
@@ -265,7 +272,10 @@ const ServicesPage = () => {
 
                 <CardFooter>
                   <Button asChild variant="outline" className="w-full">
-                    <Link to="/kontak">Pilih Paket</Link>
+                    <Link to="/kontak" className="flex items-center justify-center gap-2">
+                      <CheckCircle2 className="w-4 h-4" />
+                      Pilih Paket
+                    </Link>
                   </Button>
                 </CardFooter>
               </Card>
@@ -340,7 +350,10 @@ const ServicesPage = () => {
 
                 <CardFooter className="px-8 pb-8">
                   <Button asChild className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
-                    <Link to="/kontak">Pilih Paket Ini</Link>
+                    <Link to="/kontak" className="flex items-center justify-center gap-2">
+                      <Sparkles className="w-4 h-4" />
+                      Pilih Paket Ini
+                    </Link>
                   </Button>
                 </CardFooter>
               </Card>
@@ -409,7 +422,10 @@ const ServicesPage = () => {
 
                 <CardFooter>
                   <Button asChild variant="outline" className="w-full">
-                    <Link to="/kontak">Hubungi Kami</Link>
+                    <Link to="/kontak" className="flex items-center justify-center gap-2">
+                      <Phone className="w-4 h-4" />
+                      Hubungi Kami
+                    </Link>
                   </Button>
                 </CardFooter>
               </Card>
@@ -460,7 +476,10 @@ const ServicesPage = () => {
               size="lg"
               className="bg-primary hover:bg-primary/90 text-primary-foreground"
             >
-              <Link to="/kontak">Hubungi Kami</Link>
+              <Link to="/kontak" className="flex items-center gap-2">
+                <Phone className="w-4 h-4" />
+                Hubungi Kami
+              </Link>
             </Button>
           </motion.div>
         </div>

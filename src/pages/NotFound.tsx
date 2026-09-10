@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Home, Search, ArrowLeft } from "lucide-react";
+import { Home, ArrowLeft, Briefcase, FolderOpen, Newspaper, Mail } from "lucide-react";
 import SEO from "@/components/SEO";
 
 const NotFound = () => {
@@ -74,20 +74,20 @@ const NotFound = () => {
           >
             <Button
               size="lg"
-              className="bg-accent hover:bg-accent/90 text-accent-foreground w-full sm:w-auto"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground w-full sm:w-auto flex items-center gap-2"
               onClick={() => navigate("/")}
             >
-              <Home className=" h-5 w-5" />
+              <Home className="h-5 w-5" />
               Kembali ke Beranda
             </Button>
 
             <Button
               size="lg"
               variant="outline"
-              className="w-full sm:w-auto"
+              className="w-full sm:w-auto flex items-center gap-2"
               onClick={() => navigate(-1)}
             >
-              <ArrowLeft className=" h-5 w-5" />
+              <ArrowLeft className="h-5 w-5" />
               Halaman Sebelumnya
             </Button>
           </motion.div>
@@ -106,29 +106,37 @@ const NotFound = () => {
               <Button
                 variant="ghost"
                 size="sm"
+                className="flex items-center gap-1.5"
                 onClick={() => navigate("/layanan")}
               >
+                <Briefcase className="w-4 h-4" />
                 Layanan
               </Button>
               <Button
                 variant="ghost"
                 size="sm"
+                className="flex items-center gap-1.5"
                 onClick={() => navigate("/portfolio")}
               >
+                <FolderOpen className="w-4 h-4" />
                 Portfolio
               </Button>
               <Button
                 variant="ghost"
                 size="sm"
+                className="flex items-center gap-1.5"
                 onClick={() => navigate("/blog")}
               >
+                <Newspaper className="w-4 h-4" />
                 Blog
               </Button>
               <Button
                 variant="ghost"
                 size="sm"
+                className="flex items-center gap-1.5"
                 onClick={() => navigate("/kontak")}
               >
+                <Mail className="w-4 h-4" />
                 Kontak
               </Button>
             </div>

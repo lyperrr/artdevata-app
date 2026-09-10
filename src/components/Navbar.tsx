@@ -155,20 +155,24 @@ const Navbar = () => {
                       </Link>
                     );
                   })}
-                  <Button asChild variant="default" className="mt-4">
+                  <Button asChild variant="default" className="mt-4 flex items-center justify-center gap-2">
                     {location.pathname === "/kontak" ? (
                       <Link
                         to="/portfolio"
                         onClick={() => setIsMobileMenuOpen(false)}
+                        className="flex items-center justify-center gap-2"
                       >
                         Lihat Portfolio
+                        <ArrowUpRight className="w-4 h-4" />
                       </Link>
                     ) : (
                       <Link
                         to="/kontak"
                         onClick={() => setIsMobileMenuOpen(false)}
+                        className="flex items-center justify-center gap-2"
                       >
                         Minta Penawaran
+                        <ArrowUpRight className="w-4 h-4" />
                       </Link>
                     )}
                   </Button>

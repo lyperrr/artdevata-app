@@ -14,7 +14,15 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { ExternalLink, Loader2 } from "lucide-react";
+import {
+  ExternalLink,
+  Loader2,
+  Layers,
+  Code,
+  Camera,
+  Zap,
+  Headphones,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import SEO from "@/components/SEO";
 
@@ -100,23 +108,41 @@ const Portfolio = () => {
       {/* Filter */}
       <section className="py-12 bg-background border-b">
         <div className="container">
-          <div className="flex flex-wrap justify-center gap-4">
-            {categories.map((cat, i) => (
-              <motion.button
-                key={cat}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.05 }}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-6 py-3 rounded-full text-sm font-medium transition-all ${
-                  activeCategory === cat
-                    ? "bg-accent text-accent-foreground shadow-lg"
-                    : "bg-muted hover:bg-accent/20"
-                }`}
-              >
-                {cat}
-              </motion.button>
-            ))}
+          <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
+            {categories.map((cat, i) => {
+              const getCategoryIcon = (category: string) => {
+                switch (category) {
+                  case "Website Development":
+                    return <Code className="w-4 h-4" />;
+                  case "CCTV Installation":
+                    return <Camera className="w-4 h-4" />;
+                  case "Cloud Solutions":
+                    return <Zap className="w-4 h-4" />;
+                  case "IT Support":
+                    return <Headphones className="w-4 h-4" />;
+                  default:
+                    return <Layers className="w-4 h-4" />;
+                }
+              };
+
+              return (
+                <motion.button
+                  key={cat}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all ${
+                    activeCategory === cat
+                      ? "bg-accent text-accent-foreground shadow-lg"
+                      : "bg-muted hover:bg-accent/20"
+                  }`}
+                >
+                  {getCategoryIcon(cat)}
+                  {cat}
+                </motion.button>
+              );
+            })}
           </div>
         </div>
       </section>
