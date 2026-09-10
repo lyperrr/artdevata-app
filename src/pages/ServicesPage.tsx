@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import AppLayout from "@/components/AppLayout";
-import { Card } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -202,60 +209,75 @@ const ServicesPage = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <Card className="h-full p-8 border-2 border-border hover:border-accent bg-card">
-                <div className="text-center mb-6">
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-muted mb-4">
+              <Card className="h-full flex flex-col border-2 border-border hover:border-accent bg-card transition-all duration-300">
+                <CardHeader className="text-center pb-4">
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-muted mb-4 mx-auto">
                     <Rocket className="w-8 h-8 text-foreground" />
                   </div>
                   <h3 className="text-xl font-bold mb-1">Basic</h3>
                   <p className="text-sm text-muted-foreground">
                     Untuk bisnis skala kecil
                   </p>
-                </div>
-
-                <div className="text-center mb-8">
-                  <div className="mb-2">
-                    <span className="text-muted-foreground text-sm">Rp </span>
-                    <span className="text-5xl font-bold">2</span>
-                    <span className="text-xl font-bold text-muted-foreground">
-                      jt
-                    </span>
-                    <span className="text-sm text-muted-foreground">
-                      {" "}
-                      /bulan
-                    </span>
+                  <div className="pt-2">
+                    <div className="mb-1">
+                      <span className="text-muted-foreground text-sm">Rp </span>
+                      <span className="text-5xl font-bold">2</span>
+                      <span className="text-xl font-bold text-muted-foreground">jt</span>
+                      <span className="text-sm text-muted-foreground"> /bulan</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      atau Rp 25jt/tahun (hemat 2 bulan!)
+                    </p>
                   </div>
-                  <p className="text-xs text-muted-foreground">
-                    atau Rp 25jt/tahun (hemat 2 bulan!)
-                  </p>
-                </div>
+                </CardHeader>
 
-                <ul className="space-y-3 mb-8">
-                  <li className="flex items-start text-sm">
-                    <span className="text-accent mr-2">✓</span>
-                    <span>Website Company Profile</span>
-                  </li>
-                  <li className="flex items-start text-sm">
-                    <span className="text-accent mr-2">✓</span>
-                    <span>Hosting 2GB + Domain .com</span>
-                  </li>
-                  <li className="flex items-start text-sm">
-                    <span className="text-accent mr-2">✓</span>
-                    <span>SSL Certificate</span>
-                  </li>
-                  <li className="flex items-start text-sm">
-                    <span className="text-accent mr-2">✓</span>
-                    <span>Email Support</span>
-                  </li>
-                  <li className="flex items-start text-sm">
-                    <span className="text-accent mr-2">✓</span>
-                    <span>5 Halaman Konten</span>
-                  </li>
-                </ul>
+                <CardContent className="flex-grow">
+                  <ul className="space-y-3">
+                    <li className="flex items-start text-sm">
+                      <span className="text-accent mr-2">✓</span>
+                      <span>Website Company Profile</span>
+                    </li>
+                    <li className="flex items-start text-sm">
+                      <span className="text-accent mr-2">✓</span>
+                      <span>Hosting 2GB + Domain .com</span>
+                    </li>
+                    <li className="flex items-start text-sm">
+                      <span className="text-accent mr-2">✓</span>
+                      <span>SSL Certificate</span>
+                    </li>
+                    <li className="flex items-start text-sm">
+                      <span className="text-accent mr-2">✓</span>
+                      <span>Email Support</span>
+                    </li>
+                    <li className="flex items-start text-sm">
+                      <span className="text-accent mr-2">✓</span>
+                      <span>5 Halaman Konten</span>
+                    </li>
+                    {/* Unavailable */}
+                    <li className="flex items-start text-sm opacity-40">
+                      <span className="text-muted-foreground mr-2">✕</span>
+                      <span className="line-through text-muted-foreground">Website Dinamis + Dashboard</span>
+                    </li>
+                    <li className="flex items-start text-sm opacity-40">
+                      <span className="text-muted-foreground mr-2">✕</span>
+                      <span className="line-through text-muted-foreground">Priority Support 24/7</span>
+                    </li>
+                    <li className="flex items-start text-sm opacity-40">
+                      <span className="text-muted-foreground mr-2">✕</span>
+                      <span className="line-through text-muted-foreground">SEO Optimization</span>
+                    </li>
+                    <li className="flex items-start text-sm opacity-40">
+                      <span className="text-muted-foreground mr-2">✕</span>
+                      <span className="line-through text-muted-foreground">Dedicated Account Manager</span>
+                    </li>
+                  </ul>
+                </CardContent>
 
-                <Button asChild variant="outline" className="w-full">
-                  <Link to="/kontak">Pilih Paket</Link>
-                </Button>
+                <CardFooter>
+                  <Button asChild variant="outline" className="w-full">
+                    <Link to="/kontak">Pilih Paket</Link>
+                  </Button>
+                </CardFooter>
               </Card>
             </motion.div>
 
@@ -265,71 +287,72 @@ const ServicesPage = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
+              className="md:-my-4 z-10"
             >
-              <Card className="h-full p-8 border-2 border-accent bg-card relative overflow-hidden">
-                <div className="absolute right-[-40px] rotate-45 bg-accent text-accent-foreground px-10 py-2 text-sm font-semibold shadow-md">
+              <Card className="h-full flex flex-col border-2 border-accent bg-card relative overflow-hidden shadow-2xl ring-1 ring-accent/30">
+                <div className="absolute -right-12 top-6 rotate-45 bg-accent text-accent-foreground px-10 py-2 text-sm font-semibold shadow-md">
                   REKOMENDASI
                 </div>
 
-                <div className="text-center mb-6 mt-2">
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-accent/10 mb-4">
-                    <Gem className="w-8 h-8 text-accent" />
+                <CardHeader className="text-center pb-6 pt-8 px-8">
+                  <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-accent/10 mb-4 mx-auto mt-2">
+                    <Gem className="w-10 h-10 text-accent" />
                   </div>
-                  <h3 className="text-xl font-bold mb-1">Professional</h3>
+                  <h3 className="text-2xl font-bold mb-1">Professional</h3>
                   <p className="text-sm text-muted-foreground">
                     Untuk bisnis berkembang
                   </p>
-                </div>
-
-                <div className="text-center mb-8">
-                  <div className="mb-2">
-                    <span className="text-accent text-sm">Rp </span>
-                    <span className="text-5xl font-bold text-accent">5</span>
-                    <span className="text-xl font-bold text-accent">jt</span>
-                    <span className="text-sm text-muted-foreground">
-                      {" "}
-                      /bulan
-                    </span>
+                  <div className="pt-3">
+                    <div className="mb-1">
+                      <span className="text-accent text-sm">Rp </span>
+                      <span className="text-6xl font-bold text-accent">5</span>
+                      <span className="text-2xl font-bold text-accent">jt</span>
+                      <span className="text-sm text-muted-foreground"> /bulan</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      atau Rp 50jt/tahun (hemat 2 bulan!)
+                    </p>
                   </div>
-                  <p className="text-xs text-muted-foreground">
-                    atau Rp 50jt/tahun (hemat 2 bulan!)
-                  </p>
-                </div>
+                </CardHeader>
 
-                <ul className="space-y-3 mb-8">
-                  <li className="flex items-start text-sm">
-                    <span className="text-accent mr-2">✓</span>
-                    <span>Website Dinamis + Dashboard</span>
-                  </li>
-                  <li className="flex items-start text-sm">
-                    <span className="text-accent mr-2">✓</span>
-                    <span>Hosting 5GB + Domain Premium</span>
-                  </li>
-                  <li className="flex items-start text-sm">
-                    <span className="text-accent mr-2">✓</span>
-                    <span>SSL Certificate Premium</span>
-                  </li>
-                  <li className="flex items-start text-sm">
-                    <span className="text-accent mr-2">✓</span>
-                    <span>Priority Support 24/7</span>
-                  </li>
-                  <li className="flex items-start text-sm">
-                    <span className="text-accent mr-2">✓</span>
-                    <span>Unlimited Halaman</span>
-                  </li>
-                  <li className="flex items-start text-sm">
-                    <span className="text-accent mr-2">✓</span>
-                    <span>SEO Optimization</span>
-                  </li>
-                  <li className="flex items-start text-sm">
-                    <span className="text-accent mr-2">✓</span>
-                    <span>Monthly Maintenance</span>
-                  </li>
-                </ul>
+                <CardContent className="flex-grow px-8">
+                  <ul className="space-y-3">
+                    <li className="flex items-start text-sm">
+                      <span className="text-accent mr-2">✓</span>
+                      <span>Website Dinamis + Dashboard</span>
+                    </li>
+                    <li className="flex items-start text-sm">
+                      <span className="text-accent mr-2">✓</span>
+                      <span>Hosting 5GB + Domain Premium</span>
+                    </li>
+                    <li className="flex items-start text-sm">
+                      <span className="text-accent mr-2">✓</span>
+                      <span>SSL Certificate Premium</span>
+                    </li>
+                    <li className="flex items-start text-sm">
+                      <span className="text-accent mr-2">✓</span>
+                      <span>Priority Support 24/7</span>
+                    </li>
+                    <li className="flex items-start text-sm">
+                      <span className="text-accent mr-2">✓</span>
+                      <span>Unlimited Halaman</span>
+                    </li>
+                    <li className="flex items-start text-sm">
+                      <span className="text-accent mr-2">✓</span>
+                      <span>SEO Optimization</span>
+                    </li>
+                    <li className="flex items-start text-sm">
+                      <span className="text-accent mr-2">✓</span>
+                      <span>Monthly Maintenance</span>
+                    </li>
+                  </ul>
+                </CardContent>
 
-                <Button asChild className="w-full bg-accent hover:bg-accent/90">
-                  <Link to="/kontak">Pilih Paket Ini</Link>
-                </Button>
+                <CardFooter className="px-8 pb-8">
+                  <Button asChild className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
+                    <Link to="/kontak">Pilih Paket Ini</Link>
+                  </Button>
+                </CardFooter>
               </Card>
             </motion.div>
 
@@ -340,62 +363,65 @@ const ServicesPage = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <Card className="h-full p-8 border-2 hover:border-accent bg-card">
-                <div className="text-center mb-6">
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-muted mb-4">
+              <Card className="h-full flex flex-col border-2 hover:border-accent bg-card transition-all duration-300">
+                <CardHeader className="text-center pb-4">
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-muted mb-4 mx-auto">
                     <Crown className="w-8 h-8 text-foreground" />
                   </div>
                   <h3 className="text-xl font-bold mb-1">Enterprise</h3>
                   <p className="text-sm text-muted-foreground">
                     Untuk bisnis skala besar
                   </p>
-                </div>
+                  <div className="pt-2">
+                    <div className="text-4xl font-bold mb-1">Custom</div>
+                    <p className="text-xs text-muted-foreground">
+                      Sesuai kebutuhan bisnis Anda
+                    </p>
+                  </div>
+                </CardHeader>
 
-                <div className="text-center mb-8">
-                  <div className="text-4xl font-bold mb-2">Custom</div>
-                  <p className="text-xs text-muted-foreground">
-                    Sesuai kebutuhan bisnis Anda
-                  </p>
-                </div>
+                <CardContent className="flex-grow">
+                  <ul className="space-y-3">
+                    <li className="flex items-start text-sm">
+                      <span className="text-accent mr-2">✓</span>
+                      <span>Custom Web Application</span>
+                    </li>
+                    <li className="flex items-start text-sm">
+                      <span className="text-accent mr-2">✓</span>
+                      <span>Cloud Hosting Unlimited</span>
+                    </li>
+                    <li className="flex items-start text-sm">
+                      <span className="text-accent mr-2">✓</span>
+                      <span>Dedicated Server Option</span>
+                    </li>
+                    <li className="flex items-start text-sm">
+                      <span className="text-accent mr-2">✓</span>
+                      <span>VIP Support 24/7</span>
+                    </li>
+                    <li className="flex items-start text-sm">
+                      <span className="text-accent mr-2">✓</span>
+                      <span>Advanced Analytics</span>
+                    </li>
+                    <li className="flex items-start text-sm">
+                      <span className="text-accent mr-2">✓</span>
+                      <span>API Integration</span>
+                    </li>
+                    <li className="flex items-start text-sm">
+                      <span className="text-accent mr-2">✓</span>
+                      <span>Dedicated Account Manager</span>
+                    </li>
+                    <li className="flex items-start text-sm">
+                      <span className="text-accent mr-2">✓</span>
+                      <span>SLA Guarantee</span>
+                    </li>
+                  </ul>
+                </CardContent>
 
-                <ul className="space-y-3 mb-8">
-                  <li className="flex items-start text-sm">
-                    <span className="text-accent mr-2">✓</span>
-                    <span>Custom Web Application</span>
-                  </li>
-                  <li className="flex items-start text-sm">
-                    <span className="text-accent mr-2">✓</span>
-                    <span>Cloud Hosting Unlimited</span>
-                  </li>
-                  <li className="flex items-start text-sm">
-                    <span className="text-accent mr-2">✓</span>
-                    <span>Dedicated Server Option</span>
-                  </li>
-                  <li className="flex items-start text-sm">
-                    <span className="text-accent mr-2">✓</span>
-                    <span>VIP Support 24/7</span>
-                  </li>
-                  <li className="flex items-start text-sm">
-                    <span className="text-accent mr-2">✓</span>
-                    <span>Advanced Analytics</span>
-                  </li>
-                  <li className="flex items-start text-sm">
-                    <span className="text-accent mr-2">✓</span>
-                    <span>API Integration</span>
-                  </li>
-                  <li className="flex items-start text-sm">
-                    <span className="text-accent mr-2">✓</span>
-                    <span>Dedicated Account Manager</span>
-                  </li>
-                  <li className="flex items-start text-sm">
-                    <span className="text-accent mr-2">✓</span>
-                    <span>SLA Guarantee</span>
-                  </li>
-                </ul>
-
-                <Button asChild variant="outline" className="w-full">
-                  <Link to="/kontak">Hubungi Kami</Link>
-                </Button>
+                <CardFooter>
+                  <Button asChild variant="outline" className="w-full">
+                    <Link to="/kontak">Hubungi Kami</Link>
+                  </Button>
+                </CardFooter>
               </Card>
             </motion.div>
           </div>
