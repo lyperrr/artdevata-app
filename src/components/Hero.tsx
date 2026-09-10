@@ -28,10 +28,33 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary via-primary/95 to-primary/90">
-      {/* Decorative Background Elements */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-accent rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent rounded-full blur-3xl"></div>
+      {/* Grid line pattern — kotak-kotak */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: `
+            linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px)
+          `,
+          backgroundSize: "48px 48px",
+        }}
+      />
+      {/* Radial fade — pusat lebih gelap agar teks tetap terbaca */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 70% 60% at 50% 50%, transparent 30%, hsl(168,51%,17%) 100%)",
+        }}
+      />
+
+      {/* Accent glow blobs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-24 -left-24 w-96 h-96 bg-accent/20 rounded-full blur-3xl animate-float" />
+        <div
+          className="absolute top-1/2 -right-32 w-80 h-80 bg-accent/15 rounded-full blur-3xl animate-float"
+          style={{ animationDelay: "1.5s" }}
+        />
       </div>
 
       <div className="container  relative z-10 pt-20 pb-16">

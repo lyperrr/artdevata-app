@@ -54,8 +54,8 @@ const ServicesPage = () => {
           features: Array.isArray(item.features)
             ? item.features
             : typeof item.features === "string"
-            ? item.features.split(",").map((f) => f.trim())
-            : [],
+              ? item.features.split(",").map((f) => f.trim())
+              : [],
         }));
 
         setServices(fixed);
@@ -133,9 +133,8 @@ const ServicesPage = () => {
                       <div className="mb-4">
                         <div className="size-16 rounded-xl bg-accent/60 flex items-center justify-center group-hover:bg-accent transition-all duration-300">
                           <img
-                            src={`${import.meta.env.VITE_STORAGE_URL}/${
-                              service.image
-                            }`}
+                            src={`${import.meta.env.VITE_STORAGE_URL}/${service.image
+                              }`}
                             className="size-10"
                           />
                         </div>
