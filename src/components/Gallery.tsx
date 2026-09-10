@@ -1,8 +1,9 @@
 /** @format */
 
-import React, { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
+import React, { useEffect, useState } from "react";
+import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Dialog,
   DialogContent,
@@ -10,17 +11,14 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import Photo1 from "@/assets/img/IMG_3279.jpg";
-import Photo2 from "@/assets/img/IMG_3280.jpg";
-import Photo3 from "@/assets/img/IMG_3281.jpg";
-import Photo4 from "@/assets/img/IMG_3282.jpg";
 
-interface GalleryItem {
-  id: string;
+export interface GalleryItem {
+  id: string | number;
   title: string;
-  description: string;
-  imageUrl: string;
-  category: string;
+  description?: string;
+  imageUrl?: string;
+  image?: string;
+  category?: string;
 }
 
 interface GalleryProps {
@@ -28,47 +26,61 @@ interface GalleryProps {
   items?: GalleryItem[];
 }
 
-const Gallery: React.FC<GalleryProps> = ({
-  items = [
-    {
-      id: "1",
-      title: "Mengatur Sudut Kamera",
-      description:
-        "Teknisi memastikan arah kamera sesuai area prioritas agar setiap sudut lokasi tetap terpantau jelas.",
-      imageUrl: Photo1,
-      category: "Adjustment",
-    },
-    {
-      id: "2",
-      title: "Kalibrasi Arah CCTV",
-      description:
-        "Proses kalibrasi ulang untuk mengarahkan kamera ke titik buta, memastikan tidak ada area pengawasan yang terlewat.",
-      imageUrl: Photo2,
-      category: "Calibration",
-    },
-    {
-      id: "3",
-      title: "Pemasangan Dengan Bor",
-      description:
-        "Tim memasang bracket kamera menggunakan bor agar posisi perangkat kokoh dan aman untuk jangka panjang.",
-      imageUrl: Photo3,
-      category: "Installation",
-    },
-    {
-      id: "4",
-      title: "Hasil Akhir Terpasang",
-      description:
-        "Unit CCTV yang telah selesai diarahkan menunjukkan hasil akhir tertata rapi siap digunakan untuk monitoring.",
-      imageUrl: Photo4,
-      category: "Result",
-    },
-  ],
-}) => {
+const Gallery: React.FC<GalleryProps> = ({ items: propItems }) => {
+  const [items, setItems] = useState<GalleryItem[]>(propItems || []);
+  const [loading, setLoading] = useState(!propItems || propItems.length === 0);
   const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
 
+  useEffect(() => {
+    if (propItems && propItems.length > 0) {
+      setItems(propItems);
+      setLoading(false);
+      return;
+    }
+
+    let isMounted = true;
+    const apiUrl =
+      import.meta.env.VITE_API_URL || "https://admin.artdevata.net/api";
+
+    fetch(`${apiUrl}/documentations`)
+      .then((res) => {
+        if (!res.ok) throw new Error("Network response was not ok");
+        return res.json();
+      })
+      .then((resData) => {
+        if (!isMounted) return;
+        const list = Array.isArray(resData)
+          ? resData
+          : Array.isArray(resData?.data)
+          ? resData.data
+          : [];
+
+        const formatted = list.map((d: any) => ({
+          id: d.id,
+          title: d.title,
+          description: d.description || "",
+          imageUrl: d.image || d.image_url || "",
+          category: d.category || "Dokumentasi",
+        }));
+        setItems(formatted);
+      })
+      .catch((err) => {
+        console.warn("Gagal memuat dokumentasi dari API:", err);
+        if (isMounted) setItems([]);
+      })
+      .finally(() => {
+        if (isMounted) setLoading(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [propItems]);
+
   return (
-    <section className="py-16 bg-secondary">
+    <section className="py-16 bg-secondary" id="dokumentasi">
       <div className="container mx-auto px-4">
+        {/* Header */}
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-primary mb-4">
             Dokumentasi Perusahaan
@@ -78,49 +90,77 @@ const Gallery: React.FC<GalleryProps> = ({
           </p>
         </div>
 
-        {items.length > 0 ? (
+        {/* Loading State */}
+        {loading ? (
           <div className="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
-            {items.map((item) => (
-              <Card
-                key={item.id}
-                className="break-inside-avoid mb-4 overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer group"
-                onClick={() => setSelectedItem(item)}
-              >
-                <div className="relative overflow-hidden">
-                  <img
-                    src={item.imageUrl}
-                    alt={item.title}
-                    className="w-full h-auto object-cover hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute top-4 left-4 z-30">
-                    <Badge
-                      variant="outline"
-                      className="bg-accent text-primary-foreground hover:bg-accent/90 border-accent"
-                    >
-                      {item.category}
-                    </Badge>
-                  </div>
-                  {/* Overlay dengan title saat hover */}
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                    <div className="p-3 text-white">
-                      <h3 className="text-base font-semibold mb-1">
-                        {item.title}
-                      </h3>
-                      <p
-                        className="text-xs opacity-90 overflow-hidden"
-                        style={{
-                          display: "-webkit-box",
-                          WebkitLineClamp: 2,
-                          WebkitBoxOrient: "vertical",
-                        }}
-                      >
-                        {item.description}
-                      </p>
+            {[240, 300, 200, 280].map((height, i) => (
+              <div key={i} className="break-inside-avoid mb-4">
+                <Skeleton
+                  className="w-full rounded-lg"
+                  style={{ height: `${height}px` }}
+                />
+              </div>
+            ))}
+          </div>
+        ) : items.length > 0 ? (
+          /* Masonry Cards Layout */
+          <div className="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+            {items.map((item) => {
+              const imageSrc = item.imageUrl || item.image || "";
+              return (
+                <Card
+                  key={item.id}
+                  className="break-inside-avoid mb-4 overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer group"
+                  onClick={() => setSelectedItem(item)}
+                >
+                  <div className="relative overflow-hidden">
+                    {imageSrc ? (
+                      <img
+                        src={imageSrc}
+                        alt={item.title}
+                        className="w-full h-auto object-cover hover:scale-105 transition-transform duration-300"
+                      />
+                    ) : (
+                      <div className="w-full h-48 bg-muted flex items-center justify-center text-muted-foreground text-xs">
+                        Tidak ada gambar
+                      </div>
+                    )}
+
+                    {item.category && (
+                      <div className="absolute top-4 left-4 z-30">
+                        <Badge
+                          variant="outline"
+                          className="bg-accent text-primary-foreground hover:bg-accent/90 border-accent"
+                        >
+                          {item.category}
+                        </Badge>
+                      </div>
+                    )}
+
+                    {/* Overlay dengan title saat hover */}
+                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                      <div className="p-3 text-white">
+                        <h3 className="text-base font-semibold mb-1">
+                          {item.title}
+                        </h3>
+                        {item.description && (
+                          <p
+                            className="text-xs opacity-90 overflow-hidden"
+                            style={{
+                              display: "-webkit-box",
+                              WebkitLineClamp: 2,
+                              WebkitBoxOrient: "vertical",
+                            }}
+                          >
+                            {item.description}
+                          </p>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Card>
-            ))}
+                </Card>
+              );
+            })}
           </div>
         ) : (
           <div className="text-center py-12">
@@ -143,24 +183,30 @@ const Gallery: React.FC<GalleryProps> = ({
                     {selectedItem.title}
                   </DialogTitle>
                   <DialogDescription className="text-base">
-                    <Badge variant="secondary" className="mb-2">
-                      {selectedItem.category}
-                    </Badge>
+                    {selectedItem.category && (
+                      <Badge variant="secondary" className="mb-2">
+                        {selectedItem.category}
+                      </Badge>
+                    )}
                   </DialogDescription>
                 </DialogHeader>
                 <div className="space-y-4">
-                  <div className="relative overflow-hidden rounded-lg">
-                    <img
-                      src={selectedItem.imageUrl}
-                      alt={selectedItem.title}
-                      className="w-full h-auto max-h-[60vh] object-contain"
-                    />
-                  </div>
-                  <div className="prose prose-primary-w-none">
-                    <p className="text-primary leading-relaxed">
-                      {selectedItem.description}
-                    </p>
-                  </div>
+                  {(selectedItem.imageUrl || selectedItem.image) && (
+                    <div className="relative overflow-hidden rounded-lg">
+                      <img
+                        src={selectedItem.imageUrl || selectedItem.image}
+                        alt={selectedItem.title}
+                        className="w-full h-auto max-h-[60vh] object-contain"
+                      />
+                    </div>
+                  )}
+                  {selectedItem.description && (
+                    <div className="prose prose-primary max-w-none">
+                      <p className="text-primary leading-relaxed">
+                        {selectedItem.description}
+                      </p>
+                    </div>
+                  )}
                 </div>
               </>
             )}
