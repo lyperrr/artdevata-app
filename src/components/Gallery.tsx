@@ -65,37 +65,35 @@ const Gallery: React.FC<GalleryProps> = ({ items: propItems }) => {
 
         {/* Loading State */}
         {loading ? (
-          <div className="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
-            {[240, 300, 200, 280].map((height, i) => (
-              <div key={i} className="break-inside-avoid mb-4">
-                <Skeleton
-                  className="w-full rounded-lg"
-                  style={{ height: `${height}px` }}
-                />
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {[1, 2, 3, 4].map((n) => (
+              <div key={n} className="rounded-2xl overflow-hidden">
+                <Skeleton className="w-full aspect-[4/5] rounded-2xl" />
               </div>
             ))}
           </div>
         ) : items.length > 0 ? (
-          /* Masonry Cards Layout */
-          <div className="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+          /* Grid Cards Layout dengan Ukuran Sejajar */
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {items.map((item) => {
               const imageSrc = item.imageUrl || item.image || "";
               return (
                 <Card
                   key={item.id}
-                  className="break-inside-avoid mb-4 overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer group"
+                  className="rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer group border-border/60 bg-card flex flex-col"
                   onClick={() => setSelectedItem(item)}
                 >
-                  <div className="relative overflow-hidden">
+                  <div className="relative aspect-[4/5] w-full overflow-hidden bg-muted">
                     {imageSrc ? (
                       <img
                         src={imageSrc}
                         alt={item.title}
-                        className="w-full h-auto object-cover hover:scale-105 transition-transform duration-300"
+                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
                       />
                     ) : (
-                      <div className="w-full h-48 bg-muted flex items-center justify-center text-muted-foreground text-xs">
-                        <Camera className="w-6 h-6 opacity-30" />
+                      <div className="w-full h-full flex items-center justify-center bg-muted text-muted-foreground text-xs">
+                        <Camera className="w-8 h-8 opacity-30" />
                       </div>
                     )}
 
@@ -103,7 +101,7 @@ const Gallery: React.FC<GalleryProps> = ({ items: propItems }) => {
                       <div className="absolute top-4 left-4 z-30">
                         <Badge
                           variant="outline"
-                          className="bg-accent text-primary-foreground hover:bg-accent/90 border-accent"
+                          className="bg-accent text-primary-foreground hover:bg-accent/90 border-accent font-medium shadow-sm"
                         >
                           {item.category}
                         </Badge>
@@ -111,20 +109,13 @@ const Gallery: React.FC<GalleryProps> = ({ items: propItems }) => {
                     )}
 
                     {/* Overlay dengan title saat hover */}
-                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                      <div className="p-3 text-white">
-                        <h3 className="text-base font-semibold mb-1">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                      <div className="text-white space-y-1">
+                        <h3 className="text-base font-bold line-clamp-1 mb-1">
                           {item.title}
                         </h3>
                         {item.description && (
-                          <p
-                            className="text-xs opacity-90 overflow-hidden"
-                            style={{
-                              display: "-webkit-box",
-                              WebkitLineClamp: 2,
-                              WebkitBoxOrient: "vertical",
-                            }}
-                          >
+                          <p className="text-xs text-white/80 line-clamp-2 leading-relaxed">
                             {item.description}
                           </p>
                         )}

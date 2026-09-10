@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { CheckCircle, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router-dom";
 
 const About = () => {
   const features = [
@@ -65,14 +66,12 @@ const About = () => {
             <Button
               asChild
               size="lg"
-              className="bg-accent hover:bg-accent/90 group text-accent-foreground group"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground group"
             >
-              <a href="/tentang">
-                <span className="flex items-center">
-                  Pelajari Lebih Lanjut
-                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </span>
-              </a>
+              <Link to="/tentang" className="flex items-center">
+                Pelajari Lebih Lanjut
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </Button>
           </motion.div>
 
