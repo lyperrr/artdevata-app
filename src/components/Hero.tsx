@@ -130,7 +130,7 @@ const Hero = () => {
               className="w-full sm:w-auto bg-transparent text-primary-foreground hover:bg-primary-foreground/10"
             >
               <Link to="/layanan">
-                <Layers className="!size-5" />
+                <Layers className="!size-4" />
                 Lihat Layanan
               </Link>
             </Button>
@@ -142,7 +142,7 @@ const Hero = () => {
             >
               <Link to="/portfolio">
                 Mulai Proyek
-                <ArrowRight className="!size-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="!size-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>
           </motion.div>

@@ -70,7 +70,7 @@ const About = () => {
             >
               <Link to="/tentang" className="flex items-center">
                 Pelajari Lebih Lanjut
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="!size-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>
           </motion.div>

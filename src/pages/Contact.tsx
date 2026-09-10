@@ -412,7 +412,7 @@ const Contact = () => {
                       ) : (
                         <>
                           Kirim Pesan
-                          <Send className="!size-5" />
+                          <Send className="!size-4" />
                         </>
                       )}
                     </Button>

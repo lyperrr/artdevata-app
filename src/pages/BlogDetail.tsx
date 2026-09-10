@@ -378,9 +378,8 @@ const BlogDetail = () => {
                         onClick={handleLike}
                       >
                         <Heart
-                          className={`!size-5 ${
-                            liked ? "fill-destructive" : ""
-                          }`}
+                          className={`!size-4 ${liked ? "fill-destructive" : ""
+                            }`}
                         />
                         {likeCount > 0 && (
                           <span className="text-xs">{likeCount}</span>

@@ -111,7 +111,7 @@ const Services = () => {
           >
             <Link to="/layanan" className="flex items-center">
               Lihat Semua Layanan
-              <ArrowRight className="!size-5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="!size-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </Button>
         </motion.div>

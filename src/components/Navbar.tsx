@@ -40,8 +40,8 @@ const Navbar = () => {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-          ? "bg-background shadow-lg border-b border-border"
-          : "bg-transparent"
+        ? "bg-background shadow-lg border-b border-border"
+        : "bg-transparent"
         }`}
     >
       <div className="container ">
@@ -64,19 +64,19 @@ const Navbar = () => {
                 key={link.href}
                 to={link.href}
                 className={`px-2 py-1 text-base font-medium transition-colors relative group ${location.pathname === link.href
-                    ? isScrolled
-                      ? "text-accent"
-                      : "text-white"
-                    : isScrolled
-                      ? "text-primary/30 hover:text-accent"
-                      : "text-white/50 hover:text-white"
+                  ? isScrolled
+                    ? "text-accent"
+                    : "text-white"
+                  : isScrolled
+                    ? "text-primary/30 hover:text-accent"
+                    : "text-white/50 hover:text-white"
                   }`}
               >
                 {link.label}
                 <span
                   className={`absolute bottom-0 left-0 h-0.5 bg-current transition-all duration-300 ease-out ${location.pathname === link.href
-                      ? "w-full"
-                      : "w-0 group-hover:w-full"
+                    ? "w-full"
+                    : "w-0 group-hover:w-full"
                     }`}
                 ></span>
               </Link>
@@ -94,12 +94,12 @@ const Navbar = () => {
               {location.pathname === "/kontak" ? (
                 <Link to="/portfolio">
                   Lihat Portfolio
-                  <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform !size-5" />
+                  <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform !size-4" />
                 </Link>
               ) : (
                 <Link to="/kontak">
                   Minta Penawaran
-                  <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform !size-5" />
+                  <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform !size-4" />
                 </Link>
               )}
             </Button>
@@ -145,8 +145,8 @@ const Navbar = () => {
                         key={link.href}
                         to={link.href}
                         className={`flex items-center gap-3 px-4 py-3 text-base font-medium rounded-lg transition-all duration-300 ${location.pathname === link.href
-                            ? "bg-accent/80 hover:bg-accent text-accent-foreground"
-                            : "text-foreground hover:bg-muted"
+                          ? "bg-accent/80 hover:bg-accent text-accent-foreground"
+                          : "text-foreground hover:bg-muted"
                           }`}
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
