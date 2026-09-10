@@ -30,26 +30,12 @@ import {
 } from "lucide-react";
 import SEO from "@/components/SEO";
 
-interface Portfolio {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  link: string | null;
-  category: string | null;
-  client: string | null;
-  date: string | null;
-  duration: string | null;
-  challenge: string | null;
-  solution: string | null;
-  results: string[];
-  technologies: string[];
-  images: string[];
-}
+import { PortfolioItem } from "@/types";
+import { getPortfolioById } from "@/services";
 
 const PortfolioDetail = () => {
   const { id } = useParams<{ id: string }>();
-  const [project, setProject] = useState<Portfolio | null>(null);
+  const [project, setProject] = useState<PortfolioItem | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
@@ -59,29 +45,21 @@ const PortfolioDetail = () => {
 
   useEffect(() => {
     const fetchProject = async () => {
+      if (!id) return;
       try {
         setLoading(true);
-        // const res = await fetch(
-        //   `${import.meta.env.VITE_API_URL}/portfolios/${id}`
-        // );
-        const res = await fetch(
-          `https://admin.artdevata.net/api/portfolios/${id}`,
-        );
-        const json = await res.json();
+        const data = await getPortfolioById(id);
+        if (!data) {
+          setError(true);
+          return;
+        }
 
-        // Laravel biasanya balikin { data: {...} }
-        const data = json.data || json;
-
-        // Pastikan images selalu array (jika kosong atau null)
         const images =
-          data.images && data.images.length > 0 ? data.images : [data.image]; // fallback ke image utama
+          data.images && data.images.length > 0 ? data.images : [data.image];
 
         setProject({
           ...data,
           images,
-          category: data.category || "Umum",
-          results: data.results || [],
-          technologies: data.technologies || [],
         });
       } catch (err) {
         console.error(err);

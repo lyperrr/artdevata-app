@@ -47,16 +47,8 @@ import {
 } from "lucide-react";
 import SEO from "@/components/SEO";
 
-interface BlogPost {
-  id: number;
-  title: string;
-  content: string;
-  excerpt?: string;
-  image?: string;
-  author?: string;
-  category?: string;
-  created_at: string;
-}
+import { BlogPost } from "@/types";
+import { getBlogById, getBlogs } from "@/services";
 
 const BlogDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -90,38 +82,22 @@ const BlogDetail = () => {
     }
 
     // Fetch current blog post
-    const fetchPost = fetch(`https://admin.artdevata.net/api/blogs/${id}`)
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        return res.json();
-      })
-      .then((json) => {
-        const blog = json.data || json;
+    const fetchPost = getBlogById(id).then((blog) => {
+      if (blog) {
         setPost(blog);
-
-        // Calculate reading time (assuming 200 words per minute)
         if (blog.content) {
           const wordCount = blog.content.split(" ").length;
           setReadingTime(Math.ceil(wordCount / 200));
         }
-      });
+      }
+    });
 
     // Fetch recent posts for sidebar
-    const fetchRecent = fetch("https://admin.artdevata.net/api/blogs")
-      .then((res) => res.json())
-      .then((json) => {
-        const data = json.data || json;
-        const filtered = data.filter((p) => p.id != id);
-
-        // Shuffle array untuk mendapatkan artikel acak
-        const shuffled = filtered.sort(() => Math.random() - 0.5);
-
-        // Ambil maksimal 3 artikel
-        const limited = shuffled.slice(0, 3);
-        setRecentPosts(limited);
-      });
+    const fetchRecent = getBlogs().then((data) => {
+      const filtered = data.filter((p) => String(p.id) !== String(id));
+      const shuffled = filtered.sort(() => Math.random() - 0.5);
+      setRecentPosts(shuffled.slice(0, 3));
+    });
 
     Promise.all([fetchPost, fetchRecent])
       .then(() => setLoading(false))

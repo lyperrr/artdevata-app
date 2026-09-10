@@ -11,15 +11,11 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
+import { Camera } from "lucide-react";
+import { GalleryItem } from "@/types";
+import { getDocumentations } from "@/services";
 
-export interface GalleryItem {
-  id: string | number;
-  title: string;
-  description?: string;
-  imageUrl?: string;
-  image?: string;
-  category?: string;
-}
+export type { GalleryItem };
 
 interface GalleryProps {
   title?: string;
@@ -39,34 +35,11 @@ const Gallery: React.FC<GalleryProps> = ({ items: propItems }) => {
     }
 
     let isMounted = true;
-    const apiUrl =
-      import.meta.env.VITE_API_URL || "https://admin.artdevata.net/api";
 
-    fetch(`${apiUrl}/documentations`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Network response was not ok");
-        return res.json();
-      })
-      .then((resData) => {
+    getDocumentations()
+      .then((data) => {
         if (!isMounted) return;
-        const list = Array.isArray(resData)
-          ? resData
-          : Array.isArray(resData?.data)
-          ? resData.data
-          : [];
-
-        const formatted = list.map((d: any) => ({
-          id: d.id,
-          title: d.title,
-          description: d.description || "",
-          imageUrl: d.image || d.image_url || "",
-          category: d.category || "Dokumentasi",
-        }));
-        setItems(formatted);
-      })
-      .catch((err) => {
-        console.warn("Gagal memuat dokumentasi dari API:", err);
-        if (isMounted) setItems([]);
+        setItems(data);
       })
       .finally(() => {
         if (isMounted) setLoading(false);
@@ -122,7 +95,7 @@ const Gallery: React.FC<GalleryProps> = ({ items: propItems }) => {
                       />
                     ) : (
                       <div className="w-full h-48 bg-muted flex items-center justify-center text-muted-foreground text-xs">
-                        Tidak ada gambar
+                        <Camera className="w-6 h-6 opacity-30" />
                       </div>
                     )}
 

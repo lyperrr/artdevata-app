@@ -37,36 +37,27 @@ const iconMap = {
   security: Shield,
 };
 
+import { ServiceItem } from "@/types";
+import { getServices } from "@/services";
+
 const ServicesPage = () => {
-  const [services, setServices] = useState([]);
+  const [services, setServices] = useState<ServiceItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadServices = async () => {
-      try {
-        // const res = await fetch(`${import.meta.env.VITE_API_URL}/services`);
-        const res = await fetch("https://admin.artdevata.net/api/services");
-        const data = await res.json();
+    let mounted = true;
+    getServices()
+      .then((data) => {
+        if (!mounted) return;
+        setServices(data);
+      })
+      .finally(() => {
+        if (mounted) setLoading(false);
+      });
 
-        // Pastikan features bentuk array (kalau masih string → split)
-        const fixed = data.map((item) => ({
-          ...item,
-          features: Array.isArray(item.features)
-            ? item.features
-            : typeof item.features === "string"
-              ? item.features.split(",").map((f) => f.trim())
-              : [],
-        }));
-
-        setServices(fixed);
-      } catch (e) {
-        console.error("Gagal memuat layanan:", e);
-      } finally {
-        setLoading(false);
-      }
+    return () => {
+      mounted = false;
     };
-
-    loadServices();
   }, []);
 
   return (

@@ -18,16 +18,8 @@ import { ExternalLink, Loader2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import SEO from "@/components/SEO";
 
-interface PortfolioItem {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  link: string | null;
-  category: string | null;
-  client?: string;
-  date?: string;
-}
+import { PortfolioItem } from "@/types";
+import { getPortfolios } from "@/services";
 
 const Portfolio = () => {
   const [projects, setProjects] = useState<PortfolioItem[]>([]);
@@ -45,26 +37,13 @@ const Portfolio = () => {
     "IT Support",
   ];
 
-  // const API_URL = `${import.meta.env.VITE_API_URL}/portfolios`;
-  const API_URL = "https://admin.artdevata.net/api/portfolios";
-
   const fetchProjects = () => {
-    fetch(API_URL)
-      .then((res) => res.json())
-      .then((response) => {
-        const data = response.data || response;
-
-        const formatted = data.map((item: any) => ({
-          ...item,
-          category: item.category || "Umum",
-        }));
-
-        setProjects(formatted);
-        setFilteredProjects(formatted);
-        setLoading(false);
+    getPortfolios()
+      .then((data) => {
+        setProjects(data);
+        setFilteredProjects(data);
       })
-      .catch((err) => {
-        console.error(err);
+      .finally(() => {
         setLoading(false);
       });
   };

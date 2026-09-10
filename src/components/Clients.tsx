@@ -1,6 +1,4 @@
-/** @format */
-
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   Tooltip,
@@ -8,27 +6,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-
-type ClientItem = {
-  id?: number | string;
-  name?: string;
-  company?: string;
-  logo?: string;
-  image?: string;
-  logo_url?: string;
-};
-
-type RawClientData = {
-  id?: number | string;
-  _id?: number | string;
-  name?: string;
-  title?: string;
-  company?: string;
-  logo?: string;
-  image?: string;
-  logo_url?: string;
-  logoUrl?: string;
-};
+import { ClientItem } from "@/types";
+import { getClients } from "@/services";
 
 export default function Clients() {
   const [clients, setClients] = useState<ClientItem[]>([]);
@@ -37,30 +16,15 @@ export default function Clients() {
   useEffect(() => {
     let mounted = true;
     setLoading(true);
-    fetch("https://admin.artdevata.net/api/clients")
-      .then((res) => res.json())
+
+    getClients()
       .then((data) => {
         if (!mounted) return;
-        // assume data is array or { data: [...] }
-        let list: RawClientData[] = [];
-        if (Array.isArray(data)) list = data;
-        else if (Array.isArray(data?.data)) list = data.data;
-        else if (Array.isArray(data?.clients)) list = data.clients;
-
-        // try to normalise logo url field
-        const normalized = list
-          .map((it) => ({
-            id: it.id ?? it._id,
-            name: it.name ?? it.title ?? "",
-            company: it.company ?? "",
-            logo: it.logo ?? it.image ?? it.logo_url ?? it.logoUrl ?? "",
-          }))
-          .filter((it) => typeof it.logo === "string" && it.logo.length > 0);
-
-        setClients(normalized);
+        setClients(data);
       })
-      .catch(() => setClients([]))
-      .finally(() => setLoading(false));
+      .finally(() => {
+        if (mounted) setLoading(false);
+      });
 
     return () => {
       mounted = false;
@@ -136,12 +100,12 @@ export default function Clients() {
                     <TooltipTrigger asChild>
                       <img
                         src={c.logo}
-                        alt={c.company || "Logo Klien"}
+                        alt={c.company || c.name || "Logo Klien"}
                         className="max-w-full max-h-full object-contain grayscale group-hover:grayscale-0"
                         onError={(e) => {
                           // Hide broken images
                           (e.currentTarget as HTMLImageElement).classList.add(
-                            "invisible",
+                            "invisible"
                           );
                         }}
                       />

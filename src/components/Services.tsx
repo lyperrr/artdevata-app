@@ -4,28 +4,27 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Link } from "react-router-dom";
+import { ServiceItem } from "@/types";
+import { getServices } from "@/services";
 
 const Services = () => {
-  const [services, setServices] = useState([]);
+  const [services, setServices] = useState<ServiceItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchServices = async () => {
-      try {
-        // const res = await fetch(`${import.meta.env.VITE_API_URL}/services`);
-        const res = await fetch("https://admin.artdevata.net/api/services");
-        const data = await res.json();
-
-        // API langsung array → langsung set
+    let mounted = true;
+    getServices()
+      .then((data) => {
+        if (!mounted) return;
         setServices(data);
-      } catch (error) {
-        console.error("Gagal mengambil layanan:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+      })
+      .finally(() => {
+        if (mounted) setLoading(false);
+      });
 
-    fetchServices();
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   return (
@@ -85,7 +84,7 @@ const Services = () => {
               >
                 <Card className="h-full p-6 lg:p-8 hover:shadow-xl transition-all duration-300 group border-border/50 hover:border-accent/50 bg-card">
                   <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-accent transition-colors">
-                    {service.title}
+                    {service.name || service.title}
                   </h3>
 
                   <p className="text-muted-foreground leading-relaxed">

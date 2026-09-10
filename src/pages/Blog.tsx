@@ -26,16 +26,8 @@ import {
 import { Calendar, User, ArrowRight, Loader2, ImageOff } from "lucide-react";
 import SEO from "@/components/SEO";
 
-interface BlogPost {
-  id: number;
-  title: string;
-  slug: string;
-  excerpt: string;
-  image: string;
-  category: string;
-  author: string;
-  created_at: string;
-}
+import { BlogPost } from "@/types";
+import { getBlogs } from "@/services";
 
 const Blog = () => {
   const navigate = useNavigate();
@@ -44,21 +36,14 @@ const Blog = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 9;
 
-  // const API_URL = `${import.meta.env.VITE_API_URL}/blogs`;
-
   const fetchPosts = () => {
-    fetch("https://admin.artdevata.net/api/blogs")
-      .then((res) => res.json())
-      .then((json) => {
-        const data = json.data || json;
-        const sorted = data.sort(
-          (a: any, b: any) =>
-            new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
-        );
-        setPosts(sorted);
-        setLoading(false);
+    getBlogs()
+      .then((data) => {
+        setPosts(data);
       })
-      .catch(() => setLoading(false));
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   useEffect(() => {
