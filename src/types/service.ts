@@ -9,6 +9,7 @@ export interface ServiceItem {
   period?: string | null;
   features: string[];
   icon?: string | null;
+  image?: string | null;
   slug?: string;
   created_at?: string;
   updated_at?: string;
@@ -23,6 +24,7 @@ export interface RawServiceData {
   period?: string | null;
   features?: string[] | string | null;
   icon?: string | null;
+  image?: string | null;
   slug?: string;
   created_at?: string;
   updated_at?: string;

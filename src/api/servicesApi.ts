@@ -10,3 +10,7 @@ export async function fetchServicesApi(): Promise<RawServiceData[] | { data: Raw
 export async function fetchServiceByIdApi(id: string | number): Promise<RawServiceData | { data: RawServiceData }> {
   return apiClient<RawServiceData | { data: RawServiceData }>(`/services/${id}`);
 }
+
+export async function fetchServiceBySlugApi(slug: string): Promise<RawServiceData | { data: RawServiceData }> {
+  return apiClient<RawServiceData | { data: RawServiceData }>(`/services/${slug}`);
+}
