@@ -81,15 +81,35 @@ const Services = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="h-full"
               >
-                <Card className="h-full p-6 lg:p-8 hover:shadow-xl transition-all duration-300 group border-border/50 hover:border-accent/50 bg-card">
-                  <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-accent transition-colors">
-                    {service.name || service.title}
-                  </h3>
+                <Card className="h-full p-6 lg:p-8 hover:shadow-xl transition-all duration-300 group border-border/50 hover:border-accent/50 bg-card flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-accent transition-colors">
+                      {service.name || service.title}
+                    </h3>
 
-                  <p className="text-muted-foreground leading-relaxed">
-                    {service.description}
-                  </p>
+                    <p className="text-muted-foreground leading-relaxed mb-6 line-clamp-3">
+                      {service.description}
+                    </p>
+                  </div>
+
+                  {service.slug && (
+                    <Button
+                      asChild
+                      variant="outline"
+                      size="sm"
+                      className="w-full mt-auto group-hover:bg-accent group-hover:text-accent-foreground group-hover:border-accent transition-all duration-300"
+                    >
+                      <Link
+                        to={`/layanan/${service.slug}`}
+                        className="flex items-center justify-center gap-2"
+                      >
+                        Lihat Detail
+                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </Link>
+                    </Button>
+                  )}
                 </Card>
               </motion.div>
             ))}

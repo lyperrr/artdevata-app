@@ -14,7 +14,6 @@ import { Link } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
 import SEO from "@/components/SEO";
 
-// ICON DEFAULT
 import {
   Code,
   Server,
@@ -67,9 +66,9 @@ const ServicesPage = () => {
   return (
     <AppLayout>
       <SEO
-        title="Layanan IT ArtDevata - Website, Hosting, CCTV & Support"
-        description="Jelajahi layanan IT lengkap dari ArtDevata: Website Development, Hosting & Domain, Instalasi CCTV, dan IT Support profesional untuk bisnis Anda."
-        url="https://www.artdevata.net/layanan"
+        title="Layanan Website & Digital ARTDEVATA Bali | Web Development, SEO, Desain"
+        description="Temukan semua layanan digital ARTDEVATA di Bali: jasa web development, pembuatan website, desain grafis, SEO, hosting, dan maintenance website profesional."
+        url="https://artdevata.net/layanan"
       />
       {/* Hero Section */}
       <section className="pt-32 pb-20 bg-gradient-to-br from-primary to-primary/90">
@@ -89,6 +88,8 @@ const ServicesPage = () => {
           </motion.div>
         </div>
       </section>
+
+
 
       {/* Services Grid */}
       <section className="py-20 bg-background">
@@ -160,17 +161,30 @@ const ServicesPage = () => {
                         </ul>
                       )}
 
-                      {/* BUTTON */}
-                      <Button
-                        asChild
-                        variant="outline"
-                        className="w-full group-hover:bg-accent group-hover:text-accent-foreground group-hover:border-accent"
-                      >
-                        <Link to="/kontak" className="flex items-center justify-center gap-2">
-                          Minta Penawaran
-                          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                        </Link>
-                      </Button>
+                      {/* BUTTONS */}
+                      <div className="flex flex-col gap-2">
+                        {service.slug && (
+                          <Button
+                            asChild
+                            variant="accent"
+                            className="w-full"
+                          >
+                            <Link to={`/layanan/${service.slug}`} className="flex items-center justify-center gap-2">
+                              Lihat Detail
+                              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            </Link>
+                          </Button>
+                        )}
+                        <Button
+                          asChild
+                          variant="outline"
+                          className="w-full group-hover:bg-accent group-hover:text-accent-foreground group-hover:border-accent"
+                        >
+                          <Link to="/kontak" className="flex items-center justify-center gap-2">
+                            Minta Penawaran
+                          </Link>
+                        </Button>
+                      </div>
                     </Card>
                   </motion.div>
                 );

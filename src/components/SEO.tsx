@@ -7,17 +7,33 @@ interface SEOProps {
   image?: string;
   url?: string;
   type?: string;
+  schema?: Record<string, any>;
 }
 
 export default function SEO({
-  title = "ArtDevata - Solusi IT Terpercaya",
-  description = "ArtDevata adalah penyedia solusi IT terpadu di Indonesia. Layanan Website Development, Hosting & Domain, Instalasi CCTV, dan IT Support profesional untuk transformasi digital bisnis Anda.",
-  keywords = "jasa website, web development Indonesia, hosting murah, domain, instalasi CCTV, IT support, maintenance website, jasa IT, solusi IT, transformasi digital",
-  image = "https://www.artdevata.net/og-image.jpg",
-  url = "https://www.artdevata.net/",
+  title = "Web Developer Bali | Jasa Pembuatan Website — ARTDEVATA",
+  description = "ARTDEVATA menyediakan jasa web developer dan pembuatan website profesional di Bali. Kami membangun website modern untuk UMKM, perusahaan, dan e-commerce.",
+  keywords = "web developer bali, jasa pembuatan website bali, jasa website bali, web development bali",
+  image = "https://artdevata.net/og-image.jpg",
+  url = "https://artdevata.net/",
   type = "website",
+  schema,
 }: SEOProps) {
-  const siteName = "ArtDevata";
+  const siteName = "ARTDEVATA";
+
+  const defaultSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: siteName,
+    url: "https://artdevata.net/",
+    logo: "https://artdevata.net/og-image.jpg",
+    description: "ARTDEVATA menyediakan jasa web developer dan pembuatan website profesional di Bali.",
+    sameAs: [
+      "https://www.facebook.com/artdevata",
+      "https://www.instagram.com/artdevata",
+      "https://www.linkedin.com/company/artdevata",
+    ]
+  };
 
   return (
     <Helmet>
@@ -59,31 +75,7 @@ export default function SEO({
 
       {/* Structured Data */}
       <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          name: siteName,
-          url: url,
-          logo: image,
-          description: description,
-          sameAs: [
-            "https://www.facebook.com/artdevata",
-            "https://www.instagram.com/artdevata",
-            "https://www.linkedin.com/company/artdevata",
-          ],
-          contactPoint: {
-            "@type": "ContactPoint",
-            telephone: "+62-XXX-XXXX-XXXX",
-            contactType: "customer service",
-            availableLanguage: "Indonesian",
-          },
-          address: {
-            "@type": "PostalAddress",
-            addressCountry: "ID",
-            addressRegion: "Jawa Barat",
-            addressLocality: "Bandung",
-          },
-        })}
+        {JSON.stringify(schema || defaultSchema)}
       </script>
     </Helmet>
   );

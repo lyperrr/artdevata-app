@@ -79,7 +79,7 @@ const Hero = () => {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-4xl sm:text-5xl xl:text-6xl font-bold text-primary-foreground mb-6 leading-tight sm:w-4/5 mx-auto"
           >
-            Wujudkan Bisnis Digital Anda Bersama Kami
+            Web Developer Bali untuk Website Bisnis yang Modern & Profesional
           </motion.h1>
 
           <motion.div
@@ -111,9 +111,7 @@ const Hero = () => {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="text-lg sm:text-xl text-primary-foreground/90 mb-10 max-w-3xl mx-auto leading-relaxed"
           >
-            Kami menyediakan solusi IT terpadu dari pengembangan website,
-            hosting & domain, instalasi CCTV, hingga IT support untuk mendukung
-            transformasi digital bisnis Anda.
+            ARTDEVATA adalah penyedia jasa web developer terpercaya di Bali. Kami membantu bisnis Anda go digital dengan website berkualitas, hosting, CCTV, dan dukungan IT terbaik.
           </motion.p>
 
           {/* CTA Buttons */}
